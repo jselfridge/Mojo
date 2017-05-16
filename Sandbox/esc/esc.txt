@@ -1,0 +1,50 @@
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+// esc.v
+// Generates a PWM signal for ESC applications
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+module esc
+  (
+  input clk_1M,                 // Clock with one microsec period
+  input rst,                    // Reset signal
+  input [9:0] cmd,              // Command input (10-bit = 1024)
+  output esc                    // ESC signal line
+  );
+
+  reg esc_d, esc_q;             // ESC flip-flop
+  reg [11:0] ctr_d, ctr_q;      // Counter flip-flop (12-bit = 4096)
+
+  assign esc = esc_q;           // Connect output wire
+
+  always @(*) begin
+
+    ctr_d = ctr_q + 1'b1;       // Increment counter
+
+    if ( ctr_q > cmd + 988 )    // Counter exceeds command plus offset
+      esc_d = 1'b0;             // Set signal low
+    else                        // More time needs to pass
+      esc_d = 1'b1;             // Keep signal high
+
+    if ( ctr_q > 2500 )         // Counter exceed ESC period
+      ctr_d = 1’b0;             // Zero out counter
+
+  end
+
+  always @(posedge clk) begin
+
+    if (rst) begin              // Reset signal activated
+      ctr_q <= 1'b0;            // Zero out counter
+      esc_q <= 1’b1;            // Set ESC signal high
+    end else begin              // No reset signal
+      ctr_q <= ctr_d;           // Execute counter flop
+    end
+
+    esc_q <= esc_d;             // Execute ESC signal flop
+
+  end
+
+endmodule
+
+
+

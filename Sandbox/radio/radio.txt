@@ -1,0 +1,47 @@
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+// radio.v
+// Reads a PWM signal from an RC transmitter
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+module radio
+  (
+  input  clk_1M,                // Clock with one microsec period
+  input  rst,                   // Reset signal
+  input  radio,                 // Radio input signal line
+  output [9:0] cmd              // Command output (10-bit = 1024)
+  );
+
+  reg [11:0] ctr_d, ctr_q;      // Counter flip-flop (12-bit = 4096)
+  reg [9:0] cmd_d, cmd_q;       // Command flip-flop
+
+  assign cmd = cmd_q;           // Connect command output register
+
+  always @(*) begin
+    ctr_d = ctr_q + 1'b1;       // Increment counter
+    cmd_d = cmd_q;              // Store command value
+  end
+
+  always @(posedge clk_1M) begin
+
+    if (rst) begin              // Reset signal activated
+      ctr_q <= 1'b0;            // Zero out counter
+      cmd_q <= 1’b0;            // Zero out command value
+    end else begin              // No reset signal
+      ctr_q <= ctr_d;           // Execute counter flop
+    end
+
+  end
+
+  always @(posedge radio) begin
+    ctr_q <= 1’b0;              // Reset the counter
+  end
+
+  always @(negedge radio) begin
+    cmd_q <= ctr_q - 988;       // Apply offset and assign command value
+  end
+
+endmodule
+
+
+

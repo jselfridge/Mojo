@@ -1,0 +1,60 @@
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+// pwm_demo.v
+// Stand alone demo for the ‘pwm’ module.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+module pwm_demo (
+
+  // Primary signals
+  input  clk,                  // Master clock (50MHz)
+  input  rst_n,                // Reset signal (active low)
+  input  cclk,                 // AVR indicator flag
+  output [7:0] led,            // LEDs
+
+  // AVR SPI connections
+  input  spi_sck,              // Source clock
+  input  spi_ss,               // Slave select
+  input  spi_mosi,             // Master-output, Slave-input
+  output spi_miso,             // Master-input, Slave-output
+  output [3:0] spi_channel,    // AVR ADC channel select
+
+  // Serial connections
+  input  avr_tx,               // AVR Tx => FPGA Rx
+  output avr_rx,               // AVR Rx => FPGA Tx
+  input  avr_rx_busy           // AVR Rx buffer is full
+
+  );
+
+  // Make reset active high
+  wire rst = ~rst_n;
+
+  // Disconnect when not in use
+  assign spi_miso     = 1’bz;
+  assign avr_rx       = 1’bz;
+  assign spi_channel  = 4’bzzzz;
+
+  // Generate different LED brightness
+  genvar i;
+  generate
+
+    for ( i=0; i<8; i=i+1 ) begin: pwm_gen_loop
+
+    pwm
+      #(
+      .CTR_LEN(3)
+      ) pwm (
+      .rst(rst),
+      .clk(clk),
+      .val(i),
+      .pwm(led[i])
+      );
+
+    end
+
+  endgenerate
+
+endmodule
+
+
+
