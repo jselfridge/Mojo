@@ -1,10 +1,10 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // servo.v
-// Generates a PWM signal for servo applications
-// 8-bit ‘val’ yields 256 discrete positions
-// 20-bit ‘ctr’ prodcues 50,000,000 / 2^20 = 47.7 Hz frequency
-// 9’d165 is the offset for minimum PWM value
+// Generates a PWM signal for servo applications.
+// 8-bit 'val' yields 256 discrete positions.
+// 20-bit 'ctr' prodcues 50,000,000 / 2^20 = 47.7 Hz frequency.
+// 9'd165 is the offset for minimum PWM value.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 module servo
@@ -31,7 +31,7 @@ module servo
 
   end
 
-  always @(posedge clk) begin
+  always @( posedge clk ) begin
 
     if (rst) begin
       ctr_q <= 1'b0;

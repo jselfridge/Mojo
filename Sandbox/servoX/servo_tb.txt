@@ -1,7 +1,0 @@
-
-module servo_tb ();
-
-
-endmodule
-
-
