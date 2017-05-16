@@ -1,7 +1,7 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // pwm_tb.v
-// Test bench for the ‘pwm’ module.
+// Test bench for the 'pwm' module.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 module pwm_tb ();
@@ -13,10 +13,10 @@ module pwm_tb ();
   // Testbench outputs
   wire pwm;
 
-  // PWM signal generator 
+  // PWM signal generator
   pwm
     #(
-    .CTR_LEN(8)
+    .LEN(8)
     ) DUT (
     .clk(clk),
     .rst(rst),
@@ -24,13 +24,16 @@ module pwm_tb ();
     .pwm(pwm)
   );
 
-  // Initial toggle, then clock forever
+  // Initial reset, then run clock forever
   initial begin
 
     clk = 1'b0;
     rst = 1'b1;
+
     repeat(4) #10 clk = ~clk;
+
     rst = 1'b0;
+
     forever #10 clk = ~clk;
 
   end
@@ -38,18 +41,18 @@ module pwm_tb ();
   // Assign test stimulus at certain points
   initial begin
 
-    val = 8'd0;                   // initial value
-    @(negedge rst);               // wait for reset
+    val = 8'd0;                   // Initial value
+    @( negedge rst );             // Wait for reset
 
-    val = 8'd128;                 // assign half duty cycle
-    repeat(256)                   // run through full counter
-    @(posedge clk);   
+    val = 8'd128;                 // Assign half duty cycle
+    repeat(256)                   // Run through full counter
+    @( posedge clk );
 
     val = 8'd30;                  // 11.7% duty cycle
-    repeat(256)                   // run through full counter
-    @(posedge clk);
+    repeat(256)                   // Run through full counter
+    @( posedge clk );
 
-    $finish;                      // exit test bench
+    $finish;                      // Exit test bench
 
   end
 

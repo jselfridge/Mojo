@@ -23,19 +23,19 @@ module pwm
 
   always @(*) begin
 
-    ctr_d = ctr_q + 1’b1;
+    ctr_d = ctr_q + 1'b1;
 
     if ( val > ctr_q )
-      pwm_d = 1’b1;
+      pwm_d = 1'b1;
     else
-      pwm_d = 1’b0;
+      pwm_d = 1'b0;
 
-  end;
+  end
 
-  always @(posedge clk) begin
+  always @( posedge clk ) begin
 
     if (rst) begin
-      ctr_q <= 1’b0;
+      ctr_q <= 1'b0;
     end else begin
       ctr_q <= ctr_d;
     end
