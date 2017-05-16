@@ -7,15 +7,15 @@
 
 module clock
   #(
-  parameter LEN = 25,          // Counter length
   parameter STEP = 25000000    // Number of steps in half period
+  parameter LEN = 25,          // Counter length
   )(
-  input clk,
-  input rst,
-  output clkout
+  input clk,                   // Master clock signal
+  input rst,                   // Reset signal
+  output clkout                // Output for new clock signal
   );
 
-  reg [LEN-1:0] ctr_d, ctr_q
+  reg [LEN-1:0] ctr_d, ctr_q;
 
   always @(*) begin
 
@@ -23,7 +23,7 @@ module clock
 
     if ( ctr_q >= STEP ) begin
       clkout = ~clkout;
-      ctr_q = 1’b0;
+      ctr_d = 1’b0;
     end
 
   end
