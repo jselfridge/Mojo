@@ -1,41 +1,42 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// counter.v
-// Generates a saw-tooth counter.
-// Param LEN determines the bits within the counter.
+// sawtooth_tb.v
+// Test bench for the ‘sawtooth’ module.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module counter
-  #(
-  parameter LEN = 27
-  )(
-  input clk,
-  input rst,
-  output reg [7:0] value
-  );
+module sawtooth_tb ();
 
-  reg [LEN-1:0] ctr_d, ctr_q;
+  // Testbench inputs
+  reg clk, rst;
 
-  always @(ctr_q) begin
+  // Testbench outputs
+  wire [7:0] val;
 
-    ctr_d = ctr_q + 1’b1;
+  // Sawtooth counter
+  sawtooth
+    #(
+    .LEN(20)
+    ) DUT (
+    .clk(clk),
+    .rst(rst),
+    .val(val)
+    );
 
-    if ( ctr_q[LEN-1] )
-      value = ~ctr_q[LEN-2:LEN-9];
-    else
-      value = ctr_q[LEN-2:LEN-9];
-
+  // Begin simulation
+  initial begin
+    clk = 1'b0;
+    rst = 1'b1;
+    repeat(10) #10 clk = ~clk;
+    rst = 1'b0;
+    forever #10 clk = ~clk;
+  end
+  
+  // Add testing stimulus
+  initial begin
+    #100000000
+	 $finish;
   end
 
-  always @(posedge clk) begin
-
-    if (rst) begin
-      ctr_q <= 1’b0;
-    end else begin
-      ctr_q <= ctr_d;
-    end
-
-  end
 
 endmodule
 

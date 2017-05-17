@@ -1,0 +1,29 @@
+Command line:
+   sawtooth_tb_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  38607
+
+Wed May 17 06:34:12 2017
+
+
+ Elaboration Time: 0.03 sec
+
+ Current Memory Usage: 196.26 Meg
+
+ Total Signals          : 16
+ Total Nets             : 23
+ Total Signal Drivers   : 8
+ Total Blocks           : 3
+ Total Primitive Blocks : 2
+ Total Processes        : 13
+ Total Traceable Variables  : 24
+ Total Scalar Nets and Variables : 185
+Total Line Count : 33
+
+ Total Simulation Time: 10.81 sec
+
+ Current Memory Usage: 271.761 Meg
+
+Wed May 17 06:38:07 2017
+
