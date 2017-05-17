@@ -41,8 +41,9 @@
   <transforms xmlns="http://www.xilinx.com/XMLSchema">
     <transform xil_pn:end_ts="1495015442" xil_pn:name="TRAN_copyInitialToAbstractSimulation" xil_pn:start_ts="1495015442">
       <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1495017245" xil_pn:in_ck="-2017437730274089787" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1495017245">
+    <transform xil_pn:end_ts="1495020319" xil_pn:in_ck="-2017437730274089787" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1495020319">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="../sawtooth.v"/>
@@ -60,13 +61,13 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1495017245" xil_pn:in_ck="-2017437730274089787" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1495017245">
+    <transform xil_pn:end_ts="1495020319" xil_pn:in_ck="-2017437730274089787" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1495020319">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="../sawtooth.v"/>
       <outfile xil_pn:name="../sawtooth_tb.v"/>
     </transform>
-    <transform xil_pn:end_ts="1495017248" xil_pn:in_ck="-2017437730274089787" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-6822798239412628855" xil_pn:start_ts="1495017245">
+    <transform xil_pn:end_ts="1495020322" xil_pn:in_ck="-2017437730274089787" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-6822798239412628855" xil_pn:start_ts="1495020319">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
@@ -78,7 +79,7 @@
       <outfile xil_pn:name="sawtooth_tb_isim_beh.exe"/>
       <outfile xil_pn:name="xilinxsim.ini"/>
     </transform>
-    <transform xil_pn:end_ts="1495017249" xil_pn:in_ck="-1301491013710943043" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-7085555222672052500" xil_pn:start_ts="1495017248">
+    <transform xil_pn:end_ts="1495020322" xil_pn:in_ck="-1301491013710943043" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-7085555222672052500" xil_pn:start_ts="1495020322">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForOutputs"/>

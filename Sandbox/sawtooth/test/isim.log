@@ -1,5 +1,5 @@
 ISim log file
-Running: /home/justin/Documents/FPGA/Sandbox/sawtooth/sim/sawtooth_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/justin/Documents/FPGA/Sandbox/sawtooth/sim/sawtooth_tb_isim_beh.wdb 
+Running: /home/justin/Documents/FPGA/Sandbox/sawtooth/test/sawtooth_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/justin/Documents/FPGA/Sandbox/sawtooth/test/sawtooth_tb_isim_beh.wdb 
 ISim P.20131013 (signature 0xfbc00daa)
 WARNING: A WEBPACK license was found.
 WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
@@ -11,6 +11,7 @@ Time resolution is 1 ps
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
+# run 1.00ms
 # run 1.00s
 Stopped at time : 100 ms : File "/home/justin/Documents/FPGA/Sandbox/sawtooth/sawtooth_tb.v" Line 37
 # exit 0

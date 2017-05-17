@@ -2,7 +2,8 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // sawtooth.v
 // Generates a saw-tooth counter.
-// Param LEN determines the bits within the counter.
+// Param 'LEN' determines the bits within the counter.
+// Output 'val' provides 2^8 = 256 discrete steps.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 module sawtooth

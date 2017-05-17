@@ -30,13 +30,12 @@ module sawtooth_tb ();
     rst = 1'b0;
     forever #10 clk = ~clk;
   end
-  
+
   // Add testing stimulus
   initial begin
     #100000000
 	 $finish;
   end
-
 
 endmodule
 
