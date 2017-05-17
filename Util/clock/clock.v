@@ -23,7 +23,7 @@ module clock
   always @(*) begin
 
     ctr_d = ctr_q + 1'b1;
-	 clkout_d = clkout_q;
+    clkout_d = clkout_q;
 
     if ( ctr_q >= STEP-1 ) begin
       ctr_d = 1'b0;
