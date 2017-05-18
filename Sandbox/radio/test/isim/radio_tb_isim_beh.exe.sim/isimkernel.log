@@ -1,0 +1,29 @@
+Command line:
+   radio_tb_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  43059
+
+Thu May 18 13:59:17 2017
+
+
+ Elaboration Time: 0.02 sec
+
+ Current Memory Usage: 196.272 Meg
+
+ Total Signals          : 18
+ Total Nets             : 26
+ Total Signal Drivers   : 9
+ Total Blocks           : 3
+ Total Primitive Blocks : 2
+ Total Processes        : 16
+ Total Traceable Variables  : 25
+ Total Scalar Nets and Variables : 151
+Total Line Count : 133
+
+ Total Simulation Time: 0.19 sec
+
+ Current Memory Usage: 271.774 Meg
+
+Thu May 18 14:01:18 2017
+
