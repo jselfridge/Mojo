@@ -41,7 +41,7 @@ module led_wave
   always @( posedge clk ) begin
 
     if (rst) begin
-      ctr_q <= { CTR_LEN{1'b0} };
+      ctr_q <= { LEN{1'b0} };
     end else begin
       ctr_q <= ctr_d;
     end

@@ -15,7 +15,7 @@ module led_wave_tb ();
   // PWM signal generator
   led_wave
     #(
-    .LEN(25)
+    .LEN(12)
     ) DUT (
     .clk(clk),
     .rst(rst),
@@ -33,7 +33,7 @@ module led_wave_tb ();
 
   // Wait for a specified period of time
   initial begin
-    #500000000
+    #50000000
     $finish;
   end
 
