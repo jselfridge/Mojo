@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "/home/justin/Documents/FPGA/Sandbox/esc/test/esc_tb_isim_beh.exe" -prj "/home/justin/Documents/FPGA/Sandbox/esc/test/esc_tb_beh.prj" "work.esc_tb" "work.glbl" 
