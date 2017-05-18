@@ -26,12 +26,15 @@ module template
   input avr_rx_busy,
 
   // Servo
-  output servo
+  output servo_out
 
   );
 
   // Swicth reset button
   wire rst = ~rst_n;
+
+  // Sawtooth signal wire
+  wire [7:0] sawtooth_sig;
 
   // These signals should be disconnected when not used
   assign spi_miso = 1'bz;
@@ -39,15 +42,26 @@ module template
   assign spi_ch = 4'bzzzz;
 
   // Assign LED values
-  assign led = 8'b00110011;
+  assign led = 8'b00111100;
+
+  // Connect sawtooth counter
+  sawtooth
+    #(
+    .LEN(27)
+    ) sawtooth_servo (
+    .clk(clk),
+    .rst(rst),
+    .val(sawtooth_sig)
+    );
 
   // Connect servo module
-  servo demo_servo
+  servo
+    servo_demo
     (
     .clk(clk),
     .rst(rst),
-    .val(sawtooth),  // Add sawtooth signal
-    .servo(servo)    // Establish servo pin
+    .val(sawtooth_sig),
+    .servo(servo_out)
     );
 
 endmodule

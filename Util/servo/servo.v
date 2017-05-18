@@ -2,6 +2,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // servo.v
 // Generates a PWM signal for servo applications.
+// Runs off the 50MHz clock.
 // 8-bit 'val' yields 256 discrete positions.
 // 20-bit 'ctr' prodcues 50,000,000 / 2^20 = 47.7 Hz frequency.
 // 9'd167 is the offset for minimum PWM value.
