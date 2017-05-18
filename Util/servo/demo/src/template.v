@@ -47,7 +47,8 @@ module template
   // Connect sawtooth counter
   sawtooth
     #(
-    .LEN(27)
+    .CTR_BITS(27),
+    .VAL_BITS(8)
     )
     sawtooth_servo
     (

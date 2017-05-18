@@ -41,22 +41,10 @@ module servo_tb ();
     repeat(5000000)
     @( posedge clk );
 
-//    val = 8'd200;
-//    repeat(5000000)
-//    @( posedge clk );
-//
-//    val = 8'd150;
-//    repeat(5000000)
-//    @( posedge clk );
-
     val = 8'd127;
     repeat(5000000)
     @( posedge clk );
 
-//    val = 8'd50;
-//    repeat(5000000)
-//    @( posedge clk );
-//
     val = 8'd0;
     repeat(5000000)
     @( posedge clk );
