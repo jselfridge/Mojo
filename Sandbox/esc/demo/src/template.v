@@ -1,7 +1,7 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// template.v (servo demo)
-// Demonstrate the 'servo' module implemented on hardware.
+// template.v (esc demo)
+// Demonstrate the 'esc' module implemented on hardware.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 module template
@@ -25,16 +25,13 @@ module template
   output avr_rx,
   input avr_rx_busy,
 
-  // Servo output
-  output servo_out
+  // ESC output
+  output esc_out
 
   );
 
   // Swicth reset button
   wire rst = ~rst_n;
-
-  // Sawtooth signal wire
-  wire [7:0] sawtooth_sig;
 
   // These signals should be disconnected when not used
   assign spi_miso = 1'bz;
@@ -42,28 +39,43 @@ module template
   assign spi_ch = 4'bzzzz;
 
   // Assign LED values
-  assign led = 8'b00111100;
+  assign led = 8'b11000011;
 
-  // Connect sawtooth counter
+  // Sawtooth signal generates ESC command
+  wire [7:0] sawtooth_sig;
   sawtooth
     #(
-    .LEN(27)
+    .LEN(30)
     )
-    sawtooth_servo
+    sawtooth_esc
     (
     .clk(clk),
     .rst(rst),
     .val(sawtooth_sig)
     );
 
-  // Connect servo module
-  servo
-    servo_demo
+  // Establish 1MHz clock
+  wire clk_1M;
+  clock
+    #(
+    .STEP(25),
+    .LEN(5)
+    )
+    clock_1MHz
     (
     .clk(clk),
     .rst(rst),
-    .val(sawtooth_sig),
-    .servo(servo_out)
+    .clkout(clk_1M)
+    );
+
+  // Connect ESC module
+  esc
+    esc_demo
+    (
+    .clk_1M(clk_1M),
+    .rst(rst),
+    .cmd(sawtooth_sig),
+    .esc(esc_out)
     );
 
 endmodule
