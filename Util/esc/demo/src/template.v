@@ -39,7 +39,7 @@ module template
   assign spi_ch = 4'bzzzz;
 
   // Assign LED values
-  assign led = 8'b11000011;
+  assign led = 8'b10000001;
 
   // Sawtooth signal generates ESC command
   parameter SAW_BITS = 10;
