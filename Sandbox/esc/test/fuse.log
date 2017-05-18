@@ -9,12 +9,12 @@ Analyzing Verilog file "/opt/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v" into li
 Starting static elaboration
 Completed static elaboration
 Fuse Memory Usage: 94672 KB
-Fuse CPU Usage: 1740 ms
+Fuse CPU Usage: 1730 ms
 Compiling module esc
 Compiling module esc_tb
 Compiling module glbl
 Time Resolution for simulation is 1ps.
-Waiting for 4 sub-compilation(s) to finish...
+Waiting for 1 sub-compilation(s) to finish...
 Compiled 3 Verilog Units
 Built simulation executable /home/justin/Documents/FPGA/Sandbox/esc/test/esc_tb_isim_beh.exe
 Fuse Memory Usage: 392716 KB

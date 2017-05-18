@@ -42,10 +42,12 @@ module template
   assign led = 8'b11000011;
 
   // Sawtooth signal generates ESC command
-  wire [7:0] sawtooth_sig;
+  parameter SAW_BITS = 10;
+  wire [SAW_BITS-1:0] sawtooth_sig;
   sawtooth
     #(
-    .LEN(30)
+    .CTR_BITS(31),
+    .VAL_BITS(SAW_BITS)
     )
     sawtooth_esc
     (
