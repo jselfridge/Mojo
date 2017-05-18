@@ -10,12 +10,13 @@ module sawtooth_tb ();
   reg clk, rst;
 
   // Testbench outputs
-  wire [7:0] val;
+  wire [6:0] val;
 
   // Sawtooth counter
   sawtooth
     #(
-    .LEN(20)
+    .CTR_BITS(20),
+    .VAL_BITS(7)
     ) DUT (
     .clk(clk),
     .rst(rst),
@@ -24,7 +25,7 @@ module sawtooth_tb ();
 
   // Begin simulation
   initial begin
-    clk = 1'b0;
+    clk = 1'b1;
     rst = 1'b1;
     repeat(10) #10 clk = ~clk;
     rst = 1'b0;

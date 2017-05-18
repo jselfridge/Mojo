@@ -2,29 +2,30 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // sawtooth.v
 // Generates a sawtooth counter.
-// Param 'LEN' determines the bits within the counter.
-// Output 'val' provides 2^8 = 256 discrete steps.
+// Param 'CTR_BITS' determines the bits within the counter.
+// Param 'VAL_BITS' determines the discrete steps in val.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 module sawtooth
   #(
-  parameter LEN = 27
+  parameter CTR_BITS = 27,
+  parameter VAL_BITS = 8
   )(
   input clk,
   input rst,
-  output reg [7:0] val
+  output reg [VAL_BITS-1:0] val
   );
 
-  reg [LEN-1:0] ctr_d, ctr_q;
+  reg [CTR_BITS-1:0] ctr_d, ctr_q;
 
   always @(*) begin
 
     ctr_d = ctr_q + 1'b1;
 
-    if ( ctr_q[LEN-1] )
-      val = ~ctr_q[LEN-2:LEN-9];
+    if ( ctr_q[CTR_BITS-1] )
+      val = ~ctr_q[CTR_BITS-2:CTR_BITS-VAL_BITS-1];  //~ctr_q[CTR_BITS-2:CTR_BITS-9];
     else
-      val = ctr_q[LEN-2:LEN-9];
+      val = ctr_q[CTR_BITS-2:CTR_BITS-VAL_BITS-1];  //ctr_q[CTR_BITS-2:CTR_BITS-9];
 
   end
 

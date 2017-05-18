@@ -38,12 +38,16 @@ module template
   // Connect sawtooth module
   sawtooth
     #(
-    .LEN(29)
+    .CTR_BITS(30),
+	 .VAL_BITS(7)
     ) sawtooth (
     .clk(clk),
     .rst(rst),
-    .val(led)
+    .val(led[7:1])
     );
+
+  // Assign remaining LED
+  assign led[0] = 1'b0;
 
 endmodule
 

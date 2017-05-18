@@ -30,6 +30,7 @@
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="sawtooth.prj"/>
     <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="sawtooth.stx"/>
     <file xil_pn:fileType="FILE_XST" xil_pn:name="sawtooth.xst"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="sawtooth_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="sawtooth_tb_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="sawtooth_tb_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="sawtooth_tb_isim_beh.wdb"/>
@@ -43,17 +44,17 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1495020319" xil_pn:in_ck="-2017437730274089787" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1495020319">
+    <transform xil_pn:end_ts="1495118658" xil_pn:in_ck="-2017437730274089787" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1495118658">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="../sawtooth.v"/>
       <outfile xil_pn:name="../sawtooth_tb.v"/>
     </transform>
-    <transform xil_pn:end_ts="1495015756" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="-6758435020925526779" xil_pn:start_ts="1495015756">
+    <transform xil_pn:end_ts="1495118380" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="-6758435020925526779" xil_pn:start_ts="1495118380">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1495015756" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="8033735121704197827" xil_pn:start_ts="1495015756">
+    <transform xil_pn:end_ts="1495118380" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="8033735121704197827" xil_pn:start_ts="1495118380">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
@@ -61,13 +62,13 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1495020319" xil_pn:in_ck="-2017437730274089787" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1495020319">
+    <transform xil_pn:end_ts="1495118658" xil_pn:in_ck="-2017437730274089787" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1495118658">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="../sawtooth.v"/>
       <outfile xil_pn:name="../sawtooth_tb.v"/>
     </transform>
-    <transform xil_pn:end_ts="1495070194" xil_pn:in_ck="-2017437730274089787" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-6822798239412628855" xil_pn:start_ts="1495070191">
+    <transform xil_pn:end_ts="1495118661" xil_pn:in_ck="-2017437730274089787" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-6822798239412628855" xil_pn:start_ts="1495118658">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
@@ -79,7 +80,7 @@
       <outfile xil_pn:name="sawtooth_tb_isim_beh.exe"/>
       <outfile xil_pn:name="xilinxsim.ini"/>
     </transform>
-    <transform xil_pn:end_ts="1495070195" xil_pn:in_ck="-1301491013710943043" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-7085555222672052500" xil_pn:start_ts="1495070194">
+    <transform xil_pn:end_ts="1495118662" xil_pn:in_ck="-2383203149297940859" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-7085555222672052500" xil_pn:start_ts="1495118661">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForOutputs"/>

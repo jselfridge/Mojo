@@ -21,14 +21,14 @@
 #include <malloc.h>
 #define alloca _alloca
 #endif
-static const char *ng0 = "/home/justin/Documents/FPGA/Sandbox/sawtooth/sawtooth_tb.v";
-static unsigned int ng1[] = {0U, 0U};
-static unsigned int ng2[] = {1U, 0U};
-static int ng3[] = {10, 0};
+static const char *ng0 = "/home/justin/Documents/FPGA/Util/sawtooth/sawtooth_tb.v";
+static unsigned int ng1[] = {1U, 0U};
+static int ng2[] = {10, 0};
+static unsigned int ng3[] = {0U, 0U};
 
 
 
-static void Initial_26_0(char *t0)
+static void Initial_27_0(char *t0)
 {
     char t11[8];
     char *t1;
@@ -70,49 +70,49 @@ LAB0:    t1 = (t0 + 2520U);
 
 LAB3:    goto *t2;
 
-LAB2:    xsi_set_current_line(26, ng0);
+LAB2:    xsi_set_current_line(27, ng0);
 
-LAB4:    xsi_set_current_line(27, ng0);
+LAB4:    xsi_set_current_line(28, ng0);
     t2 = ((char*)((ng1)));
     t3 = (t0 + 1448);
     xsi_vlogvar_assign_value(t3, t2, 0, 0, 1);
-    xsi_set_current_line(28, ng0);
-    t2 = ((char*)((ng2)));
+    xsi_set_current_line(29, ng0);
+    t2 = ((char*)((ng1)));
     t3 = (t0 + 1608);
     xsi_vlogvar_assign_value(t3, t2, 0, 0, 1);
-    xsi_set_current_line(29, ng0);
-    t2 = ((char*)((ng3)));
+    xsi_set_current_line(30, ng0);
+    t2 = ((char*)((ng2)));
     t3 = (t2 + 4);
     t4 = *((unsigned int *)t3);
     t5 = (~(t4));
     t6 = *((unsigned int *)t2);
     t7 = (t6 & t5);
-    t8 = (t0 + 4576);
+    t8 = (t0 + 4568);
     *((int *)t8) = t7;
 
-LAB5:    t9 = (t0 + 4576);
+LAB5:    t9 = (t0 + 4568);
     if (*((int *)t9) > 0)
         goto LAB6;
 
-LAB7:    xsi_set_current_line(30, ng0);
-    t2 = ((char*)((ng1)));
+LAB7:    xsi_set_current_line(31, ng0);
+    t2 = ((char*)((ng3)));
     t3 = (t0 + 1608);
     xsi_vlogvar_assign_value(t3, t2, 0, 0, 1);
-    xsi_set_current_line(31, ng0);
+    xsi_set_current_line(32, ng0);
 
-LAB15:    xsi_set_current_line(31, ng0);
+LAB15:    xsi_set_current_line(32, ng0);
     t2 = (t0 + 2328);
     xsi_process_wait(t2, 10000LL);
     *((char **)t1) = &&LAB16;
 
 LAB1:    return;
-LAB6:    xsi_set_current_line(29, ng0);
+LAB6:    xsi_set_current_line(30, ng0);
     t10 = (t0 + 2328);
     xsi_process_wait(t10, 10000LL);
     *((char **)t1) = &&LAB8;
     goto LAB1;
 
-LAB8:    xsi_set_current_line(29, ng0);
+LAB8:    xsi_set_current_line(30, ng0);
     t12 = (t0 + 1448);
     t13 = (t12 + 56U);
     t14 = *((char **)t13);
@@ -148,7 +148,7 @@ LAB13:    t30 = *((unsigned int *)t11);
     *((unsigned int *)t22) = (t31 & 1U);
     t32 = (t0 + 1448);
     xsi_vlogvar_assign_value(t32, t11, 0, 0, 1);
-    t2 = (t0 + 4576);
+    t2 = (t0 + 4568);
     t7 = *((int *)t2);
     *((int *)t2) = (t7 - 1);
     goto LAB5;
@@ -164,7 +164,7 @@ LAB14:    t26 = *((unsigned int *)t11);
     *((unsigned int *)t22) = (t28 | t29);
     goto LAB13;
 
-LAB16:    xsi_set_current_line(31, ng0);
+LAB16:    xsi_set_current_line(32, ng0);
     t3 = (t0 + 1448);
     t8 = (t3 + 56U);
     t9 = *((char **)t8);
@@ -217,7 +217,7 @@ LAB23:    goto LAB1;
 
 }
 
-static void Initial_35_1(char *t0)
+static void Initial_36_1(char *t0)
 {
     char *t1;
     char *t2;
@@ -229,15 +229,15 @@ LAB0:    t1 = (t0 + 2768U);
 
 LAB3:    goto *t2;
 
-LAB2:    xsi_set_current_line(35, ng0);
+LAB2:    xsi_set_current_line(36, ng0);
 
-LAB4:    xsi_set_current_line(36, ng0);
+LAB4:    xsi_set_current_line(37, ng0);
     t2 = (t0 + 2576);
     xsi_process_wait(t2, 100000000000LL);
     *((char **)t1) = &&LAB5;
 
 LAB1:    return;
-LAB5:    xsi_set_current_line(37, ng0);
+LAB5:    xsi_set_current_line(38, ng0);
     xsi_vlog_finish(1);
     goto LAB1;
 
@@ -246,7 +246,7 @@ LAB5:    xsi_set_current_line(37, ng0);
 
 extern void work_m_17794071356192368295_1066344677_init()
 {
-	static char *pe[] = {(void *)Initial_26_0,(void *)Initial_35_1};
+	static char *pe[] = {(void *)Initial_27_0,(void *)Initial_36_1};
 	xsi_register_didat("work_m_17794071356192368295_1066344677", "isim/sawtooth_tb_isim_beh.exe.sim/work/m_17794071356192368295_1066344677.didat");
 	xsi_register_executes(pe);
 }
