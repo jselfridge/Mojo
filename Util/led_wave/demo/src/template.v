@@ -37,6 +37,9 @@ module template
 
   // Connect the 'led_wave' module
   led_wave
+    #(
+	 .LEN(24)
+	 )
     led_wave
     (
     .clk(clk),
