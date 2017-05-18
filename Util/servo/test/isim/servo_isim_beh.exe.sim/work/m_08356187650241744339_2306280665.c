@@ -23,7 +23,7 @@
 #endif
 static const char *ng0 = "/home/justin/Documents/FPGA/Util/servo/servo.v";
 static unsigned int ng1[] = {1U, 0U};
-static unsigned int ng2[] = {167U, 0U};
+static unsigned int ng2[] = {165U, 0U};
 static unsigned int ng3[] = {0U, 0U};
 
 
@@ -283,6 +283,6 @@ LAB9:    xsi_set_current_line(37, ng0);
 extern void work_m_08356187650241744339_2306280665_init()
 {
 	static char *pe[] = {(void *)Cont_21_0,(void *)Always_23_1,(void *)Always_34_2};
-	xsi_register_didat("work_m_08356187650241744339_2306280665", "isim/servo_tb_isim_beh.exe.sim/work/m_08356187650241744339_2306280665.didat");
+	xsi_register_didat("work_m_08356187650241744339_2306280665", "isim/servo_isim_beh.exe.sim/work/m_08356187650241744339_2306280665.didat");
 	xsi_register_executes(pe);
 }

@@ -16,11 +16,11 @@ module servo_tb ();
   // Servo module
   servo DUT
     (
-	 .clk(clk),
-	 .rst(rst),
-	 .val(val),
-	 .servo(servo)
-	 );
+    .clk(clk),
+    .rst(rst),
+    .val(val),
+    .servo(servo)
+    );
 
   // Initial reset, then run clock forever
   initial begin
@@ -37,10 +37,10 @@ module servo_tb ();
     val = 8'd0;
     @( negedge rst )
 
-//    val = 8'd255;
-//    repeat(5000000)
-//    @( posedge clk );
-//
+    val = 8'd255;
+    repeat(5000000)
+    @( posedge clk );
+
 //    val = 8'd200;
 //    repeat(5000000)
 //    @( posedge clk );
@@ -48,11 +48,11 @@ module servo_tb ();
 //    val = 8'd150;
 //    repeat(5000000)
 //    @( posedge clk );
-//
-//    val = 8'd127;
-//    repeat(5000000)
-//    @( posedge clk );
-//
+
+    val = 8'd127;
+    repeat(5000000)
+    @( posedge clk );
+
 //    val = 8'd50;
 //    repeat(5000000)
 //    @( posedge clk );

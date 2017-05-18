@@ -4,7 +4,7 @@
 // Generates a PWM signal for servo applications.
 // 8-bit 'val' yields 256 discrete positions.
 // 20-bit 'ctr' prodcues 50,000,000 / 2^20 = 47.7 Hz frequency.
-// 9'd165 is the offset for minimum PWM value.
+// 9'd167 is the offset for minimum PWM value.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 module servo
@@ -24,7 +24,7 @@ module servo
 
     ctr_d = ctr_q + 1'b1;
 
-    if ( val + 9'd165 > ctr_q[19:8] )
+    if ( val + 9'd167 > ctr_q[19:8] )
       servo_d = 1'b1;
     else
       servo_d = 1'b0;

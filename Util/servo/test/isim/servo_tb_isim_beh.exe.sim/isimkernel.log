@@ -2,12 +2,12 @@ Command line:
    servo_tb_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  45941
+     -socket  54579
 
-Tue May 16 20:26:18 2017
+Wed May 17 20:47:31 2017
 
 
- Elaboration Time: 0.03 sec
+ Elaboration Time: 0.04 sec
 
  Current Memory Usage: 196.26 Meg
 
@@ -19,11 +19,11 @@ Tue May 16 20:26:18 2017
  Total Processes        : 14
  Total Traceable Variables  : 25
  Total Scalar Nets and Variables : 156
-Total Line Count : 39
+Total Line Count : 45
 
- Total Simulation Time: 11.74 sec
+ Total Simulation Time: 35.58 sec
 
  Current Memory Usage: 271.761 Meg
 
-Tue May 16 20:28:10 2017
+Wed May 17 20:49:14 2017
 

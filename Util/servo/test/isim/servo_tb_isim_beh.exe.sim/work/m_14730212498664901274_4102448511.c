@@ -25,7 +25,9 @@ static const char *ng0 = "/home/justin/Documents/FPGA/Util/servo/servo_tb.v";
 static unsigned int ng1[] = {0U, 0U};
 static unsigned int ng2[] = {1U, 0U};
 static int ng3[] = {4, 0};
-static int ng4[] = {5000000, 0};
+static unsigned int ng4[] = {255U, 0U};
+static int ng5[] = {5000000, 0};
+static unsigned int ng6[] = {127U, 0U};
 
 
 
@@ -88,10 +90,10 @@ LAB4:    xsi_set_current_line(27, ng0);
     t5 = (~(t4));
     t6 = *((unsigned int *)t2);
     t7 = (t6 & t5);
-    t8 = (t0 + 4768);
+    t8 = (t0 + 4824);
     *((int *)t8) = t7;
 
-LAB5:    t9 = (t0 + 4768);
+LAB5:    t9 = (t0 + 4824);
     if (*((int *)t9) > 0)
         goto LAB6;
 
@@ -149,7 +151,7 @@ LAB13:    t30 = *((unsigned int *)t11);
     *((unsigned int *)t22) = (t31 & 1U);
     t32 = (t0 + 1448);
     xsi_vlogvar_assign_value(t32, t11, 0, 0, 1);
-    t2 = (t0 + 4768);
+    t2 = (t0 + 4824);
     t7 = *((int *)t2);
     *((int *)t2) = (t7 - 1);
     goto LAB5;
@@ -253,29 +255,65 @@ LAB4:    xsi_set_current_line(37, ng0);
     *((char **)t1) = &&LAB5;
 
 LAB1:    return;
-LAB5:    xsi_set_current_line(60, ng0);
-    t4 = ((char*)((ng1)));
+LAB5:    xsi_set_current_line(40, ng0);
+    t4 = ((char*)((ng4)));
     t5 = (t0 + 1768);
     xsi_vlogvar_assign_value(t5, t4, 0, 0, 8);
-    xsi_set_current_line(61, ng0);
-    t2 = ((char*)((ng4)));
+    xsi_set_current_line(41, ng0);
+    t2 = ((char*)((ng5)));
     t3 = (t2 + 4);
     t6 = *((unsigned int *)t3);
     t7 = (~(t6));
     t8 = *((unsigned int *)t2);
     t9 = (t8 & t7);
-    t4 = (t0 + 4772);
+    t4 = (t0 + 4828);
     *((int *)t4) = t9;
 
-LAB6:    t5 = (t0 + 4772);
+LAB6:    t5 = (t0 + 4828);
     if (*((int *)t5) > 0)
         goto LAB7;
 
-LAB8:    xsi_set_current_line(64, ng0);
+LAB8:    xsi_set_current_line(52, ng0);
+    t2 = ((char*)((ng6)));
+    t3 = (t0 + 1768);
+    xsi_vlogvar_assign_value(t3, t2, 0, 0, 8);
+    xsi_set_current_line(53, ng0);
+    t2 = ((char*)((ng5)));
+    t3 = (t2 + 4);
+    t6 = *((unsigned int *)t3);
+    t7 = (~(t6));
+    t8 = *((unsigned int *)t2);
+    t9 = (t8 & t7);
+    t4 = (t0 + 4832);
+    *((int *)t4) = t9;
+
+LAB10:    t5 = (t0 + 4832);
+    if (*((int *)t5) > 0)
+        goto LAB11;
+
+LAB12:    xsi_set_current_line(60, ng0);
+    t2 = ((char*)((ng1)));
+    t3 = (t0 + 1768);
+    xsi_vlogvar_assign_value(t3, t2, 0, 0, 8);
+    xsi_set_current_line(61, ng0);
+    t2 = ((char*)((ng5)));
+    t3 = (t2 + 4);
+    t6 = *((unsigned int *)t3);
+    t7 = (~(t6));
+    t8 = *((unsigned int *)t2);
+    t9 = (t8 & t7);
+    t4 = (t0 + 4836);
+    *((int *)t4) = t9;
+
+LAB14:    t5 = (t0 + 4836);
+    if (*((int *)t5) > 0)
+        goto LAB15;
+
+LAB16:    xsi_set_current_line(64, ng0);
     xsi_vlog_finish(1);
     goto LAB1;
 
-LAB7:    xsi_set_current_line(62, ng0);
+LAB7:    xsi_set_current_line(42, ng0);
     t10 = (t0 + 3264);
     *((int *)t10) = 1;
     t11 = (t0 + 2960);
@@ -283,10 +321,36 @@ LAB7:    xsi_set_current_line(62, ng0);
     *((char **)t1) = &&LAB9;
     goto LAB1;
 
-LAB9:    t2 = (t0 + 4772);
+LAB9:    t2 = (t0 + 4828);
     t9 = *((int *)t2);
     *((int *)t2) = (t9 - 1);
     goto LAB6;
+
+LAB11:    xsi_set_current_line(54, ng0);
+    t10 = (t0 + 3280);
+    *((int *)t10) = 1;
+    t11 = (t0 + 2960);
+    *((char **)t11) = t10;
+    *((char **)t1) = &&LAB13;
+    goto LAB1;
+
+LAB13:    t2 = (t0 + 4832);
+    t9 = *((int *)t2);
+    *((int *)t2) = (t9 - 1);
+    goto LAB10;
+
+LAB15:    xsi_set_current_line(62, ng0);
+    t10 = (t0 + 3296);
+    *((int *)t10) = 1;
+    t11 = (t0 + 2960);
+    *((char **)t11) = t10;
+    *((char **)t1) = &&LAB17;
+    goto LAB1;
+
+LAB17:    t2 = (t0 + 4836);
+    t9 = *((int *)t2);
+    *((int *)t2) = (t9 - 1);
+    goto LAB14;
 
 }
 

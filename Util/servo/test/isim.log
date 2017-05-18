@@ -1,5 +1,5 @@
 ISim log file
-Running: /home/justin/Documents/FPGA/Util/servo/sim/servo_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/justin/Documents/FPGA/Util/servo/sim/servo_tb_isim_beh.wdb 
+Running: /home/justin/Documents/FPGA/Util/servo/test/servo_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/justin/Documents/FPGA/Util/servo/test/servo_tb_isim_beh.wdb 
 ISim P.20131013 (signature 0xfbc00daa)
 WARNING: A WEBPACK license was found.
 WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
@@ -12,5 +12,5 @@ Time resolution is 1 ps
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
 # run 1.00s
-Stopped at time : 100000030 ns : File "/home/justin/Documents/FPGA/Util/servo/servo_tb.v" Line 64
+Stopped at time : 300000030 ns : File "/home/justin/Documents/FPGA/Util/servo/servo_tb.v" Line 64
 # exit 0
