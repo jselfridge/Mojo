@@ -7,7 +7,7 @@
 module radio_tb ();
 
   // Testbench inputs
-  reg clk_1M, rst, radio;
+  reg clk_1M, rst, radio_in;
 
   // Testbench outputs
   wire [9:0] cmd;
@@ -21,7 +21,7 @@ module radio_tb ();
     (
     .clk_1M(clk_1M),
     .rst(rst),
-    .radio(radio),
+    .radio_in(radio_in),
     .cmd(cmd)
     );
 
@@ -37,109 +37,109 @@ module radio_tb ();
   // Assign test stimulus at certain points
   initial begin
 
-    radio = 1'b0;
+    radio_in = 1'b0;
     @(negedge rst);
 
     // Out of range low => 0 command
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(978) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-978) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(978) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-978) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(978) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-978) @( posedge clk_1M );
 
     // 988 ms => 0 command
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(988) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-988) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(988) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-988) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(988) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-988) @( posedge clk_1M );
 
     // 1000 ms => 12 command
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(1000) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-1000) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(1000) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-1000) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(1000) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-1000) @( posedge clk_1M );
 
     // 1500 ms => 512 command
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(1500) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-1500) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(1500) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-1500) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(1500) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-1500) @( posedge clk_1M );
 
     // 2000 ms => 1012 command
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(2000) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-2000) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(2000) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-2000) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(2000) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-2000) @( posedge clk_1M );
 
     // 2011 ms => 1023 command
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(2011) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-2011) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(2011) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-2011) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(2011) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-2011) @( posedge clk_1M );
 
     // Out of range high => 1023 command
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(2021) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-2021) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(2021) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-2021) @( posedge clk_1M );
-    radio = 1'b1;
+    radio_in = 1'b1;
     repeat(2021) @( posedge clk_1M );
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(PERIOD-2021) @( posedge clk_1M );
 
     // Terminate test bench
-    radio = 1'b0;
+    radio_in = 1'b0;
     repeat(2*PERIOD) @( posedge clk_1M );
     $finish;
 

@@ -2,14 +2,14 @@ Command line:
    radio_tb_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  48751
+     -socket  38639
 
-Thu May 18 20:15:54 2017
+Thu May 18 21:47:36 2017
 
 
  Elaboration Time: 0.03 sec
 
- Current Memory Usage: 196.272 Meg
+ Current Memory Usage: 196.268 Meg
 
  Total Signals          : 17
  Total Nets             : 26
@@ -19,11 +19,14 @@ Thu May 18 20:15:54 2017
  Total Processes        : 16
  Total Traceable Variables  : 25
  Total Scalar Nets and Variables : 173
-Total Line Count : 130
+In process radio.vCont_20_0 
+ FATAL ERROR:ISim: This application has discovered an exceptional condition from which it cannot recover. Process will terminate. To search for possible resolutions to this issue, refer to the Xilinx answer database by going to http://www.xilinx.com/support/answers/index.htm and search with keywords 'ISim' and 'FATAL ERROR'. For technical support on this issue, please open a WebCase with this project attached at http://www.xilinx.com/support.
+In process radio.vCont_20_0 
+ FATAL ERROR:ISim: This application has discovered an exceptional condition from which it cannot recover. Process will terminate. To search for possible resolutions to this issue, refer to the Xilinx answer database by going to http://www.xilinx.com/support/answers/index.htm and search with keywords 'ISim' and 'FATAL ERROR'. For technical support on this issue, please open a WebCase with this project attached at http://www.xilinx.com/support.
 
- Total Simulation Time: 0.5 sec
+ Total Simulation Time: 0.04 sec
 
- Current Memory Usage: 271.774 Meg
+ Current Memory Usage: 271.77 Meg
 
-Thu May 18 20:16:22 2017
+Thu May 18 21:48:06 2017
 
