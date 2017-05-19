@@ -10,7 +10,7 @@ module serial_tx_byte_tb ();
   reg clk;
   reg rst;
   reg block;
-  reg new_data;
+  reg send;
   reg [7:0] data;
 
   // Test bench outputs
@@ -27,7 +27,7 @@ module serial_tx_byte_tb ();
     .clk(clk),
     .rst(rst),
     .block(block),
-    .new_data(new_data),
+    .send(send),
     .data(data),
     .busy(busy),
     .tx(tx)
@@ -47,7 +47,7 @@ module serial_tx_byte_tb ();
 
     // Starting conditions
     block = 1'b1;
-    new_data = 1'b0;
+    send = 1'b0;
     data = 8'b01001111;
     #1000;
 
@@ -56,9 +56,9 @@ module serial_tx_byte_tb ();
     #1000;
 
     // Send the data
-    new_data = 1'b1;
+    send = 1'b1;
     #20;
-    new_data = 1'b0;
+    send = 1'b0;
     #100000;
 
     $finish;

@@ -13,17 +13,17 @@ module serial_tx_byte
   input clk,
   input rst,
   input block,
-  input new_data,
+  input send,
   input [7:0] data,
   output busy,
   output tx
   );
 
   // Determine number of bits needed for 'ctr'
-  parameter CTR_SIZE = $clog2(CLK_PER_BIT);
+  parameter CTR_BITS = $clog2(CLK_PER_BIT);
 
   // Declare module states
-  localparam STATE_SIZE = 2;
+  localparam STATE_BITS = 2;
   localparam
     IDLE       = 2'd0,
     START_BIT  = 2'd1,
@@ -31,25 +31,23 @@ module serial_tx_byte
     STOP_BIT   = 2'd3;
 
   // IO registers
-  reg block_d, block_q;
   reg [7:0] data_d, data_q;
   reg busy_d, busy_q;
   reg tx_d, tx_q;
 
   // Internal registers
-  reg [CTR_SIZE-1:0] ctr_d, ctr_q;
+  reg [CTR_BITS-1:0] ctr_d, ctr_q;
   reg [2:0] bit_ctr_d, bit_ctr_q;
-  reg [STATE_SIZE-1:0] state_d, state_q = IDLE;
+  reg [STATE_BITS-1:0] state_d, state_q = IDLE;
 
   // Connect output signals
-  assign tx = tx_q;
   assign busy = busy_q;
+  assign tx = tx_q;
 
   // Combinational logic
   always @(*) begin
 
-    // Assignments
-    block_d    = block;
+    // Preallocate registers
     data_d     = data_q;
     busy_d     = busy_q;
     ctr_d      = ctr_q;
@@ -60,7 +58,7 @@ module serial_tx_byte
     case (state_q)
 
       IDLE: begin
-        if (block_q) begin
+        if (block) begin
           busy_d = 1'b1;
           tx_d = 1'b1;
         end else begin
@@ -68,7 +66,7 @@ module serial_tx_byte
           tx_d = 1'b1;
           bit_ctr_d = 3'b0;
           ctr_d = 1'b0;
-          if (new_data) begin
+          if (send) begin
             data_d = data;
             state_d = START_BIT;
             busy_d = 1'b1;
@@ -129,7 +127,6 @@ module serial_tx_byte
     end
 
     // Non-reset conditions
-    block_q    <= block_d;
     data_q     <= data_d;
     busy_q     <= busy_d;
     ctr_q      <= ctr_d;

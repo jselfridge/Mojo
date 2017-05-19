@@ -57,16 +57,16 @@ module template
     );
 
   // Connect the serial_tx module
-  serial_tx
+  serial_tx_byte
     #(
     .CLK_PER_BIT(434)
     )
-    serial_tx_demo
+    serial_tx_byte_demo
     (
     .clk(clk),
     .rst(rst),
     .block(1'b0),
-    .new_data(saw_cnt),
+    .send(saw_cnt),
     .data(8'b01100001),
     .busy(led[7]),
     .tx(tx_pin)
