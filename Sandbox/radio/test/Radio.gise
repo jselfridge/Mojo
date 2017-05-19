@@ -50,7 +50,7 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1495158450" xil_pn:in_ck="2542057581646074225" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1495158450">
+    <transform xil_pn:end_ts="1495190144" xil_pn:in_ck="2542057581646074225" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1495190144">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="../radio.v"/>
@@ -64,17 +64,17 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1495123686" xil_pn:name="TRAN_regenerateCoresSim" xil_pn:prop_ck="4331899402454260132" xil_pn:start_ts="1495123686">
+    <transform xil_pn:end_ts="1495187811" xil_pn:name="TRAN_regenerateCoresSim" xil_pn:prop_ck="4331899402454260132" xil_pn:start_ts="1495187811">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1495158450" xil_pn:in_ck="2542057581646074225" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1495158450">
+    <transform xil_pn:end_ts="1495190144" xil_pn:in_ck="2542057581646074225" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1495190144">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="../radio.v"/>
       <outfile xil_pn:name="../radio_tb.v"/>
     </transform>
-    <transform xil_pn:end_ts="1495158452" xil_pn:in_ck="2542057581646074225" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="5359736878935917045" xil_pn:start_ts="1495158450">
+    <transform xil_pn:end_ts="1495190147" xil_pn:in_ck="2542057581646074225" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="5359736878935917045" xil_pn:start_ts="1495190144">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
@@ -86,7 +86,7 @@
       <outfile xil_pn:name="radio_tb_isim_beh.exe"/>
       <outfile xil_pn:name="xilinxsim.ini"/>
     </transform>
-    <transform xil_pn:end_ts="1495158453" xil_pn:in_ck="8695499075889620465" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-5684490958798942600" xil_pn:start_ts="1495158452">
+    <transform xil_pn:end_ts="1495190147" xil_pn:in_ck="8695499075889620465" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-5684490958798942600" xil_pn:start_ts="1495190147">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
@@ -102,10 +102,12 @@
     <transform xil_pn:end_ts="1495124098" xil_pn:name="TRAN_schematicsToHdl" xil_pn:prop_ck="-4413485388583383708" xil_pn:start_ts="1495124098">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForProperties"/>
     </transform>
     <transform xil_pn:end_ts="1495124098" xil_pn:name="TRAN_regenerateCores" xil_pn:prop_ck="4331899402454260132" xil_pn:start_ts="1495124098">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForProperties"/>
     </transform>
     <transform xil_pn:end_ts="1495124098" xil_pn:name="TRAN_SubProjectAbstractToPreProxy" xil_pn:start_ts="1495124098">
       <status xil_pn:value="SuccessfullyRun"/>
@@ -114,35 +116,37 @@
     <transform xil_pn:end_ts="1495124098" xil_pn:name="TRAN_xawsTohdl" xil_pn:prop_ck="926731397483634342" xil_pn:start_ts="1495124098">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForProperties"/>
     </transform>
     <transform xil_pn:end_ts="1495124098" xil_pn:name="TRAN_SubProjectPreToStructuralProxy" xil_pn:prop_ck="250970745293037926" xil_pn:start_ts="1495124098">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
     </transform>
     <transform xil_pn:end_ts="1495124098" xil_pn:name="TRAN_platgen" xil_pn:prop_ck="-5962238940672130642" xil_pn:start_ts="1495124098">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForProperties"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
     </transform>
     <transform xil_pn:end_ts="1495124109" xil_pn:in_ck="2201777291718430" xil_pn:name="TRANEXT_xstsynthesize_spartan6" xil_pn:prop_ck="-5581235705522953677" xil_pn:start_ts="1495124098">
       <status xil_pn:value="FailedRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForProperties"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputAdded"/>
       <status xil_pn:value="InputChanged"/>
+      <status xil_pn:value="InputRemoved"/>
       <status xil_pn:value="OutputRemoved"/>
-      <outfile xil_pn:name="_xmsgs/xst.xmsgs"/>
-      <outfile xil_pn:name="radio.lso"/>
-      <outfile xil_pn:name="radio.prj"/>
-      <outfile xil_pn:name="radio.syr"/>
-      <outfile xil_pn:name="radio.xst"/>
-      <outfile xil_pn:name="radio_xst.xrpt"/>
-      <outfile xil_pn:name="webtalk_pn.xml"/>
-      <outfile xil_pn:name="xst"/>
     </transform>
     <transform xil_pn:end_ts="1495124109" xil_pn:name="TRAN_compileBCD2" xil_pn:prop_ck="4066557905391536721" xil_pn:start_ts="1495124109">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForProperties"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
     </transform>
   </transforms>
 

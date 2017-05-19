@@ -10,10 +10,10 @@ module radio_tb ();
   reg clk_1M, rst, radio_in;
 
   // Testbench outputs
-  wire [9:0] cmd;
+  wire [9:0] cmd_out;
 
   // Steps within period
-  parameter PERIOD = 10000;
+  parameter PERIOD = 3000;
 
   // Radio module
   radio
@@ -22,7 +22,7 @@ module radio_tb ();
     .clk_1M(clk_1M),
     .rst(rst),
     .radio_in(radio_in),
-    .cmd(cmd)
+    .cmd_out(cmd_out)
     );
 
   // Initial toggle, then clock forever
