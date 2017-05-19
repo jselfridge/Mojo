@@ -1,12 +1,12 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// serial_tx.v
-// Module transmits serial data out.
+// serial_tx_byte.v
+// Module transmits a single byte of serial data.
 // Baud rates:
 //   115,200 => 434
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module serial_tx
+module serial_tx_byte
   #(
   parameter CLK_PER_BIT = 50
   )(

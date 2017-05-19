@@ -1,10 +1,10 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// serial_tx_tb.v
-// Test bench for the 'serial_tx' module.
+// serial_tx_byte_tb.v
+// Test bench for the 'serial_tx_byte' module.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module serial_tx_tb ();
+module serial_tx_byte_tb ();
 
   // Test bench inputs
   reg clk;
@@ -17,10 +17,10 @@ module serial_tx_tb ();
   wire busy;
   wire tx;
 
-  // Serial_TX module
-  serial_tx
+  // Connect 'serial_tx_byte' module
+  serial_tx_byte
     #(
-    .CLK_PER_BIT(434)  // 434 => 115,200 baud
+    .CLK_PER_BIT(434)
     )
     DUT
     (
