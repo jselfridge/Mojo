@@ -12,5 +12,5 @@ Time resolution is 1 ps
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
 # run 1.00s
-Stopped at time : 63055 us : File "/home/justin/Documents/FPGA/Sandbox/radio/radio_tb.v" Line 139
+Stopped at time : 230005 us : File "/home/justin/Documents/FPGA/Sandbox/radio/radio_tb.v" Line 144
 # exit 0

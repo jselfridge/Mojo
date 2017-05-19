@@ -12,6 +12,9 @@ module radio_tb ();
   // Testbench outputs
   wire [9:0] cmd;
 
+  // Steps within period
+  parameter PERIOD = 10000;
+
   // Radio module
   radio
     DUT
@@ -37,105 +40,107 @@ module radio_tb ();
     radio = 1'b0;
     @(negedge rst);
 
-    // Out of range low
+    // Out of range low => 0 command
     radio = 1'b1;
     repeat(978) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-978) @( posedge clk_1M );
+    repeat(PERIOD-978) @( posedge clk_1M );
     radio = 1'b1;
     repeat(978) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-978) @( posedge clk_1M );
+    repeat(PERIOD-978) @( posedge clk_1M );
     radio = 1'b1;
     repeat(978) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-978) @( posedge clk_1M );
+    repeat(PERIOD-978) @( posedge clk_1M );
 
-    // 0 command
+    // 988 ms => 0 command
     radio = 1'b1;
-    repeat(988+0) @( posedge clk_1M );
+    repeat(988) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-0) @( posedge clk_1M );
+    repeat(PERIOD-988) @( posedge clk_1M );
     radio = 1'b1;
-    repeat(988+0) @( posedge clk_1M );
+    repeat(988) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-0) @( posedge clk_1M );
+    repeat(PERIOD-988) @( posedge clk_1M );
     radio = 1'b1;
-    repeat(988+0) @( posedge clk_1M );
+    repeat(988) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-0) @( posedge clk_1M );
+    repeat(PERIOD-988) @( posedge clk_1M );
 
-    // 12 command
+    // 1000 ms => 12 command
     radio = 1'b1;
-    repeat(988+12) @( posedge clk_1M );
+    repeat(1000) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-12) @( posedge clk_1M );
+    repeat(PERIOD-1000) @( posedge clk_1M );
     radio = 1'b1;
-    repeat(988+12) @( posedge clk_1M );
+    repeat(1000) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-12) @( posedge clk_1M );
+    repeat(PERIOD-1000) @( posedge clk_1M );
     radio = 1'b1;
-    repeat(988+12) @( posedge clk_1M );
+    repeat(1000) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-12) @( posedge clk_1M );
+    repeat(PERIOD-1000) @( posedge clk_1M );
 
-    // 512 command
+    // 1500 ms => 512 command
     radio = 1'b1;
-    repeat(988+512) @( posedge clk_1M );
+    repeat(1500) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-512) @( posedge clk_1M );
+    repeat(PERIOD-1500) @( posedge clk_1M );
     radio = 1'b1;
-    repeat(988+512) @( posedge clk_1M );
+    repeat(1500) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-512) @( posedge clk_1M );
+    repeat(PERIOD-1500) @( posedge clk_1M );
     radio = 1'b1;
-    repeat(988+512) @( posedge clk_1M );
+    repeat(1500) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-512) @( posedge clk_1M );
+    repeat(PERIOD-1500) @( posedge clk_1M );
 
-    // 1012 command
+    // 2000 ms => 1012 command
     radio = 1'b1;
-    repeat(988+1012) @( posedge clk_1M );
+    repeat(2000) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-1012) @( posedge clk_1M );
+    repeat(PERIOD-2000) @( posedge clk_1M );
     radio = 1'b1;
-    repeat(988+1012) @( posedge clk_1M );
+    repeat(2000) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-1012) @( posedge clk_1M );
+    repeat(PERIOD-2000) @( posedge clk_1M );
     radio = 1'b1;
-    repeat(988+1012) @( posedge clk_1M );
+    repeat(2000) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-1012) @( posedge clk_1M );
+    repeat(PERIOD-2000) @( posedge clk_1M );
 
-    // 1023 command
+    // 2011 ms => 1023 command
     radio = 1'b1;
-    repeat(988+1023) @( posedge clk_1M );
+    repeat(2011) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-1023) @( posedge clk_1M );
+    repeat(PERIOD-2011) @( posedge clk_1M );
     radio = 1'b1;
-    repeat(988+1023) @( posedge clk_1M );
+    repeat(2011) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-1023) @( posedge clk_1M );
+    repeat(PERIOD-2011) @( posedge clk_1M );
     radio = 1'b1;
-    repeat(988+1023) @( posedge clk_1M );
+    repeat(2011) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-988-1023) @( posedge clk_1M );
+    repeat(PERIOD-2011) @( posedge clk_1M );
 
-    // Out of range high
+    // Out of range high => 1023 command
     radio = 1'b1;
     repeat(2021) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-2021) @( posedge clk_1M );
+    repeat(PERIOD-2021) @( posedge clk_1M );
     radio = 1'b1;
     repeat(2021) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-2021) @( posedge clk_1M );
+    repeat(PERIOD-2021) @( posedge clk_1M );
     radio = 1'b1;
     repeat(2021) @( posedge clk_1M );
     radio = 1'b0;
-    repeat(3000-2021) @( posedge clk_1M );
+    repeat(PERIOD-2021) @( posedge clk_1M );
 
-    #50000
+    // Terminate test bench
+    radio = 1'b0;
+    repeat(2*PERIOD) @( posedge clk_1M );
     $finish;
 
   end

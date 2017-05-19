@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-05-18T12:19:44</DateModified>
+  <DateModified>2017-05-18T19:24:59</DateModified>
   <ModuleName>radio</ModuleName>
   <SummaryTimeStamp>2017-05-18T12:15:09</SummaryTimeStamp>
   <SavedFilePath>/home/justin/Documents/FPGA/Sandbox/radio/test/iseconfig/radio.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Sandbox/radio/test</ImplementationReportsDirectory>
+  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Sandbox/radio/test/</ImplementationReportsDirectory>
   <DateInitialized>2017-05-18T12:07:47</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
