@@ -1,0 +1,3 @@
+verilog work "../serial_tx.v"
+verilog work "../serial_tx_tb.v"
+verilog work "/opt/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v"
