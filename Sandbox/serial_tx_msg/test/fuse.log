@@ -1,0 +1,25 @@
+Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -relaunch -intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "/home/justin/Documents/FPGA/Sandbox/serial_tx_msg/test/serial_tx_msg_tb_isim_beh.exe" -prj "/home/justin/Documents/FPGA/Sandbox/serial_tx_msg/test/serial_tx_msg_tb_beh.prj" "work.serial_tx_msg_tb" "work.glbl" 
+ISim P.20131013 (signature 0xfbc00daa)
+Number of CPUs detected in this system: 2
+Turning on mult-threading, number of parallel sub-compilation jobs: 4 
+Determining compilation order of HDL files
+Analyzing Verilog file "/home/justin/Documents/FPGA/Sandbox/serial_tx_msg/test/../../serial_tx_byte/serial_tx_byte.v" into library work
+WARNING:HDLCompiler:693 - "/home/justin/Documents/FPGA/Sandbox/serial_tx_msg/test/../../serial_tx_byte/serial_tx_byte.v" Line 23: Parameter declaration becomes local in serial_tx_byte with formal parameter declaration list
+Analyzing Verilog file "/home/justin/Documents/FPGA/Sandbox/serial_tx_msg/test/../serial_tx_msg.v" into library work
+Analyzing Verilog file "/home/justin/Documents/FPGA/Sandbox/serial_tx_msg/test/../serial_tx_msg_tb.v" into library work
+Analyzing Verilog file "/opt/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v" into library work
+Starting static elaboration
+Completed static elaboration
+Fuse Memory Usage: 94720 KB
+Fuse CPU Usage: 1760 ms
+Compiling module serial_tx_byte(CLK_PER_BIT=434)
+Compiling module serial_tx_msg
+Compiling module serial_tx_msg_tb
+Compiling module glbl
+Time Resolution for simulation is 1ps.
+Waiting for 1 sub-compilation(s) to finish...
+Compiled 4 Verilog Units
+Built simulation executable /home/justin/Documents/FPGA/Sandbox/serial_tx_msg/test/serial_tx_msg_tb_isim_beh.exe
+Fuse Memory Usage: 392788 KB
+Fuse CPU Usage: 1770 ms
+GCC CPU Usage: 230 ms
