@@ -1,26 +1,27 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// serial_tx_byte_tb.v
-// Test bench for the 'serial_tx_byte' module.
+// serial_debug_tb.v
+// Test bench for the 'serial_debug' module.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module serial_tx_byte_tb ();
+module serial_debug_tb ();
 
   // Test bench inputs
   reg clk;
   reg rst;
   reg block;
   reg send;
-  reg [7:0] data;
+  reg [31:0] data;
 
   // Test bench outputs
   wire busy;
   wire tx;
 
-  // Connect 'serial_tx_byte' module
-  serial_tx_byte
+  // Connect 'serial_debug' module
+  serial_debug
     #(
-    .CLK_PER_BIT(434)
+    .CLK_PER_BIT(434),
+    .MSG_LEN(4)
     )
     DUT
     (
@@ -48,7 +49,7 @@ module serial_tx_byte_tb ();
     // Starting conditions
     block = 1'b1;
     send = 1'b0;
-    data = 8'b01001111;
+    data = 32'b_01111111_00011111_00000111_00000001;
     #1000;
 
     // Release blocking condition
@@ -59,7 +60,17 @@ module serial_tx_byte_tb ();
     send = 1'b1;
     #20;
     send = 1'b0;
-    #100000;
+    #500000
+
+    // Change serial message
+    data = 32'b_00001111_00010111_00110011_01110001;
+    #1000;
+
+    // Send the data
+    send = 1'b1;
+    #20;
+    send = 1'b0;
+    #500000
 
     $finish;
 

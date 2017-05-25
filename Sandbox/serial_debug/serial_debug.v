@@ -1,26 +1,26 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// serial_tx_byte.v
-// Module transmits a single byte of serial data.
-// Baud rates:
-//   115,200 => 434
+// serial_debug.v
+// Module transmits a debugging message over a serial channel.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module serial_tx_byte
+module serial_debug
   #(
-  parameter CLK_PER_BIT = 50
+  parameter CLK_PER_BIT = 50,
+  parameter MSG_LEN = 256
   )(
   input clk,
   input rst,
   input block,
   input send,
-  input [7:0] data,
+  input [(8*MSG_LEN)-1:0] data,
   output busy,
   output tx
   );
 
-  // Determine number of bits needed for 'ctr'
+  // Determine number of bits needed
   parameter CTR_BITS = $clog2(CLK_PER_BIT);
+  parameter MSG_BITS = $clog2(MSG_LEN);
 
   // Declare module states
   localparam STATE_BITS = 2;
@@ -31,14 +31,16 @@ module serial_tx_byte
     STOP_BIT   = 2'd3;
 
   // IO registers
-  reg [7:0] data_d, data_q;
+  reg [(8*MSG_LEN)-1:0] data_d, data_q;
   reg busy_d, busy_q;
   reg tx_d, tx_q;
 
   // Internal registers
+  reg [7:0] byte_d, byte_q;
+  reg [STATE_BITS-1:0] state_d, state_q = IDLE;
   reg [CTR_BITS-1:0] ctr_d, ctr_q;
   reg [2:0] bit_ctr_d, bit_ctr_q;
-  reg [STATE_BITS-1:0] state_d, state_q = IDLE;
+  reg [MSG_BITS-1:0] msg_ctr_d, msg_ctr_q;
 
   // Connect output signals
   assign busy = busy_q;
@@ -48,11 +50,12 @@ module serial_tx_byte
   always @(*) begin
 
     // Preallocate registers
-    data_d     = data_q;
-    busy_d     = busy_q;
-    ctr_d      = ctr_q;
-    bit_ctr_d  = bit_ctr_q;
-    state_d    = state_q;
+    byte_d        = byte_q;
+    state_d       = state_q;
+    ctr_d         = ctr_q;
+    bit_ctr_d     = bit_ctr_q;
+    msg_ctr_d     = msg_ctr_q;
+    busy_d        = busy_q;
 
     // State machine
     case (state_q)
@@ -64,8 +67,9 @@ module serial_tx_byte
         end else begin
           busy_d = 1'b0;
           tx_d = 1'b1;
-          bit_ctr_d = 3'b0;
           ctr_d = 1'b0;
+          bit_ctr_d = 1'b0;
+          msg_ctr_d = 1'b0;
           if (send) begin
             data_d = data;
             state_d = START_BIT;
@@ -75,6 +79,7 @@ module serial_tx_byte
       end
 
       START_BIT: begin
+        byte_d = data_q >> ( MSG_LEN - msg_ctr_q - 1) * 8;
         busy_d = 1'b1;
         ctr_d = ctr_q + 1'b1;
         tx_d = 1'b0;
@@ -86,7 +91,7 @@ module serial_tx_byte
 
       DATA: begin
         busy_d = 1'b1;
-        tx_d = data_q[bit_ctr_q];
+        tx_d = byte_q[bit_ctr_q];
         ctr_d = ctr_q + 1'b1;
         if ( ctr_q == CLK_PER_BIT - 1 ) begin
           ctr_d = 1'b0;
@@ -102,7 +107,12 @@ module serial_tx_byte
         tx_d = 1'b1;
         ctr_d = ctr_q + 1'b1;
         if ( ctr_q == CLK_PER_BIT - 1 ) begin
-          state_d = IDLE;
+          msg_ctr_d = msg_ctr_q + 1'b1;
+          if ( msg_ctr_q == MSG_LEN - 1 ) begin
+            state_d = IDLE;
+          end else begin
+            state_d = START_BIT;
+          end
         end
       end
 
@@ -119,18 +129,22 @@ module serial_tx_byte
 
     // Reset conditions
     if (rst) begin
-      state_q  <= IDLE;
-      tx_q     <= 1'b1;
+      data_q     <= data;
+      state_q    <= IDLE;
+      msg_ctr_q  <= 1'b0;
+      tx_q       <= 1'b1;
     end else begin
-      state_q  <= state_d;
-      tx_q     <= tx_d;
+      data_q     <= data_d;
+      state_q    <= state_d;
+      msg_ctr_q  <= msg_ctr_d;
+      tx_q       <= tx_d;
     end
 
     // Non-reset conditions
-    data_q     <= data_d;
-    busy_q     <= busy_d;
-    ctr_q      <= ctr_d;
-    bit_ctr_q  <= bit_ctr_d;
+    byte_q         <= byte_d;
+    ctr_q          <= ctr_d;
+    bit_ctr_q      <= bit_ctr_d;
+    busy_q         <= busy_d;
 
   end
 
