@@ -1,7 +1,7 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // template.v
-// Template module to establish new FPGA projects.
+// Demonstrate the 'clock' module on hardware.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 module template
@@ -39,13 +39,10 @@ module template
   assign led[7:3] = 5'b0;
 
   // Clock parameters
-  parameter CYCLES = 50000000 / 2;
+  parameter CYCLES = 50000000;
   parameter
     STEP_2HZ = CYCLES / 2,
     STEP_5HZ = CYCLES / 5;
-  parameter
-    LEN_2HZ  = $clog2(STEP_2HZ),
-    LEN_5HZ  = $clog2(STEP_2HZ);
 
   // Add 1HZ clock module
   clock clock_1Hz 
@@ -58,8 +55,7 @@ module template
   // Add 2HZ clock module
   clock
     #(
-	 .STEP(STEP_2HZ),
-	 .LEN(LEN_2HZ)
+    .STEP(STEP_2HZ)
     ) clock_2Hz (
     .clk(clk),
     .rst(rst),
@@ -69,8 +65,7 @@ module template
   // Add 5HZ clock module
   clock
     #(
-	 .STEP(STEP_5HZ),
-	 .LEN(LEN_5HZ)
+    .STEP(STEP_5HZ)
     ) clock_5Hz (
     .clk(clk),
     .rst(rst),

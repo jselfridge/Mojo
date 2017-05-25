@@ -5,5 +5,8 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"/home/justin/Documents/FPGA/Util/clock/test/../clock.v" Line 18: Parameter declaration becomes local in <arg fmt="%s" index="1">clock</arg> with formal parameter declaration list
+</msg>
+
 </messages>
 

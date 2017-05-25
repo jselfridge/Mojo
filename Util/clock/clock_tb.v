@@ -20,7 +20,7 @@ module clock_tb ();
 
   // Common timing factor
   parameter
-  CYCLES = 50000000 / 2;
+  CYCLES = 50000000;
 
   // Determine number of steps
   parameter
@@ -31,20 +31,10 @@ module clock_tb ();
   //STEP_100 = CYCLES / 100,
   //STEP_10  = CYCLES / 10;
 
-  // Determine counter lengths
-  parameter
-  LEN_5M  = $clog2(STEP_5M),
-  LEN_1M  = $clog2(STEP_1M),
-  LEN_4k  = $clog2(STEP_4k);
-  //LEN_1k  = $clog2(STEP_1k),
-  //LEN_100 = $clog2(STEP_100),
-  //LEN_10  = $clog2(STEP_10);
-
   // 5MHz Clock
   clock
     #(
-    .STEP(STEP_5M),
-    .LEN(LEN_5M)
+    .STEP(STEP_5M)
     ) DUT_5M (
     .clk(clk),
     .rst(rst),
@@ -54,8 +44,7 @@ module clock_tb ();
   // 1MHz Clock
   clock
     #(
-    .STEP(STEP_1M),
-    .LEN(LEN_1M)
+    .STEP(STEP_1M)
     ) DUT_1M (
     .clk(clk),
     .rst(rst),
@@ -65,8 +54,7 @@ module clock_tb ();
   // 4kHz Clock
   clock
     #(
-    .STEP(STEP_4k),
-    .LEN(LEN_4k)
+    .STEP(STEP_4k)
     ) DUT_4k (
     .clk(clk),
     .rst(rst),
@@ -76,8 +64,7 @@ module clock_tb ();
 //  // 1kHz Clock
 //  clock
 //    #(
-//    .STEP(STEP_1k),
-//    .LEN(LEN_1k)
+//    .STEP(STEP_1k)
 //    ) DUT_1k (
 //    .clk(clk),
 //    .rst(rst),
@@ -87,8 +74,7 @@ module clock_tb ();
 //  // 100Hz Clock
 //  clock
 //    #(
-//    .STEP(STEP_100),
-//    .LEN(LEN_100)
+//    .STEP(STEP_100)
 //    ) DUT_100 (
 //    .clk(clk),
 //    .rst(rst),
@@ -98,8 +84,7 @@ module clock_tb ();
 //  // 10Hz Clock
 //  clock
 //    #(
-//    .STEP(STEP_10),
-//    .LEN(LEN_10)
+//    .STEP(STEP_10)
 //    ) DUT_10 (
 //    .clk(clk),
 //    .rst(rst),

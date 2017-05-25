@@ -21,7 +21,7 @@
 #include <malloc.h>
 #define alloca _alloca
 #endif
-static const char *ng0 = "/home/justin/Documents/FPGA/Sandbox/clock/clock_tb.v";
+static const char *ng0 = "/home/justin/Documents/FPGA/Util/clock/clock_tb.v";
 static unsigned int ng1[] = {0U, 0U};
 static unsigned int ng2[] = {1U, 0U};
 static int ng3[] = {100, 0};
@@ -64,7 +64,7 @@ static void Initial_118_0(char *t0)
     unsigned int t31;
     char *t32;
 
-LAB0:    t1 = (t0 + 3792U);
+LAB0:    t1 = (t0 + 3384U);
     t2 = *((char **)t1);
     if (t2 == 0)
         goto LAB2;
@@ -75,11 +75,11 @@ LAB2:    xsi_set_current_line(118, ng0);
 
 LAB4:    xsi_set_current_line(120, ng0);
     t2 = ((char*)((ng1)));
-    t3 = (t0 + 2720);
+    t3 = (t0 + 2312);
     xsi_vlogvar_assign_value(t3, t2, 0, 0, 1);
     xsi_set_current_line(121, ng0);
     t2 = ((char*)((ng2)));
-    t3 = (t0 + 2880);
+    t3 = (t0 + 2472);
     xsi_vlogvar_assign_value(t3, t2, 0, 0, 1);
     xsi_set_current_line(123, ng0);
     t2 = ((char*)((ng3)));
@@ -88,16 +88,16 @@ LAB4:    xsi_set_current_line(120, ng0);
     t5 = (~(t4));
     t6 = *((unsigned int *)t2);
     t7 = (t6 & t5);
-    t8 = (t0 + 5944);
+    t8 = (t0 + 5464);
     *((int *)t8) = t7;
 
-LAB5:    t9 = (t0 + 5944);
+LAB5:    t9 = (t0 + 5464);
     if (*((int *)t9) > 0)
         goto LAB6;
 
 LAB7:    xsi_set_current_line(126, ng0);
     t2 = ((char*)((ng1)));
-    t3 = (t0 + 2880);
+    t3 = (t0 + 2472);
     xsi_vlogvar_assign_value(t3, t2, 0, 0, 1);
     xsi_set_current_line(128, ng0);
     t2 = ((char*)((ng4)));
@@ -106,10 +106,10 @@ LAB7:    xsi_set_current_line(126, ng0);
     t5 = (~(t4));
     t6 = *((unsigned int *)t2);
     t7 = (t6 & t5);
-    t8 = (t0 + 5948);
+    t8 = (t0 + 5468);
     *((int *)t8) = t7;
 
-LAB15:    t9 = (t0 + 5948);
+LAB15:    t9 = (t0 + 5468);
     if (*((int *)t9) > 0)
         goto LAB16;
 
@@ -118,13 +118,13 @@ LAB17:    xsi_set_current_line(131, ng0);
 
 LAB1:    return;
 LAB6:    xsi_set_current_line(124, ng0);
-    t10 = (t0 + 3600);
+    t10 = (t0 + 3192);
     xsi_process_wait(t10, 10000LL);
     *((char **)t1) = &&LAB8;
     goto LAB1;
 
 LAB8:    xsi_set_current_line(124, ng0);
-    t12 = (t0 + 2720);
+    t12 = (t0 + 2312);
     t13 = (t12 + 56U);
     t14 = *((char **)t13);
     memset(t11, 0, 8);
@@ -157,9 +157,9 @@ LAB13:    t30 = *((unsigned int *)t11);
     *((unsigned int *)t11) = (t30 & 1U);
     t31 = *((unsigned int *)t22);
     *((unsigned int *)t22) = (t31 & 1U);
-    t32 = (t0 + 2720);
+    t32 = (t0 + 2312);
     xsi_vlogvar_assign_value(t32, t11, 0, 0, 1);
-    t2 = (t0 + 5944);
+    t2 = (t0 + 5464);
     t7 = *((int *)t2);
     *((int *)t2) = (t7 - 1);
     goto LAB5;
@@ -176,13 +176,13 @@ LAB14:    t26 = *((unsigned int *)t11);
     goto LAB13;
 
 LAB16:    xsi_set_current_line(129, ng0);
-    t10 = (t0 + 3600);
+    t10 = (t0 + 3192);
     xsi_process_wait(t10, 10000LL);
     *((char **)t1) = &&LAB18;
     goto LAB1;
 
 LAB18:    xsi_set_current_line(129, ng0);
-    t12 = (t0 + 2720);
+    t12 = (t0 + 2312);
     t13 = (t12 + 56U);
     t14 = *((char **)t13);
     memset(t11, 0, 8);
@@ -215,9 +215,9 @@ LAB23:    t30 = *((unsigned int *)t11);
     *((unsigned int *)t11) = (t30 & 1U);
     t31 = *((unsigned int *)t22);
     *((unsigned int *)t22) = (t31 & 1U);
-    t32 = (t0 + 2720);
+    t32 = (t0 + 2312);
     xsi_vlogvar_assign_value(t32, t11, 0, 0, 1);
-    t2 = (t0 + 5948);
+    t2 = (t0 + 5468);
     t7 = *((int *)t2);
     *((int *)t2) = (t7 - 1);
     goto LAB15;
@@ -236,9 +236,9 @@ LAB24:    t26 = *((unsigned int *)t11);
 }
 
 
-extern void work_m_13077541811143844319_2240778087_init()
+extern void work_m_17986734300697147808_2240778087_init()
 {
 	static char *pe[] = {(void *)Initial_118_0};
-	xsi_register_didat("work_m_13077541811143844319_2240778087", "isim/clock_tb_isim_beh.exe.sim/work/m_13077541811143844319_2240778087.didat");
+	xsi_register_didat("work_m_17986734300697147808_2240778087", "isim/clock_tb_isim_beh.exe.sim/work/m_17986734300697147808_2240778087.didat");
 	xsi_register_executes(pe);
 }
