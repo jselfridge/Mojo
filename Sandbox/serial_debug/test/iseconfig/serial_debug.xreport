@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-05-25T11:26:09</DateModified>
+  <DateModified>2017-05-26T05:35:29</DateModified>
   <ModuleName>serial_debug</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
   <SavedFilePath>/home/justin/Documents/FPGA/Sandbox/serial_debug/test/iseconfig/serial_debug.xreport</SavedFilePath>

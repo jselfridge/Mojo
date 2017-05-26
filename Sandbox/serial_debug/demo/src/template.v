@@ -43,7 +43,9 @@ module template
 
   wire clk_1hz;
   wire busy;
-  wire [(8*16)-1:0] data = "Hello there!\r\n";
+
+  reg [(8*16)-1:0] msg_d, msg_q;
+  reg [5:0] ctr_d, ctr_q;
 
   // Connect a 1hz clock
   clock clock_1hz
@@ -65,10 +67,28 @@ module template
   .rst(rst),
   .block(1'b0),
   .send(clk_1hz),
-  .data(data),
+  .data(msg_q),
   .busy(busy),
   .tx(tx_pin)
   );
+
+always @(*) begin
+  ctr_d = ctr_q + 1'b1;
+  //$sformat( msg_d, "Time: %d \r\n", ctr_q );
+  //msg_d = "Time: 123 \r\n";
+  msg_d = {{"Time: "},{"456"},{" \r\n"}};
+end
+
+always @( posedge clk_1hz ) begin
+
+  if (rst)
+    ctr_q <= 1'b0;
+  else
+    ctr_q <= ctr_d;
+
+  msg_q <= msg_d;
+
+end
 
 endmodule
 
