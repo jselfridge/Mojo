@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-05-26T10:06:14</DateModified>
+  <DateModified>2017-05-26T10:51:48</DateModified>
   <ModuleName>bin2bcd</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
   <SavedFilePath>/home/justin/Documents/FPGA/Sandbox/bin2bcd/test/iseconfig/bin2bcd.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Sandbox/bin2bcd/test</ImplementationReportsDirectory>
+  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Sandbox/bin2bcd/test/</ImplementationReportsDirectory>
   <DateInitialized>2017-05-26T09:34:22</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

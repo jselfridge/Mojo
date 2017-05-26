@@ -6,14 +6,23 @@
 
 module bcd2ascii_tb ();
 
-  // Number of digits in BCD representation
-  localparam BDC_LEN = 3;
+  // Number of characters in number representation
+  localparam CHAR_LEN = 3;
 
   // Test bench inputs
-  reg [(4*BCD_LEN)-1:0] bcd;
+  reg [(4*CHAR_LEN)-1:0] bcd;
 
   // Test bench outputs
-  //wire [(8*BCD_LEN)-1:0] ascii;
+  wire [(8*CHAR_LEN)-1:0] ascii;
+
+  // Connect 'bcd2ascii' module
+  bcd2ascii
+    #(
+    .CHAR_LEN(3)
+    ) DUT (
+    .bcd(bcd),
+    .ascii(ascii)
+    );
 
   // Assign test stimulus at certain points
   initial begin
