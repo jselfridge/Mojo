@@ -1,0 +1,6 @@
+xst -intstyle ise -ifn "/home/justin/Documents/FPGA/Sandbox/bin2bcd/test/bin2bcd.xst" -ofn "/home/justin/Documents/FPGA/Sandbox/bin2bcd/test/bin2bcd.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc6slx9-csg324-2 bin2bcd.ngc bin2bcd.ngd  
+map -intstyle ise -p xc6slx9-csg324-2 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o bin2bcd_map.ncd bin2bcd.ngd bin2bcd.pcf 
+par -w -intstyle ise -ol high -mt off bin2bcd_map.ncd bin2bcd.ncd bin2bcd.pcf 
+trce -intstyle ise -v 3 -s 2 -n 3 -fastpaths -xml bin2bcd.twx bin2bcd.ncd -o bin2bcd.twr bin2bcd.pcf 
+bitgen -intstyle ise -f bin2bcd.ut bin2bcd.ncd 

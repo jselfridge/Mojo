@@ -6,26 +6,35 @@
 
 module bin2bcd_tb ();
 
+  // Number of bits in binary representation
+  localparam BIT_LEN = 8;
+
   // Test bench inputs
-  reg ???;
+  reg [BIT_LEN-1:0] bin;
 
   // Test bench outputs
-  wire ???;
-  
+  wire [BIT_LEN+(BIT_LEN-4)/3:0] bcd;
 
-  // Initial reset, then clock forever
-  initial begin
-    clk = 1'b1;
-    rst = 1'b1;
-    repeat(10) #10 clk = ~clk;
-    rst = 1'b0;
-    forever #10 clk = ~clk;
-  end
+  // Connect 'bin2bdc' module
+  bin2bcd
+  #(
+  .LEN(BIT_LEN)
+  ) DUT (
+  .bin(bin),
+  .bcd(bcd)
+  );
 
   // Assign test stimulus at certain points
-  //initial begin
+  initial begin
 
-  //end
+    bin = 8'b0;
+    repeat(256) #10 bin = bin + 1'b1;
+    #10;
+    bin = 8'b0;
+    #20;
+    $finish;
+
+  end
 
 endmodule
 

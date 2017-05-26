@@ -1,0 +1,375 @@
+--------------------------------------------------------------------------------
+Release 14.7 Trace  (lin64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+/opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/trce -intstyle ise -v 3 -s 2 -n
+3 -fastpaths -xml bin2bcd.twx bin2bcd.ncd -o bin2bcd.twr bin2bcd.pcf
+
+Design file:              bin2bcd.ncd
+Physical constraint file: bin2bcd.pcf
+Device,package,speed:     xc6slx9,csg324,C,-2 (PRODUCTION 1.23 2013-10-13)
+Report level:             verbose report
+
+Environment Variable      Effect 
+--------------------      ------ 
+NONE                      No environment variables were set
+--------------------------------------------------------------------------------
+
+INFO:Timing:2698 - No timing constraints found, doing default enumeration.
+INFO:Timing:3412 - To improve timing, see the Timing Closure User Guide (UG612).
+INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths 
+   option. All paths that are not constrained will be reported in the 
+   unconstrained paths section(s) of the report.
+INFO:Timing:3339 - The clock-to-out numbers in this timing report are based on 
+   a 50 Ohm transmission line loading model.  For the details of this model, 
+   and for more information on accounting for different loading conditions, 
+   please see the device datasheet.
+
+
+
+Data Sheet report:
+-----------------
+All values displayed in nanoseconds (ns)
+
+Pad to Pad
+---------------+---------------+---------+
+Source Pad     |Destination Pad|  Delay  |
+---------------+---------------+---------+
+bin<0>         |bcd<0>         |    7.578|
+bin<1>         |bcd<1>         |    8.834|
+bin<1>         |bcd<2>         |    9.432|
+bin<1>         |bcd<3>         |    9.291|
+bin<1>         |bcd<4>         |    8.764|
+bin<2>         |bcd<1>         |    9.936|
+bin<2>         |bcd<2>         |    9.582|
+bin<2>         |bcd<3>         |    9.405|
+bin<2>         |bcd<4>         |    9.476|
+bin<2>         |bcd<5>         |    9.548|
+bin<2>         |bcd<6>         |    9.663|
+bin<2>         |bcd<7>         |    9.478|
+bin<2>         |bcd<8>         |    9.324|
+bin<3>         |bcd<1>         |   10.630|
+bin<3>         |bcd<2>         |   10.276|
+bin<3>         |bcd<3>         |   10.262|
+bin<3>         |bcd<4>         |   10.170|
+bin<3>         |bcd<5>         |   11.776|
+bin<3>         |bcd<6>         |   10.930|
+bin<3>         |bcd<7>         |   10.674|
+bin<3>         |bcd<8>         |   11.512|
+bin<3>         |bcd<9>         |   11.259|
+bin<3>         |bcd<10>        |   10.984|
+bin<3>         |bcd<11>        |   10.925|
+bin<3>         |bcd<12>        |   10.555|
+bin<4>         |bcd<1>         |   11.619|
+bin<4>         |bcd<2>         |   11.265|
+bin<4>         |bcd<3>         |   11.227|
+bin<4>         |bcd<4>         |   11.159|
+bin<4>         |bcd<5>         |   12.464|
+bin<4>         |bcd<6>         |   11.618|
+bin<4>         |bcd<7>         |   11.362|
+bin<4>         |bcd<8>         |   12.200|
+bin<4>         |bcd<9>         |   11.993|
+bin<4>         |bcd<10>        |   12.014|
+bin<4>         |bcd<11>        |   12.048|
+bin<4>         |bcd<12>        |   11.750|
+bin<4>         |bcd<13>        |   11.865|
+bin<4>         |bcd<14>        |   11.864|
+bin<4>         |bcd<15>        |   11.769|
+bin<4>         |bcd<16>        |   11.899|
+bin<5>         |bcd<1>         |   12.646|
+bin<5>         |bcd<2>         |   12.349|
+bin<5>         |bcd<3>         |   12.353|
+bin<5>         |bcd<4>         |   12.186|
+bin<5>         |bcd<5>         |   13.660|
+bin<5>         |bcd<6>         |   12.816|
+bin<5>         |bcd<7>         |   12.558|
+bin<5>         |bcd<8>         |   13.396|
+bin<5>         |bcd<9>         |   13.238|
+bin<5>         |bcd<10>        |   13.259|
+bin<5>         |bcd<11>        |   13.410|
+bin<5>         |bcd<12>        |   13.105|
+bin<5>         |bcd<13>        |   13.134|
+bin<5>         |bcd<14>        |   13.109|
+bin<5>         |bcd<15>        |   13.014|
+bin<5>         |bcd<16>        |   13.149|
+bin<5>         |bcd<17>        |   13.256|
+bin<5>         |bcd<18>        |   13.590|
+bin<5>         |bcd<19>        |   13.362|
+bin<5>         |bcd<20>        |   13.709|
+bin<6>         |bcd<1>         |   13.574|
+bin<6>         |bcd<2>         |   13.277|
+bin<6>         |bcd<3>         |   13.281|
+bin<6>         |bcd<4>         |   13.114|
+bin<6>         |bcd<5>         |   14.579|
+bin<6>         |bcd<6>         |   13.735|
+bin<6>         |bcd<7>         |   13.477|
+bin<6>         |bcd<8>         |   14.315|
+bin<6>         |bcd<9>         |   14.606|
+bin<6>         |bcd<10>        |   14.628|
+bin<6>         |bcd<11>        |   14.662|
+bin<6>         |bcd<12>        |   14.364|
+bin<6>         |bcd<13>        |   14.680|
+bin<6>         |bcd<14>        |   14.679|
+bin<6>         |bcd<15>        |   14.584|
+bin<6>         |bcd<16>        |   14.714|
+bin<6>         |bcd<17>        |   14.650|
+bin<6>         |bcd<18>        |   14.984|
+bin<6>         |bcd<19>        |   14.781|
+bin<6>         |bcd<20>        |   15.128|
+bin<6>         |bcd<21>        |   13.842|
+bin<7>         |bcd<1>         |   14.435|
+bin<7>         |bcd<2>         |   14.138|
+bin<7>         |bcd<3>         |   14.142|
+bin<7>         |bcd<4>         |   13.975|
+bin<7>         |bcd<5>         |   15.674|
+bin<7>         |bcd<6>         |   14.830|
+bin<7>         |bcd<7>         |   14.572|
+bin<7>         |bcd<8>         |   15.410|
+bin<7>         |bcd<9>         |   15.857|
+bin<7>         |bcd<10>        |   15.879|
+bin<7>         |bcd<11>        |   15.913|
+bin<7>         |bcd<12>        |   15.615|
+bin<7>         |bcd<13>        |   15.931|
+bin<7>         |bcd<14>        |   15.930|
+bin<7>         |bcd<15>        |   15.835|
+bin<7>         |bcd<16>        |   15.965|
+bin<7>         |bcd<17>        |   15.901|
+bin<7>         |bcd<18>        |   16.235|
+bin<7>         |bcd<19>        |   16.032|
+bin<7>         |bcd<20>        |   16.379|
+bin<7>         |bcd<21>        |   15.093|
+bin<7>         |bcd<22>        |   11.865|
+bin<8>         |bcd<1>         |   16.033|
+bin<8>         |bcd<2>         |   15.736|
+bin<8>         |bcd<3>         |   15.740|
+bin<8>         |bcd<4>         |   15.573|
+bin<8>         |bcd<5>         |   17.789|
+bin<8>         |bcd<6>         |   16.945|
+bin<8>         |bcd<7>         |   16.687|
+bin<8>         |bcd<8>         |   17.525|
+bin<8>         |bcd<9>         |   17.972|
+bin<8>         |bcd<10>        |   17.994|
+bin<8>         |bcd<11>        |   18.028|
+bin<8>         |bcd<12>        |   17.730|
+bin<8>         |bcd<13>        |   17.862|
+bin<8>         |bcd<14>        |   17.861|
+bin<8>         |bcd<15>        |   17.766|
+bin<8>         |bcd<16>        |   17.896|
+bin<8>         |bcd<17>        |   17.832|
+bin<8>         |bcd<18>        |   18.166|
+bin<8>         |bcd<19>        |   17.963|
+bin<8>         |bcd<20>        |   18.310|
+bin<8>         |bcd<21>        |   17.024|
+bin<8>         |bcd<22>        |   14.715|
+bin<9>         |bcd<1>         |   16.636|
+bin<9>         |bcd<2>         |   16.339|
+bin<9>         |bcd<3>         |   16.343|
+bin<9>         |bcd<4>         |   16.176|
+bin<9>         |bcd<5>         |   18.392|
+bin<9>         |bcd<6>         |   17.548|
+bin<9>         |bcd<7>         |   17.290|
+bin<9>         |bcd<8>         |   18.128|
+bin<9>         |bcd<9>         |   18.575|
+bin<9>         |bcd<10>        |   18.597|
+bin<9>         |bcd<11>        |   18.631|
+bin<9>         |bcd<12>        |   18.333|
+bin<9>         |bcd<13>        |   18.465|
+bin<9>         |bcd<14>        |   18.464|
+bin<9>         |bcd<15>        |   18.369|
+bin<9>         |bcd<16>        |   18.499|
+bin<9>         |bcd<17>        |   18.435|
+bin<9>         |bcd<18>        |   18.769|
+bin<9>         |bcd<19>        |   18.566|
+bin<9>         |bcd<20>        |   18.913|
+bin<9>         |bcd<21>        |   17.627|
+bin<9>         |bcd<22>        |   15.318|
+bin<10>        |bcd<1>         |   17.369|
+bin<10>        |bcd<2>         |   17.072|
+bin<10>        |bcd<3>         |   17.076|
+bin<10>        |bcd<4>         |   16.909|
+bin<10>        |bcd<5>         |   19.125|
+bin<10>        |bcd<6>         |   18.281|
+bin<10>        |bcd<7>         |   18.023|
+bin<10>        |bcd<8>         |   18.861|
+bin<10>        |bcd<9>         |   19.308|
+bin<10>        |bcd<10>        |   19.330|
+bin<10>        |bcd<11>        |   19.364|
+bin<10>        |bcd<12>        |   19.066|
+bin<10>        |bcd<13>        |   19.198|
+bin<10>        |bcd<14>        |   19.197|
+bin<10>        |bcd<15>        |   19.102|
+bin<10>        |bcd<16>        |   19.232|
+bin<10>        |bcd<17>        |   19.168|
+bin<10>        |bcd<18>        |   19.502|
+bin<10>        |bcd<19>        |   19.299|
+bin<10>        |bcd<20>        |   19.646|
+bin<10>        |bcd<21>        |   18.360|
+bin<10>        |bcd<22>        |   16.841|
+bin<11>        |bcd<1>         |   19.268|
+bin<11>        |bcd<2>         |   18.971|
+bin<11>        |bcd<3>         |   18.975|
+bin<11>        |bcd<4>         |   18.808|
+bin<11>        |bcd<5>         |   21.024|
+bin<11>        |bcd<6>         |   20.180|
+bin<11>        |bcd<7>         |   19.922|
+bin<11>        |bcd<8>         |   20.760|
+bin<11>        |bcd<9>         |   21.207|
+bin<11>        |bcd<10>        |   21.229|
+bin<11>        |bcd<11>        |   21.263|
+bin<11>        |bcd<12>        |   20.965|
+bin<11>        |bcd<13>        |   21.097|
+bin<11>        |bcd<14>        |   21.096|
+bin<11>        |bcd<15>        |   21.001|
+bin<11>        |bcd<16>        |   21.131|
+bin<11>        |bcd<17>        |   21.067|
+bin<11>        |bcd<18>        |   21.401|
+bin<11>        |bcd<19>        |   21.198|
+bin<11>        |bcd<20>        |   21.545|
+bin<11>        |bcd<21>        |   20.259|
+bin<11>        |bcd<22>        |   18.619|
+bin<12>        |bcd<1>         |   19.793|
+bin<12>        |bcd<2>         |   19.496|
+bin<12>        |bcd<3>         |   19.500|
+bin<12>        |bcd<4>         |   19.333|
+bin<12>        |bcd<5>         |   21.549|
+bin<12>        |bcd<6>         |   20.705|
+bin<12>        |bcd<7>         |   20.447|
+bin<12>        |bcd<8>         |   21.285|
+bin<12>        |bcd<9>         |   21.732|
+bin<12>        |bcd<10>        |   21.754|
+bin<12>        |bcd<11>        |   21.788|
+bin<12>        |bcd<12>        |   21.490|
+bin<12>        |bcd<13>        |   21.622|
+bin<12>        |bcd<14>        |   21.621|
+bin<12>        |bcd<15>        |   21.526|
+bin<12>        |bcd<16>        |   21.656|
+bin<12>        |bcd<17>        |   21.592|
+bin<12>        |bcd<18>        |   21.926|
+bin<12>        |bcd<19>        |   21.723|
+bin<12>        |bcd<20>        |   22.070|
+bin<12>        |bcd<21>        |   20.784|
+bin<12>        |bcd<22>        |   18.826|
+bin<13>        |bcd<1>         |   21.311|
+bin<13>        |bcd<2>         |   21.014|
+bin<13>        |bcd<3>         |   21.018|
+bin<13>        |bcd<4>         |   20.851|
+bin<13>        |bcd<5>         |   23.067|
+bin<13>        |bcd<6>         |   22.223|
+bin<13>        |bcd<7>         |   21.965|
+bin<13>        |bcd<8>         |   22.803|
+bin<13>        |bcd<9>         |   23.250|
+bin<13>        |bcd<10>        |   23.272|
+bin<13>        |bcd<11>        |   23.306|
+bin<13>        |bcd<12>        |   23.008|
+bin<13>        |bcd<13>        |   23.140|
+bin<13>        |bcd<14>        |   23.139|
+bin<13>        |bcd<15>        |   23.044|
+bin<13>        |bcd<16>        |   23.174|
+bin<13>        |bcd<17>        |   23.110|
+bin<13>        |bcd<18>        |   23.444|
+bin<13>        |bcd<19>        |   23.241|
+bin<13>        |bcd<20>        |   23.588|
+bin<13>        |bcd<21>        |   22.302|
+bin<13>        |bcd<22>        |   20.344|
+bin<14>        |bcd<1>         |   21.412|
+bin<14>        |bcd<2>         |   21.115|
+bin<14>        |bcd<3>         |   21.119|
+bin<14>        |bcd<4>         |   20.952|
+bin<14>        |bcd<5>         |   23.168|
+bin<14>        |bcd<6>         |   22.324|
+bin<14>        |bcd<7>         |   22.066|
+bin<14>        |bcd<8>         |   22.904|
+bin<14>        |bcd<9>         |   23.351|
+bin<14>        |bcd<10>        |   23.373|
+bin<14>        |bcd<11>        |   23.407|
+bin<14>        |bcd<12>        |   23.109|
+bin<14>        |bcd<13>        |   23.241|
+bin<14>        |bcd<14>        |   23.240|
+bin<14>        |bcd<15>        |   23.145|
+bin<14>        |bcd<16>        |   23.275|
+bin<14>        |bcd<17>        |   23.211|
+bin<14>        |bcd<18>        |   23.545|
+bin<14>        |bcd<19>        |   23.342|
+bin<14>        |bcd<20>        |   23.689|
+bin<14>        |bcd<21>        |   22.403|
+bin<14>        |bcd<22>        |   20.445|
+bin<15>        |bcd<1>         |   21.011|
+bin<15>        |bcd<2>         |   20.714|
+bin<15>        |bcd<3>         |   20.718|
+bin<15>        |bcd<4>         |   20.551|
+bin<15>        |bcd<5>         |   22.767|
+bin<15>        |bcd<6>         |   21.923|
+bin<15>        |bcd<7>         |   21.665|
+bin<15>        |bcd<8>         |   22.503|
+bin<15>        |bcd<9>         |   22.950|
+bin<15>        |bcd<10>        |   22.972|
+bin<15>        |bcd<11>        |   23.006|
+bin<15>        |bcd<12>        |   22.708|
+bin<15>        |bcd<13>        |   22.840|
+bin<15>        |bcd<14>        |   22.839|
+bin<15>        |bcd<15>        |   22.744|
+bin<15>        |bcd<16>        |   22.874|
+bin<15>        |bcd<17>        |   22.810|
+bin<15>        |bcd<18>        |   23.144|
+bin<15>        |bcd<19>        |   22.941|
+bin<15>        |bcd<20>        |   23.288|
+bin<15>        |bcd<21>        |   22.002|
+bin<15>        |bcd<22>        |   20.044|
+bin<16>        |bcd<1>         |   21.175|
+bin<16>        |bcd<2>         |   20.878|
+bin<16>        |bcd<3>         |   20.882|
+bin<16>        |bcd<4>         |   20.715|
+bin<16>        |bcd<5>         |   22.931|
+bin<16>        |bcd<6>         |   22.087|
+bin<16>        |bcd<7>         |   21.829|
+bin<16>        |bcd<8>         |   22.667|
+bin<16>        |bcd<9>         |   23.114|
+bin<16>        |bcd<10>        |   23.136|
+bin<16>        |bcd<11>        |   23.170|
+bin<16>        |bcd<12>        |   22.872|
+bin<16>        |bcd<13>        |   23.004|
+bin<16>        |bcd<14>        |   23.003|
+bin<16>        |bcd<15>        |   22.908|
+bin<16>        |bcd<16>        |   23.038|
+bin<16>        |bcd<17>        |   22.974|
+bin<16>        |bcd<18>        |   23.308|
+bin<16>        |bcd<19>        |   23.105|
+bin<16>        |bcd<20>        |   23.452|
+bin<16>        |bcd<21>        |   22.166|
+bin<16>        |bcd<22>        |   20.208|
+bin<17>        |bcd<1>         |   21.202|
+bin<17>        |bcd<2>         |   20.905|
+bin<17>        |bcd<3>         |   20.909|
+bin<17>        |bcd<4>         |   20.742|
+bin<17>        |bcd<5>         |   22.958|
+bin<17>        |bcd<6>         |   22.114|
+bin<17>        |bcd<7>         |   21.856|
+bin<17>        |bcd<8>         |   22.694|
+bin<17>        |bcd<9>         |   23.141|
+bin<17>        |bcd<10>        |   23.163|
+bin<17>        |bcd<11>        |   23.197|
+bin<17>        |bcd<12>        |   22.899|
+bin<17>        |bcd<13>        |   23.031|
+bin<17>        |bcd<14>        |   23.030|
+bin<17>        |bcd<15>        |   22.935|
+bin<17>        |bcd<16>        |   23.065|
+bin<17>        |bcd<17>        |   23.001|
+bin<17>        |bcd<18>        |   23.335|
+bin<17>        |bcd<19>        |   23.132|
+bin<17>        |bcd<20>        |   23.479|
+bin<17>        |bcd<21>        |   22.193|
+bin<17>        |bcd<22>        |   20.235|
+---------------+---------------+---------+
+
+
+Analysis completed Fri May 26 10:07:41 2017 
+--------------------------------------------------------------------------------
+
+Trace Settings:
+-------------------------
+Trace Settings 
+
+Peak Memory Usage: 382 MB
+
+
+
