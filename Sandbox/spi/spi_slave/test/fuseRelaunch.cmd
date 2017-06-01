@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "/home/justin/Documents/FPGA/Sandbox/spi/spi_slave/test/spi_slave_tb_isim_beh.exe" -prj "/home/justin/Documents/FPGA/Sandbox/spi/spi_slave/test/spi_slave_tb_beh.prj" "work.spi_slave_tb" "work.glbl" 
