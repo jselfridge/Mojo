@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-05-30T09:17:10</DateModified>
+  <DateModified>2017-05-31T16:05:44</DateModified>
   <ModuleName>avionics</ModuleName>
   <SummaryTimeStamp>2017-05-30T09:16:49</SummaryTimeStamp>
   <SavedFilePath>/home/justin/Documents/FPGA/Avionics/iseconfig/avionics.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Avionics/syn</ImplementationReportsDirectory>
+  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Avionics/syn/</ImplementationReportsDirectory>
   <DateInitialized>2017-05-30T08:14:04</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
