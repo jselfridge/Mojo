@@ -1,0 +1,29 @@
+Command line:
+   sawtooth_tb_isim_translate.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  57541
+
+Fri Jun  2 10:44:58 2017
+
+
+ Elaboration Time: 0.1 sec
+
+ Current Memory Usage: 206.615 Meg
+
+ Total Signals          : 2081
+ Total Nets             : 1228
+ Total Signal Drivers   : 1221
+ Total Blocks           : 230
+ Total Primitive Blocks : 141
+ Total Processes        : 1647
+ Total Traceable Variables  : 415
+ Total Scalar Nets and Variables : 13869
+Total Line Count : 600
+
+ Total Simulation Time: 17.57 sec
+
+ Current Memory Usage: 282.116 Meg
+
+Fri Jun  2 10:45:20 2017
+

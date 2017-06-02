@@ -1,0 +1,3 @@
+xst -intstyle ise -ifn "/home/justin/Documents/FPGA/Util/waveforms/sawtooth/test/sawtooth.xst" -ofn "/home/justin/Documents/FPGA/Util/waveforms/sawtooth/test/sawtooth.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc6slx9-csg324-2 sawtooth.ngc sawtooth.ngd  
+netgen -intstyle ise -insert_glbl true -w -dir netgen/translate -ofmt verilog -sim sawtooth.ngd sawtooth_translate.v 
