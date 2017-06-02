@@ -7,34 +7,28 @@
 module sawtooth_tb ();
 
   // Testbench inputs
-  reg clk, rst;
+  reg clk;
+  reg rst;
 
   // Testbench outputs
-  wire [6:0] val;
+  wire [4:0] val;
 
   // Sawtooth counter
-  sawtooth
-    #(
-    .CTR_BITS(20),
-    .VAL_BITS(7)
-    ) DUT (
+  sawtooth #(
+    .CTR_BITS(8),
+    .VAL_BITS(5) )
+    sawtooth_DUT (
     .clk(clk),
     .rst(rst),
-    .val(val)
-    );
+    .val(val) );
 
-  // Begin simulation
+  // Run simulation
   initial begin
     clk = 1'b1;
     rst = 1'b1;
-    repeat(10) #10 clk = ~clk;
+    repeat(1000) #10 clk = ~clk;
     rst = 1'b0;
-    forever #10 clk = ~clk;
-  end
-
-  // Add testing stimulus
-  initial begin
-    #100000000
+    repeat(1000000) #10 clk = ~clk;
     $finish;
   end
 

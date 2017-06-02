@@ -36,11 +36,10 @@ module template
   assign spi_ch = 4'bzzzz;
 
   // Connect sawtooth module
-  sawtooth
-    #(
+  sawtooth #(
     .CTR_BITS(30),
-	 .VAL_BITS(7)
-    ) sawtooth (
+    .VAL_BITS(7) )
+    sawtooth (
     .clk(clk),
     .rst(rst),
     .val(led[7:1])
