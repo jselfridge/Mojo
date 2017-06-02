@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-06-01T13:23:21</DateModified>
+  <DateModified>2017-06-01T20:30:40</DateModified>
   <ModuleName>spi_slave</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
   <SavedFilePath>/home/justin/Documents/FPGA/Sandbox/spi/spi_slave/test/iseconfig/spi_slave.xreport</SavedFilePath>
