@@ -39,46 +39,35 @@ module template
   assign spi_ch = 4'bzzzz;
 
   // Assign LED values
-  assign led = 8'b10000001;
+  assign led = 8'b0;
 
-  // Sawtooth signal generates ESC command
+  // Connect 'sawtooth' module for ESC command
   parameter SAW_BITS = 10;
   wire [SAW_BITS-1:0] sawtooth_sig;
-  sawtooth
-    #(
+  sawtooth #(
     .CTR_BITS(31),
-    .VAL_BITS(SAW_BITS)
-    )
-    sawtooth_esc
-    (
+    .VAL_BITS(SAW_BITS) )
+    sawtooth_esc (
     .clk(clk),
     .rst(rst),
-    .val(sawtooth_sig)
-    );
+    .val(sawtooth_sig) );
 
-  // Establish 1MHz clock
-  wire clk_1M;
-  clock
-    #(
-    .STEP(25),
-    .LEN(5)
-    )
-    clock_1MHz
-    (
+  // Connect 1MHz timer
+  wire tmr_1M;
+  timer #(
+    .PERIOD(50) )
+    timer_1MHz (
     .clk(clk),
     .rst(rst),
-    .clkout(clk_1M)
+    .tmr(tmr_1M)
     );
 
-  // Connect ESC module
-  esc
-    esc_demo
-    (
-    .clk_1M(clk_1M),
+  // Connect 'esc' module
+  esc esc_demo (
+    .clk_1M(tmr_1M),
     .rst(rst),
     .cmd(sawtooth_sig),
-    .esc(esc_out)
-    );
+    .esc(esc_out) );
 
 endmodule
 

@@ -7,21 +7,19 @@
 module esc_tb ();
 
   // Test bench inputs
-  reg clk_1M, rst;
+  reg clk_1M;
+  reg rst;
   reg [9:0] cmd;
 
   // Test bench outputs
   wire esc;
 
-  // Servo module
-  esc
-    DUT
-    (
+  // Connect 'esc' module
+  esc DUT_esc (
     .clk_1M(clk_1M),
     .rst(rst),
     .cmd(cmd),
-    .esc(esc)
-    );
+    .esc(esc) );
 
   // Initial reset, then run clock forever
   initial begin
