@@ -41,30 +41,22 @@ module template
   // Assign LED values
   assign led = radio_val[9:2];
 
-  // Establish 1MHz clock
-  wire clk_1M;
-  clock
-    #(
-    .STEP(25),
-    .LEN(5)
-    )
-    clock_1MHz
-    (
+  // Establish 1MHz timer
+  wire tmr_1M;
+  timer #(
+    .PERIOD(50) )
+    timer_1MHz (
     .clk(clk),
     .rst(rst),
-    .clkout(clk_1M)
-    );
+    .tmr(tmr_1M) );
 
-  // Connect radio module
+  // Connect 'radio' module
   wire [9:0] radio_val;
-  radio
-    radio_demo
-    (
-    .clk_1M(clk_1M),
+  radio radio_demo (
+    .clk_1M(tmr_1M),
     .rst(rst),
-    .radio_in(radio_in),
-    .cmd_out(radio_val)
-  );
+    .sig(radio_in),
+    .val(radio_val) );
 
 endmodule
 
