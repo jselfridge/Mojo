@@ -33,7 +33,7 @@ module template
   // Swicth reset button
   wire rst = ~rst_n;
 
-  // Sawtooth signal wire
+  // Define 'sawtooth' signal
   wire [7:0] sawtooth_sig;
 
   // These signals should be disconnected when not used
@@ -42,30 +42,24 @@ module template
   assign spi_ch = 4'bzzzz;
 
   // Assign LED values
-  assign led = 8'b00111100;
+  assign led = 8'b0;
 
-  // Connect sawtooth counter
-  sawtooth
-    #(
+  // Connect 'sawtooth' module
+  sawtooth #(
     .CTR_BITS(27),
-    .VAL_BITS(8)
-    )
-    sawtooth_servo
-    (
+    .VAL_BITS(8) )
+    sawtooth_servo (
     .clk(clk),
     .rst(rst),
     .val(sawtooth_sig)
     );
 
-  // Connect servo module
-  servo
-    servo_demo
-    (
+  // Connect 'servo' module
+  servo servo_demo (
     .clk(clk),
     .rst(rst),
     .val(sawtooth_sig),
-    .servo(servo_out)
-    );
+    .servo(servo_out) );
 
 endmodule
 

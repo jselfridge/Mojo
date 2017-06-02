@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-05-18T10:55:34</DateModified>
+  <DateModified>2017-06-02T11:53:44</DateModified>
   <ModuleName>template</ModuleName>
   <SummaryTimeStamp>2017-05-17T21:02:12</SummaryTimeStamp>
-  <SavedFilePath>/home/justin/Documents/FPGA/Util/servo/demo/iseconfig/template.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Util/servo/demo/syn/</ImplementationReportsDirectory>
+  <SavedFilePath>/home/justin/Documents/FPGA/Sandbox/pwm/servo/demo/iseconfig/template.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Sandbox/pwm/servo/demo/syn/</ImplementationReportsDirectory>
   <DateInitialized>2017-05-17T12:17:10</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

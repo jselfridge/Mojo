@@ -7,26 +7,25 @@
 module servo_tb ();
 
   // Test bench inputs
-  reg clk, rst;
+  reg clk;
+  reg rst;
   reg [7:0] val;
 
   // Test bench outputs
   wire servo;
 
-  // Servo module
-  servo DUT
-    (
+  // Connect 'servo' module
+  servo DUT_servo (
     .clk(clk),
     .rst(rst),
     .val(val),
-    .servo(servo)
-    );
+    .servo(servo) );
 
   // Initial reset, then run clock forever
   initial begin
-    clk = 1'b0;
+    clk = 1'b1;
     rst = 1'b1;
-    repeat(4) #10 clk = ~clk;
+    repeat(10) #10 clk = ~clk;
     rst = 1'b0;
     forever #10 clk = ~clk;
   end

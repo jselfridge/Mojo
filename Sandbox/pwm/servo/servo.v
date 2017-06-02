@@ -16,15 +16,22 @@ module servo
   output servo
   );
 
+  // Output register
   reg servo_d, servo_q;
+
+  // Internal register
   reg [19:0] ctr_d, ctr_q;
 
+  // Connect output signal
   assign servo = servo_q;
 
+  // Combinational logic
   always @(*) begin
 
+    // Increment counter
     ctr_d = ctr_q + 1'b1;
 
+    // Determine output status
     if ( val + 9'd167 > ctr_q[19:8] )
       servo_d = 1'b1;
     else
@@ -32,6 +39,7 @@ module servo
 
   end
 
+  // Synchronous logic
   always @( posedge clk ) begin
 
     if (rst) begin
