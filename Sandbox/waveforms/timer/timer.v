@@ -1,56 +1,61 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// clock.v
-// Generates a pulse at a specified frequency.
+// timer.v
+// Generates a pulse at a specified period.
 // Defaults to a one second period duration.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module clock
+module timer
   #(
-  parameter DUR = 50000000
+  parameter PERIOD = 50000000
   )(
   input clk,
   input rst,
-  output clkout
+  output tmr
   );
 
   // Determine number of bits needed
-  parameter DUR_BITS = $clog2(DUR);
+  parameter PERIOD_BITS = $clog2(PERIOD);
 
   // Output registers
-  reg clkout_d, clkout_q;
+  reg tmr_d, tmr_q;
 
   // Internal registers
-  reg [DUR_BITS-1:0] ctr_d, ctr_q;
+  reg [PERIOD_BITS-1:0] ctr_d, ctr_q;
 
   // Connect output signal
-  assign clkout = clkout_q;
+  assign tmr = tmr_q;
 
   // Combinational logic
   always @(*) begin
 
+    // Increment counter
     ctr_d = ctr_q + 1'b1;
-    clkout_d = clkout_q;
 
-    if (clkout_q)
-      clkout_d = 1'b0;
+    // Preliminary assignments
+    tmr_d = tmr_q;
 
-    if ( ctr_q == DUR-1 ) begin
+    // If high, set it to low
+    if (tmr_q)
+      tmr_d = 1'b0;
+
+    // Reset counter and flip output
+    if ( ctr_q == PERIOD-1 ) begin
       ctr_d = 1'b0;
-      clkout_d = 1'b1;
+      tmr_d = 1'b1;
     end
 
   end
 
-  // Sequential logic
+  // Synchronous logic
   always @( posedge clk ) begin
 
     if (rst) begin
-      clkout_q  <= 1'b1;
-      ctr_q     <= 1'b0;
+      tmr_q  <= 1'b0;
+      ctr_q  <= 1'b0;
     end else begin
-      clkout_q  <= clkout_d;
-      ctr_q     <= ctr_d;
+      tmr_q  <= tmr_d;
+      ctr_q  <= ctr_d;
     end
 
   end

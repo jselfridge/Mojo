@@ -1,7 +1,7 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// template.v
-// Demonstrate the 'clock' module on hardware.
+// template.v (timer demo)
+// Demonstrate the 'timer' module on hardware.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 module template
@@ -30,15 +30,15 @@ module template
   // Swicth reset button
   wire rst = ~rst_n;
 
-  // Clock signals
-  wire clkout_1hz;
-  wire clkout_2hz;
-  wire clkout_5hz;
+  // Timer signals
+  wire tmr_1hz;
+  wire tmr_2hz;
+  wire tmr_4hz;
 
   // LED output registers
   reg reg_1hz;
   reg reg_2hz;
-  reg reg_5hz;
+  reg reg_4hz;
 
   // These signals should be disconnected when not used
   assign spi_miso = 1'bz;
@@ -46,50 +46,52 @@ module template
   assign spi_ch = 4'bzzzz;
 
   // Assign LED values
-  assign led[0] = reg_1hz;
-  assign led[1] = reg_2hz;
-  assign led[2] = reg_5hz;
-  assign led[7:3] = 5'b0;
+  assign led[7] = reg_1hz;
+  assign led[6] = reg_2hz;
+  assign led[5] = reg_4hz;
+  assign led[4:0] = 5'b0;
 
-  // Clock parameters
+  // Period durations
   parameter
   CYCLES = 50000000,
-  DUR_2HZ = CYCLES / 2,
-  DUR_5HZ = CYCLES / 5;
+  PERIOD_2HZ = CYCLES / 2,
+  PERIOD_4HZ = CYCLES / 4;
 
-  // Add 1HZ clock module
-  clock
-    clock_1hz (
+  // Add 1HZ timer module
+  timer timer_1hz (
     .clk(clk),
     .rst(rst),
-    .clkout(clkout_1hz) );
+    .tmr(tmr_1hz) );
 
-  // Add 2HZ clock module
-  clock #(
-    .DUR(DUR_2HZ) )
-    clock_2hz (
+  // Add 2HZ timer module
+  timer #(
+    .PERIOD(PERIOD_2HZ) )
+    timer_2hz (
     .clk(clk),
     .rst(rst),
-    .clkout(clkout_2hz) );
+    .tmr(tmr_2hz) );
 
-  // Add 5HZ clock module
-  clock #(
-    .DUR(DUR_5HZ) )
-    clock_5hz (
+  // Add 4HZ timer module
+  timer #(
+    .PERIOD(PERIOD_4HZ) )
+    timer_4hz (
     .clk(clk),
     .rst(rst),
-    .clkout(clkout_5hz) );
+    .tmr(tmr_4hz) );
 
-  always @( posedge clkout_1hz ) begin
+  // Update 1hz register
+  always @( posedge tmr_1hz ) begin
     reg_1hz = ~reg_1hz;
   end
 
-  always @( posedge clkout_2hz ) begin
+  // Update 2hz register
+  always @( posedge tmr_2hz ) begin
     reg_2hz = ~reg_2hz;
   end
 
-  always @( posedge clkout_5hz ) begin
-    reg_5hz = ~reg_5hz;
+  // Update 4hz register
+  always @( posedge tmr_4hz ) begin
+    reg_4hz = ~reg_4hz;
   end
 
 endmodule

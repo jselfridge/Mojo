@@ -1,0 +1,25 @@
+Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -lib unisims_ver -lib unimacro_ver -lib xilinxcorelib_ver -lib secureip -o /home/justin/Documents/FPGA/Sandbox/waveforms/timer/test/timer_tb_isim_beh.exe -prj /home/justin/Documents/FPGA/Sandbox/waveforms/timer/test/timer_tb_beh.prj work.timer_tb work.glbl 
+ISim P.20131013 (signature 0xfbc00daa)
+Number of CPUs detected in this system: 2
+Turning on mult-threading, number of parallel sub-compilation jobs: 4 
+Determining compilation order of HDL files
+Analyzing Verilog file "/home/justin/Documents/FPGA/Sandbox/waveforms/timer/test/../timer.v" into library work
+WARNING:HDLCompiler:693 - "/home/justin/Documents/FPGA/Sandbox/waveforms/timer/test/../timer.v" Line 18: Parameter declaration becomes local in timer with formal parameter declaration list
+Analyzing Verilog file "/home/justin/Documents/FPGA/Sandbox/waveforms/timer/test/../timer_tb.v" into library work
+Analyzing Verilog file "/opt/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v" into library work
+Starting static elaboration
+Completed static elaboration
+Fuse Memory Usage: 94704 KB
+Fuse CPU Usage: 1730 ms
+Compiling module timer(PERIOD=10)
+Compiling module timer(PERIOD=50)
+Compiling module timer(PERIOD=12500)
+Compiling module timer_tb
+Compiling module glbl
+Time Resolution for simulation is 1ps.
+Waiting for 2 sub-compilation(s) to finish...
+Compiled 5 Verilog Units
+Built simulation executable /home/justin/Documents/FPGA/Sandbox/waveforms/timer/test/timer_tb_isim_beh.exe
+Fuse Memory Usage: 392732 KB
+Fuse CPU Usage: 1750 ms
+GCC CPU Usage: 590 ms

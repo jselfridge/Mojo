@@ -1,59 +1,50 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// clock_tb.v
-// Test bench for the ‘clock’ module.
+// timer_tb.v
+// Test bench for the ‘timer’ module.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module clock_tb ();
+module timer_tb ();
 
   // Testbench inputs
   reg clk;
   reg rst;
 
   // Testbench outputs
-  wire clkout_5M;
-  wire clkout_1M;
-  wire clkout_4k;
+  wire tmr_5M;
+  wire tmr_1M;
+  wire tmr_4k;
 
-  // Common timing factor
+  // Determine period duration
   parameter
-  CYCLES = 50000000;
+  CYCLES = 50000000,
+  PERIOD_5M = CYCLES / 5000000,
+  PERIOD_1M = CYCLES / 1000000,
+  PERIOD_4k = CYCLES / 4000;
 
-  // Determine period suration
-  parameter
-  DUR_5M  = CYCLES / 5000000,
-  DUR_1M  = CYCLES / 1000000,
-  DUR_4k  = CYCLES / 4000;
-
-  // 5MHz Clock
-  clock
-    #(
-    .DUR(DUR_5M)
-    ) DUT_5M (
+  // 5MHz Timer
+  timer #(
+    .PERIOD(PERIOD_5M) )
+    DUT_5M (
     .clk(clk),
     .rst(rst),
-    .clkout(clkout_5M)
-    );
+    .tmr(tmr_5M) );
 
-  // 1MHz Clock
-  clock
-    #(
-    .DUR(DUR_1M)
-    ) DUT_1M (
+  // 1MHz Timer
+  timer #(
+    .PERIOD(PERIOD_1M) )
+    DUT_1M (
     .clk(clk),
     .rst(rst),
-    .clkout(clkout_1M)
-    );
+    .tmr(tmr_1M) );
 
-  // 4kHz Clock
-  clock
-    #(
-    .DUR(DUR_4k)
-    ) DUT_4k (
+  // 4kHz Timer
+  timer #(
+    .PERIOD(PERIOD_4k) )
+    DUT_4k (
     .clk(clk),
     .rst(rst),
-    .clkout(clkout_4k)
-    );
+    .tmr(tmr_4k) );
 
   // Run simulation
   initial begin
