@@ -1,44 +1,38 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// pwm_tb.v
-// Test bench for the 'pwm' module.
+// dutycycle_tb.v
+// Test bench for the 'dutycycle' module.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module pwm_tb ();
+module dutycycle_tb ();
 
   // Testbench inputs
-  reg clk, rst;
+  reg clk;
+  reg rst;
   reg [7:0] val;
 
   // Testbench outputs
-  wire pwm;
+  wire sig;
 
-  // PWM signal generator
-  pwm
-    #(
-    .LEN(8)
-    ) DUT (
+  // Connect 'dutycycle' module
+  dutycycle #(
+    .CTR(8) )
+    DUT_dutycycle (
     .clk(clk),
     .rst(rst),
     .val(val),
-    .pwm(pwm)
-  );
+    .sig(sig) );
 
   // Initial reset, then run clock forever
   initial begin
-
-    clk = 1'b0;
+    clk = 1'b1;
     rst = 1'b1;
-
-    repeat(4) #10 clk = ~clk;
-
+    repeat(10) #10 clk = ~clk;
     rst = 1'b0;
-
     forever #10 clk = ~clk;
-
   end
 
-  // Assign test stimulus at certain points
+  // Assign test stimulus
   initial begin
 
     val = 8'd0;                   // Initial value

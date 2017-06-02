@@ -1,37 +1,45 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// pwm.v
-// Generates a PWM signal.
-// Frequency is determinded by: 50,000,000 / 2^LEN
+// dutycycle.v
+// Generates a PWM duty cycle signal.
+// Frequency is determinded by: 50,000,000 / 2^CTR
 // Duty cycle is determined by: val / ctr
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module pwm
+module dutycycle
   #(
-  parameter LEN = 8
+  parameter CTR = 8
   )(
   input clk,
   input rst,
-  input [LEN-1:0] val,
-  output pwm
+  input [CTR-1:0] val,
+  output sig
   );
 
-  reg pwm_d, pwm_q;
-  reg [LEN-1:0] ctr_d, ctr_q;
+  // Output register
+  reg sig_d, sig_q;
 
-  assign pwm = pwm_q;
+  // Internal register
+  reg [CTR-1:0] ctr_d, ctr_q;
 
+  // Connect output
+  assign sig = sig_q;
+
+  // Combinational logic
   always @(*) begin
 
+    // Increment counter
     ctr_d = ctr_q + 1'b1;
 
+    // Determine output status
     if ( val > ctr_q )
-      pwm_d = 1'b1;
+      sig_d = 1'b1;
     else
-      pwm_d = 1'b0;
+      sig_d = 1'b0;
 
   end
 
+  // Synchronous logic
   always @( posedge clk ) begin
 
     if (rst) begin
@@ -40,7 +48,7 @@ module pwm
       ctr_q <= ctr_d;
     end
 
-    pwm_q <= pwm_d;
+    sig_q <= sig_d;
 
   end
 

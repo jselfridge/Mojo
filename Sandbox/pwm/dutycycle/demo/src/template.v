@@ -1,7 +1,7 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// template.v (pwm demo)
-// Demonstrate the 'pwm' module on hardware.
+// template.v (dutycycle demo)
+// Demonstrate the 'dutycycle' module on hardware.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 module template
@@ -35,18 +35,17 @@ module template
   assign avr_rx = 1'bz;
   assign spi_ch = 4'bzzzz;
 
-  // Connect PWM modules
+  // Connect 'dutycycle' modules
   genvar i;
   generate
-    for ( i=0; i<8; i=i+1 ) begin: pwm_loop
-    pwm
-      #(
-      .LEN(3)
-      ) pwm (
+    for ( i=0; i<8; i=i+1 ) begin: dutycycle_loop
+    dutycycle #(
+      .CTR(3) )
+      dutycycles (
       .clk(clk),
       .rst(rst),
       .val(i),
-      .pwm(led[i])
+      .sig(led[i])
       );
     end 
   endgenerate
