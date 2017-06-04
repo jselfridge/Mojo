@@ -1,0 +1,5 @@
+Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -relaunch -intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "/home/justin/Documents/FPGA/Sandbox/bin2bcd/test/bin2bcd_tb_isim_beh.exe" -prj "/home/justin/Documents/FPGA/Sandbox/bin2bcd/test/bin2bcd_tb_beh.prj" "work.bin2bcd_tb" "work.glbl" 
+ISim P.20131013 (signature 0xfbc00daa)
+Number of CPUs detected in this system: 2
+Turning on mult-threading, number of parallel sub-compilation jobs: 4 
+ERROR:Simulator:796 - Unable to open project file "/home/justin/Documents/FPGA/Sandbox/bin2bcd/test/bin2bcd_tb_beh.prj"

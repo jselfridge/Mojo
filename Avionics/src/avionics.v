@@ -39,7 +39,7 @@ module avionics
   assign spi_ch = 4'bzzzz;
 
   // Assign LED values
-  assign led = 8'b11000011;
+  assign led = 8'b0;
 
   // Registers
   reg [13:0] debug_ctr_d, debug_ctr_q;
@@ -47,14 +47,12 @@ module avionics
 
   // Serial debug clock
   wire clk_debug;
-  clock
-    #(
+  clock #(
     .STEP(5000000)
     ) clock_debug (
     .clk(clk),
     .rst(rst),
-    .clkout(clk_debug)
-    );
+    .clkout(clk_debug) );
 
   // Time stamp: binary to bcd
   wire [(14*4)-1:0] debug_bcd;
