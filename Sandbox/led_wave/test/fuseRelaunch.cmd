@@ -1,1 +1,0 @@
--intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "/home/justin/Documents/FPGA/Sandbox/led_wave/test/led_wave_tb_isim_beh.exe" -prj "/home/justin/Documents/FPGA/Sandbox/led_wave/test/led_wave_tb_beh.prj" "work.led_wave_tb" "work.glbl" 
