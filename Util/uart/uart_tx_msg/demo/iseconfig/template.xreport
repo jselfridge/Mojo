@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-06-06T10:23:54</DateModified>
+  <DateModified>2017-06-06T10:25:08</DateModified>
   <ModuleName>template</ModuleName>
-  <SummaryTimeStamp>2017-06-05T08:27:12</SummaryTimeStamp>
-  <SavedFilePath>/home/justin/Documents/FPGA/Util/uart/uart_tx_byte/demo/iseconfig/template.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Util/uart/uart_tx_byte/demo/syn/</ImplementationReportsDirectory>
+  <SummaryTimeStamp>2017-06-06T10:20:27</SummaryTimeStamp>
+  <SavedFilePath>/home/justin/Documents/FPGA/Util/uart/uart_tx_msg/demo/iseconfig/template.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Util/uart/uart_tx_msg/demo/syn/</ImplementationReportsDirectory>
   <DateInitialized>2017-05-17T12:17:10</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

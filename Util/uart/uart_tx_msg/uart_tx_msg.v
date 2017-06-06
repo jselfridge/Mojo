@@ -1,26 +1,28 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// uart_tx_byte.v
-// Module transmits a single byte of UART serial data.
+// uart_tx_msg.v
+// Module transmits a serial message over a UART channel.
 // Baud rates:
 //   115,200 => 434
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module uart_tx_byte
+module uart_tx_msg
   #(
-  parameter CLK_PER_BIT = 50
+  parameter CLK_PER_BIT = 50,
+  parameter MSG_LEN = 512
   )(
   input clk,
   input rst,
   input block,
   input send,
-  input [7:0] data,
+  input [(8*MSG_LEN)-1:0] msg,
   output busy,
   output tx
   );
 
   // Determine number of bits needed
   parameter CTR_BITS = $clog2(CLK_PER_BIT);
+  parameter MSG_BITS = $clog2(MSG_LEN);
 
   // Declare module states
   localparam STATE_BITS = 2;
@@ -31,13 +33,15 @@ module uart_tx_byte
     STOP_BIT   = 2'd3;
 
   // Input/Output registers
-  reg [7:0] data_d, data_q;
+  reg [(8*MSG_LEN)-1:0] data_d, data_q;
   reg busy_d, busy_q;
   reg tx_d, tx_q;
 
   // Internal registers
   reg [CTR_BITS-1:0] ctr_d, ctr_q;
   reg [2:0] bit_ctr_d, bit_ctr_q;
+  reg [MSG_BITS-1:0] msg_ctr_d, msg_ctr_q;
+  reg [7:0] byte_d, byte_q;
   reg [STATE_BITS-1:0] state_d, state_q = IDLE;
 
   // Connect output signals
@@ -48,10 +52,11 @@ module uart_tx_byte
   always @(*) begin
 
     // Preallocate registers
-    data_d     = data_q;
     busy_d     = busy_q;
     ctr_d      = ctr_q;
     bit_ctr_d  = bit_ctr_q;
+    msg_ctr_d  = msg_ctr_q;
+    byte_d     = byte_q;
     state_d    = state_q;
 
     // State machine
@@ -75,10 +80,11 @@ module uart_tx_byte
           busy_d = 1'b0;
           bit_ctr_d = 3'b0;
           ctr_d = 1'b0;
+          msg_ctr_d = 1'b0;
 
           // Send flag detected
           if (send) begin
-            data_d = data;
+            data_d = msg;
             busy_d = 1'b1;
             state_d = START_BIT;
           end
@@ -99,6 +105,9 @@ module uart_tx_byte
         // Increment counter
         ctr_d = ctr_q + 1'b1;
 
+        // Assign byte from input data
+        byte_d = data_q >> ( MSG_LEN - msg_ctr_q - 1) * 8;
+
         // Completed start bit
         if ( ctr_q == CLK_PER_BIT - 1 ) begin
           ctr_d = 1'b0;
@@ -114,7 +123,7 @@ module uart_tx_byte
         busy_d = 1'b1;
 
         // Send current TX bit
-        tx_d = data_q[bit_ctr_q];
+        tx_d = byte_q[bit_ctr_q];
 
         // Increment the counter
         ctr_d = ctr_q + 1'b1;
@@ -128,7 +137,7 @@ module uart_tx_byte
           // Increment bit counter
           bit_ctr_d = bit_ctr_q + 1'b1;
 
-          // Completed transmitting last bit  
+          // Completed transmitting last bit
           if ( bit_ctr_q == 7 ) begin
             state_d = STOP_BIT;
           end
@@ -151,7 +160,20 @@ module uart_tx_byte
 
         // Completed stop bit
         if ( ctr_q == CLK_PER_BIT - 1 ) begin
-          state_d = IDLE;
+
+          // Increment message counter
+          msg_ctr_d = msg_ctr_q + 1'b1;
+
+          // Go idle if end of message
+          if ( msg_ctr_q == MSG_LEN - 1 ) begin
+            state_d = IDLE;
+          end
+
+          // Return to start bit o/w
+          else begin
+            state_d = START_BIT;
+          end
+
         end
 
       end
@@ -182,6 +204,8 @@ module uart_tx_byte
     busy_q     <= busy_d;
     ctr_q      <= ctr_d;
     bit_ctr_q  <= bit_ctr_d;
+    msg_ctr_q  <= msg_ctr_d;
+    byte_q     <= byte_d;
 
   end
 
