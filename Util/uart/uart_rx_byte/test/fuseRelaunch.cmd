@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "/home/justin/Documents/FPGA/Util/uart/uart_rx_byte/test/uart_rx_byte_tb_isim_beh.exe" -prj "/home/justin/Documents/FPGA/Util/uart/uart_rx_byte/test/uart_rx_byte_tb_beh.prj" "work.uart_rx_byte_tb" "work.glbl" 
