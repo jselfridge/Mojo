@@ -20,59 +20,117 @@ module avionics
   output spi_miso,
   output [3:0] spi_ch,
 
-  // Serial connections
+  // AVR serial connections
   input avr_tx,
-  output avr_rx,
   input avr_rx_busy,
-
-  // Serial debugging pin
-  output debug_tx
+  output avr_rx
 
   );
 
   // Swicth reset button
   wire rst = ~rst_n;
 
-  // These signals should be disconnected when not used
-  assign spi_miso = 1'bz;
-  assign avr_rx = 1'bz;
-  assign spi_ch = 4'bzzzz;
-
   // Assign LED values
-  assign led = 8'b0;
+  assign led = 8'b01100110;
 
-  // Registers
-  reg [13:0] debug_ctr_d, debug_ctr_q;
-  reg [(10*8)-1:0] debug_msg_d, debug_msg_q;
+  // Connections for 'avr_interface' module
+  wire [7:0] tx_data;
+  wire new_tx_data;
+  wire tx_busy;
+  wire [7:0] rx_data;
+  wire new_rx_data;
 
-  // Serial debug clock
-  wire clk_debug;
-  clock #(
-    .STEP(5000000)
-    ) clock_debug (
+  // Disconnected wires for 'avr_interface' module
+  (* keep="soft" *) wire new_sample_z;
+  (* keep="soft" *) wire [9:0] sample_z;
+  (* keep="soft" *) wire [3:0] sample_channel_z;
+
+  // Connect 'avr_interface' module
+  avr_interface avr_mod (
     .clk(clk),
     .rst(rst),
-    .clkout(clk_debug) );
+    .cclk(cclk),
+    .spi_sck(spi_sck),
+    .spi_ss(spi_ss),
+    .spi_mosi(spi_mosi),
+    .spi_miso(spi_miso),
+    .spi_ch(spi_ch),
+    .rx(avr_tx),
+    .tx(avr_rx),
+    .channel(4'd15),
+    .new_sample(new_sample_z),
+    .sample(sample_z),
+    .sample_channel(sample_channel_z),
+    .tx_data(tx_data),
+    .new_tx_data(new_tx_data),
+    .tx_block(avr_rx_busy),
+    .tx_busy(tx_busy),
+    .rx_data(rx_data),
+    .new_rx_data(new_rx_data) );
 
-  // Time stamp: binary to bcd
-  wire [(14*4)-1:0] debug_bcd;
-  bin2bcd
-    #(
-    .LEN(14)
-    ) timestamp_bin2bcd (
-    .bin(debug_ctr_q),
-    .bcd(debug_bcd)
-  );
+  // Connect 'debugging' module 
+  debugging debug_mod (
+    .clk(clk),
+    .rst(rst),
+    .tmr(tmr_10hz),
+    .tx_data(tx_data),
+    .new_tx_data(new_tx_data),
+    .tx_busy(tx_busy),
+    .rx_data(rx_data),
+    .new_rx_data(new_rx_data) );
 
-  // Time stamp: bcd to ascii
-  wire [(5*8)-1:0] debug_ascii;
-  bcd2ascii
-    #(
-    .CHAR_LEN(5)
-    ) timestamp_bcd2ascii (
-    .bcd(debug_bcd),
-    .ascii(debug_ascii)
-    );
+  // Connect 'timers' module
+  timers timers_mod (
+    .clk(clk),
+    .rst(rst),
+    .tmr_1khz(tmr_1khz),
+    .tmr_10hz(tmr_10hz) );
+
+/*  // Timestamp: Define parameters
+  localparam TIMESTAMP_BIN_BITS = 24;
+  localparam TIMESTAMP_BCD_BITS = 31;
+  localparam TIMESTAMP_CHAR_LEN = 8;
+  localparam TIMESTAMP_ASCII_BITS = 64;
+*/
+  // Timestamp: Define registers
+  //reg [ TIMESTAMP_BIN_BITS-1 : 0 ] timestamp_bin_d, timestamp_bin_q;
+
+/*  // Timestamp: Convert binary to bcd
+  wire [ TIMESTAMP_BCD_BITS-1 : 0 ] timestamp_bcd;
+  bin2bcd #(
+    .BITS(TIMESTAMP_BIN_BITS) )
+    bin2bcd_timestamp (
+    .bin(timestamp_bin_q),
+    .bcd(timestamp_bcd) );
+*/
+/*  // Timestamp: Convert bcd to ascii
+  wire [ TIMESTAMP_ASCII_BITS-1 : 0 ] timestamp_ascii;
+  bcd2ascii #(
+    .CHAR_LEN(TIMESTAMP_CHAR_LEN) )
+    bcd2ascii_timestamp (
+    .bcd({1'b0,timestamp_bcd}),
+    .ascii(timestamp_ascii) );
+*/
+/*  // Combinational logic
+  always @(*) begin
+    timestamp_bin_d = timestamp_bin_q + 1'b1;
+  end
+*/
+/*  // Refresh timestamp register
+  always @( posedge tmr_1khz ) begin
+    if (rst) begin
+      timestamp_bin_q <= { TIMESTAMP_BIN_BITS {1'b0} };
+    end else begin
+      timestamp_bin_q <= timestamp_bin_d;
+    end
+  end
+*/
+endmodule
+
+
+
+
+/*
 
   // Serial debug module
   wire debug_busy;
@@ -105,20 +163,8 @@ module avionics
 
   end
 
-  always @( posedge clk_debug) begin
+*/
 
-    if (rst) begin
-      debug_ctr_q <= 1'b0;
-      debug_msg_q <= "         \r";
-    end else begin
-      debug_ctr_q <= debug_ctr_d;
-      debug_msg_q <= debug_msg_d;
-    end
-
-
-  end
-
-endmodule
 
 
 

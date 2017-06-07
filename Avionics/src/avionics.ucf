@@ -26,13 +26,10 @@ NET "spi_ch<1>"    LOC = P61  | IOSTANDARD = LVTTL;
 NET "spi_ch<2>"    LOC = P62  | IOSTANDARD = LVTTL;
 NET "spi_ch<3>"    LOC = P65  | IOSTANDARD = LVTTL;
 
-# Serail pins
+# Serial pins
 NET "avr_tx"       LOC = P55  | IOSTANDARD = LVTTL;
 NET "avr_rx"       LOC = P59  | IOSTANDARD = LVTTL;
 NET "avr_rx_busy"  LOC = P39  | IOSTANDARD = LVTTL;
-
-# Serial_debug pin
-NET "debug_tx"     LOC = P50  | IOSTANDARD = LVTTL;
 
 
 

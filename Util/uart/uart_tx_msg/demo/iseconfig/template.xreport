@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-06-06T10:25:08</DateModified>
+  <DateModified>2017-06-06T15:00:44</DateModified>
   <ModuleName>template</ModuleName>
   <SummaryTimeStamp>2017-06-06T10:20:27</SummaryTimeStamp>
   <SavedFilePath>/home/justin/Documents/FPGA/Util/uart/uart_tx_msg/demo/iseconfig/template.xreport</SavedFilePath>

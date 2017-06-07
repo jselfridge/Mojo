@@ -32,13 +32,13 @@ module avr_interface
   output [9:0] sample,
   output [3:0] sample_channel,
 
-  // Serial Tx interface
+  // Serial TX interface
   input [7:0] tx_data,
   input new_tx_data,
   input tx_block,
   output tx_busy,
 
-  // Serial Rx interface
+  // Serial RX interface
   output [7:0] rx_data,
   output new_rx_data
 
@@ -59,19 +59,17 @@ module avr_interface
   reg [3:0] block_d, block_q;
   reg busy_d, busy_q;
 
-  avr_status
-    #(
-    .CLK_RATE(CLK_RATE)
-    ) avr_status (
+  // Connect 'avr_status' module
+  avr_status #(
+    .CLK_RATE(CLK_RATE) )
+    avr_status (
     .clk(clk),
     .rst(rst),
     .cclk(cclk),
-    .ready(ready)
-    );
+    .ready(ready) );
 
-  avr_spi
-    avr_spi
-    (
+  // Connect 'avr_spi' module 
+  avr_spi avr_spi (
     .clk(clk),
     .rst(n_rdy),
     .ss(spi_ss),
@@ -80,34 +78,31 @@ module avr_interface
     .sck(spi_sck),
     .done(spi_done),
     .din(8'hff),
-    .dout(spi_dout)
-    );
+    .dout(spi_dout) );
 
   parameter CLK_PER_BIT = $rtoi( $ceil( CLK_RATE / SERIAL_BAUD_RATE ) );
 
-  avr_rx
-    #(
-    .CLK_PER_BIT(CLK_PER_BIT)
-    ) avr_rx (
+  // Connect 'avr_rx' module
+  avr_rx #(
+    .CLK_PER_BIT(CLK_PER_BIT) )
+    avr_rx (
     .clk(clk),
     .rst(n_rdy),
     .rx(rx),
     .data(rx_data),
-    .new_data(new_rx_data)
-    );
+    .new_data(new_rx_data) );
 
-  avr_tx
-    #(
-    .CLK_PER_BIT(CLK_PER_BIT)
-    ) avr_tx (
+  // Connect 'avr_tx' module 
+  avr_tx #(
+    .CLK_PER_BIT(CLK_PER_BIT) )
+    avr_tx (
     .clk(clk),
     .rst(n_rdy),
     .tx(tx_m),
     .block(busy_q),
     .busy(tx_busy),
     .data(tx_data),
-    .new_data(new_tx_data)
-    );
+    .new_data(new_tx_data) );
 
   // Output declarations
   assign new_sample = new_sample_q;
@@ -119,6 +114,7 @@ module avr_interface
   assign spi_miso = ready && !spi_ss ? spi_miso_m : 1'bZ;
   assign tx = ready ? tx_m : 1'bZ;
   
+  // Combinational logic
   always @(*) begin
 
     byte_ct_d = byte_ct_q;
@@ -154,6 +150,7 @@ module avr_interface
 
   end
 
+  // Synchronous logic
   always @( posedge clk ) begin
 
     if (n_rdy) begin
