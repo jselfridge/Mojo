@@ -1,0 +1,29 @@
+Command line:
+   VEC_ARR_2D_tb_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  39017
+
+Wed Jun  7 10:48:08 2017
+
+
+ Elaboration Time: 0.04 sec
+
+ Current Memory Usage: 196.256 Meg
+
+ Total Signals          : 14
+ Total Nets             : 37
+ Total Signal Drivers   : 8
+ Total Blocks           : 2
+ Total Primitive Blocks : 2
+ Total Processes        : 10
+ Total Traceable Variables  : 19
+ Total Scalar Nets and Variables : 141
+Total Line Count : 21
+
+ Total Simulation Time: 0.05 sec
+
+ Current Memory Usage: 271.757 Meg
+
+Wed Jun  7 10:48:31 2017
+

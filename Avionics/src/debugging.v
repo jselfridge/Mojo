@@ -26,10 +26,9 @@ module debugging (
   reg [3:0] addr_d, addr_q;
  
   message_rom message_rom (
-  .clk(clk),
-  .addr(addr_q),
-  .data(tx_data)
-  );
+    .clk(clk),
+    .addr(addr_q),
+    .data(tx_data) );
  
   always @(*) begin
 
