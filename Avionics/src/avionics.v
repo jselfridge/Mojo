@@ -30,9 +30,115 @@ module avionics
   // Swicth reset button
   wire rst = ~rst_n;
 
-  // Assign LED values
-  assign led = 8'b01100110;
+  assign spi_miso = 1'bz;
+  assign avr_rx = 1'bz;
+  assign spi_ch = 4'bzzzz;
 
+  // Assign LED values
+  assign led = led_q;
+
+
+  // Avionics board states
+  localparam
+    STATE_BOARD_BITS = 2,
+    BOARD_IDLE      = 2'd0,
+    BOARD_STARTUP   = 2'd1,
+    BOARD_RUNNING   = 2'd2,
+    BOARD_SHUTDOWN  = 2'd3;
+
+  // Registers
+  reg [STATE_BOARD_BITS-1:0] state_board_d, state_board_q = BOARD_IDLE;
+  reg [7:0] led_d, led_q;
+
+
+  // Combinational logic
+  always @(*) begin
+
+    state_board_d = state_board_q;
+    led_d = led_q;
+
+    // State machine: avionics board
+    case (state_board_q)
+
+      // Wait for user command
+      BOARD_IDLE: begin
+        led_d = {8{1'b0}};
+        if (rst) begin
+          state_board_d = BOARD_STARTUP;
+        end
+      end
+
+      // Implement start up processes
+      BOARD_STARTUP: begin
+        // Add conditions here
+        state_board_d = BOARD_RUNNING;
+      end
+
+      // Normal operation until shutdown
+      BOARD_RUNNING: begin
+        led_d = {8{1'b1}};
+        if (rst) begin
+          state_board_d = BOARD_SHUTDOWN;
+        end
+      end
+
+      // Implement shutdown processes
+      BOARD_SHUTDOWN: begin
+        // Add conditions here
+        state_board_d = BOARD_IDLE;
+      end
+
+      // Default to idle
+      default: begin
+        state_board_d = BOARD_IDLE;
+      end
+
+    endcase
+
+  end
+
+  // Synchronous clk logic
+  always @( posedge clk ) begin
+    //if (rst) begin
+      //state_board_q <= BOARD_IDLE;
+    //end else begin
+      //state_board_q <= state_board_d;
+    //end
+
+    state_board_q <= state_board_d;
+    led_q <= led_d;
+
+  end
+
+
+endmodule
+
+
+
+
+
+/*
+  // Timestamp: Define parameters
+  localparam TIMESTAMP_BIN_BITS = 24;
+  localparam TIMESTAMP_BCD_BITS = 31;
+  localparam TIMESTAMP_CHAR_LEN = 8;
+  localparam TIMESTAMP_ASCII_BITS = 64;
+*/
+/*
+  // Timestamp: Define registers
+  wire [23:0] timestamp;
+  assign timestamp = timestamp_q;
+  reg [23:0] timestamp_d, timestamp_q;
+*/
+/*
+  // Connect 'timers' module
+  timers timers_mod (
+    .clk(clk),
+    .rst(rst),
+    .tmr_1khz(tmr_1khz),
+    .tmr_10hz(tmr_10hz) );
+*/
+/*
   // Connections for 'avr_interface' module
   wire [7:0] tx_data;
   wire new_tx_data;
@@ -73,65 +179,33 @@ module avionics
     .clk(clk),
     .rst(rst),
     .tmr(tmr_10hz),
+    .timestamp(timestamp),
     .tx_data(tx_data),
     .new_tx_data(new_tx_data),
     .tx_busy(tx_busy),
     .rx_data(rx_data),
     .new_rx_data(new_rx_data) );
+*/
 
-  // Connect 'timers' module
-  timers timers_mod (
-    .clk(clk),
-    .rst(rst),
-    .tmr_1khz(tmr_1khz),
-    .tmr_10hz(tmr_10hz) );
 
-/*  // Timestamp: Define parameters
-  localparam TIMESTAMP_BIN_BITS = 24;
-  localparam TIMESTAMP_BCD_BITS = 31;
-  localparam TIMESTAMP_CHAR_LEN = 8;
-  localparam TIMESTAMP_ASCII_BITS = 64;
-*/
-  // Timestamp: Define registers
-  //reg [ TIMESTAMP_BIN_BITS-1 : 0 ] timestamp_bin_d, timestamp_bin_q;
-
-/*  // Timestamp: Convert binary to bcd
-  wire [ TIMESTAMP_BCD_BITS-1 : 0 ] timestamp_bcd;
-  bin2bcd #(
-    .BITS(TIMESTAMP_BIN_BITS) )
-    bin2bcd_timestamp (
-    .bin(timestamp_bin_q),
-    .bcd(timestamp_bcd) );
-*/
-/*  // Timestamp: Convert bcd to ascii
-  wire [ TIMESTAMP_ASCII_BITS-1 : 0 ] timestamp_ascii;
-  bcd2ascii #(
-    .CHAR_LEN(TIMESTAMP_CHAR_LEN) )
-    bcd2ascii_timestamp (
-    .bcd({1'b0,timestamp_bcd}),
-    .ascii(timestamp_ascii) );
-*/
-/*  // Combinational logic
-  always @(*) begin
-    timestamp_bin_d = timestamp_bin_q + 1'b1;
-  end
-*/
-/*  // Refresh timestamp register
+  // Combinational logic
+  //always @(*) begin
+  //  timestamp_d = timestamp_q + 1'b1;
+  //end
+/*
+  // Synchronous 1khz logic
   always @( posedge tmr_1khz ) begin
     if (rst) begin
-      timestamp_bin_q <= { TIMESTAMP_BIN_BITS {1'b0} };
+      timestamp_q <= { 24 {1'b0} };
     end else begin
-      timestamp_bin_q <= timestamp_bin_d;
+      timestamp_q <= timestamp_d;
     end
   end
 */
-endmodule
 
 
-
-
+//~~~~~~~~~~~~~~~~~~~~~~
 /*
-
   // Serial debug module
   wire debug_busy;
   serial_debug
