@@ -27,26 +27,28 @@ module debugging (
 
   );
 
-  // Output state machine definitions
+  // Output message states
   localparam
-    STATE_OUT_BITS = 1,
+    OUTPUT_BITS  = 1,
     OUTPUT_IDLE  = 1'd0,
-    DEBUG_MSG    = 1'd1;
- 
-  // Input state machine definitions
+    OUTPUT_MSG   = 1'd1;
+
+/*
+  // Input command states
   localparam
-    STATE_IN_BITS = 2,
-    INPUT_IDLE  = 2'd0,
-    RESET_CMD   = 2'd1,
-    MOTOR_CMD   = 2'd2,
-    DATA_CMD    = 2'd3;
+    INPUT_BITS   = 2,
+    INPUT_IDLE   = 2'd0,
+    INPUT_RESET  = 2'd1,
+    INPUT_MOTOR  = 2'd2,
+    INPUT_DATA   = 2'd3;
+*/
 
   localparam MESSAGE_LEN = 16;
  
   // Internal registers
   reg [3:0] addr_d, addr_q;
-  reg [STATE_OUT_BITS-1:0] state_out_d, state_out_q;
-  reg [STATE_IN_BITS-1:0] state_in_d, state_in_q;
+  reg [OUTPUT_BITS-1:0] state_output_d, state_output_q;
+  //reg [INPUT_BITS-1:0] state_input_d, state_input_q;
  
   // Connect output signals
   assign tx_data = debug_msg[addr_q];
@@ -68,8 +70,8 @@ module debugging (
     .ascii(timestamp_ascii) );
 
   // Timestamp: Convert vector to array 
-  wire [7:0] timestamp_rom [7:0];
-  `VEC_ARR_2D( timestamp_ascii, 8, 8, timestamp_rom )
+  wire [7:0] timestamp_msg [7:0];
+  `VEC_ARR_2D( timestamp_ascii, 8, 8, timestamp_msg )
 
   // Assemble debug message
   wire [7:0] debug_msg [15:0];
@@ -81,66 +83,52 @@ module debugging (
   assign debug_msg[ 5] = "e";
   assign debug_msg[ 6] = ":";
   assign debug_msg[ 7] = " ";
-  assign debug_msg[ 8] = timestamp_rom[5];
-  assign debug_msg[ 9] = timestamp_rom[4];
-  assign debug_msg[10] = timestamp_rom[3];
+  assign debug_msg[ 8] = timestamp_msg[5];
+  assign debug_msg[ 9] = timestamp_msg[4];
+  assign debug_msg[10] = timestamp_msg[3];
   assign debug_msg[11] = ".";
-  assign debug_msg[12] = timestamp_rom[2];
+  assign debug_msg[12] = timestamp_msg[2];
   assign debug_msg[13] = " ";
-  assign debug_msg[14] = "\n";
+  assign debug_msg[14] = " ";
   assign debug_msg[15] = "\r";
 
 
   // Combinational logic
   always @(*) begin
 
-    // Default assignments
-    addr_d       = addr_q;
-    state_out_d  = state_out_q;
-    state_in_d   = state_in_q;
-    new_tx_data  = 1'b0;
+    // Initial assignments
+    addr_d          = addr_q;
+    state_output_d  = state_output_q;
+    //state_input_d   = state_input_q;
+    new_tx_data     = 1'b0;
 
-    // State machine: Output debugging message
-    case (state_out_q)
+    // Begin 'output' FSM
+    case (state_output_q)
 
-      // Wait for change
+      // Wait for timer signal
       OUTPUT_IDLE: begin
-
-        // Reset address counter
         addr_d = 4'd0;
-
-        // Ready to send 
         if (tmr)
-          state_out_d = DEBUG_MSG;
-
+          state_output_d = OUTPUT_MSG;
       end
 
-      // Send debugging message to terminal
-      DEBUG_MSG: begin
-
-        // Check for block 
+      // Output the debugging message
+      OUTPUT_MSG: begin
         if (!tx_busy) begin
-
-          // Implemet block
           new_tx_data = 1'b1;
-
-          // Increment address counter
           addr_d = addr_q + 1'b1;
-
-          // Reached end of message
           if ( addr_q == MESSAGE_LEN-1 )
-            state_out_d = OUTPUT_IDLE;
-
+            state_output_d = OUTPUT_IDLE;
         end
-
       end
 
-      // Default to idle
-      default: state_out_d = OUTPUT_IDLE;
+      // Default 'output' case
+      default: state_output_d = OUTPUT_IDLE;
 
-    // Conclude 'output' FSM 
+    // Finish 'output' FSM 
     endcase
 
+/*
     // State machine: Input user commands
     case (state_in_q)
 
@@ -186,22 +174,21 @@ module debugging (
 
     // Conclude 'input' FSM
     endcase
+*/
 
   end
 
   // Synchronous logic 
   always @( posedge clk ) begin
 
-    // Reset conditions
     if (rst) begin
-      state_out_q  <= OUTPUT_IDLE;
-      state_in_q   <= INPUT_IDLE;
+      state_output_q  <= OUTPUT_IDLE;
+      //state_input_q   <= INPUT_IDLE;
     end else begin
-      state_out_q  <= state_out_d;
-      state_in_q   <= state_in_d;
+      state_output_q  <= state_output_d;
+      //state_input_q   <= state_input_d;
     end
  
-    // Non-reset conditions
     addr_q <= addr_d;
 
   end

@@ -88,6 +88,56 @@ module avionics
 
 
 
+  // Connections for 'avr_interface' module
+  wire [7:0] tx_data;
+  wire new_tx_data;
+  wire tx_busy;
+  wire [7:0] rx_data;
+  wire new_rx_data;
+
+  // Disconnected wires for 'avr_interface' module
+  (* keep="soft" *) wire new_sample_z;
+  (* keep="soft" *) wire [9:0] sample_z;
+  (* keep="soft" *) wire [3:0] sample_channel_z;
+
+  // Connect 'avr_interface' module
+  avr_interface avr_mod (
+    .clk(clk),
+    .rst( state_board_q == BOARD_IDLE ),
+    .cclk(cclk),
+    .spi_sck(spi_sck),
+    .spi_ss(spi_ss),
+    .spi_mosi(spi_mosi),
+    .spi_miso(spi_miso),
+    .spi_ch(spi_ch),
+    .rx(avr_tx),
+    .tx(avr_rx),
+    .channel(4'd15),
+    .new_sample(new_sample_z),
+    .sample(sample_z),
+    .sample_channel(sample_channel_z),
+    .tx_data(tx_data),
+    .new_tx_data(new_tx_data),
+    .tx_block(avr_rx_busy),
+    .tx_busy(tx_busy),
+    .rx_data(rx_data),
+    .new_rx_data(new_rx_data) );
+
+  // Connect 'debugging' module 
+  debugging debug_mod (
+    .clk(clk),
+    .rst( state_board_q == BOARD_IDLE ),
+    .tmr(tmr_10hz),
+    .timestamp(timestamp_q),
+    .tx_data(tx_data),
+    .new_tx_data(new_tx_data),
+    .tx_busy(tx_busy),
+    .rx_data(rx_data),
+    .new_rx_data(new_rx_data) );
+
+
+
+
   // Combinational logic
   always @(*) begin
 
@@ -167,66 +217,6 @@ endmodule
 
 
 
-/*
-  // Timestamp: Define parameters
-  localparam TIMESTAMP_BIN_BITS = 24;
-  localparam TIMESTAMP_BCD_BITS = 31;
-  localparam TIMESTAMP_CHAR_LEN = 8;
-  localparam TIMESTAMP_ASCII_BITS = 64;
-*/
-/*
-  // Timestamp: Define registers
-  wire [23:0] timestamp;
-  assign timestamp = timestamp_q;
-*/
-/*
-  // Connections for 'avr_interface' module
-  wire [7:0] tx_data;
-  wire new_tx_data;
-  wire tx_busy;
-  wire [7:0] rx_data;
-  wire new_rx_data;
-
-  // Disconnected wires for 'avr_interface' module
-  (* keep="soft" *) wire new_sample_z;
-  (* keep="soft" *) wire [9:0] sample_z;
-  (* keep="soft" *) wire [3:0] sample_channel_z;
-
-  // Connect 'avr_interface' module
-  avr_interface avr_mod (
-    .clk(clk),
-    .rst(rst),
-    .cclk(cclk),
-    .spi_sck(spi_sck),
-    .spi_ss(spi_ss),
-    .spi_mosi(spi_mosi),
-    .spi_miso(spi_miso),
-    .spi_ch(spi_ch),
-    .rx(avr_tx),
-    .tx(avr_rx),
-    .channel(4'd15),
-    .new_sample(new_sample_z),
-    .sample(sample_z),
-    .sample_channel(sample_channel_z),
-    .tx_data(tx_data),
-    .new_tx_data(new_tx_data),
-    .tx_block(avr_rx_busy),
-    .tx_busy(tx_busy),
-    .rx_data(rx_data),
-    .new_rx_data(new_rx_data) );
-
-  // Connect 'debugging' module 
-  debugging debug_mod (
-    .clk(clk),
-    .rst(rst),
-    .tmr(tmr_10hz),
-    .timestamp(timestamp),
-    .tx_data(tx_data),
-    .new_tx_data(new_tx_data),
-    .tx_busy(tx_busy),
-    .rx_data(rx_data),
-    .new_rx_data(new_rx_data) );
-*/
 
 
 
