@@ -44,7 +44,7 @@ module clock
   always @( posedge clk ) begin
 
     if (rst) begin
-      sig_q  <= 1'b1;
+      sig_q  <= 1'b0;
       ctr_q  <= 1'b0;
     end else begin
       sig_q  <= sig_d;
