@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "/home/justin/Documents/FPGA/Util/hardware/button/test/button_tb_isim_beh.exe" -prj "/home/justin/Documents/FPGA/Util/hardware/button/test/button_tb_beh.prj" "work.button_tb" "work.glbl" 
