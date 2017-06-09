@@ -137,7 +137,6 @@ module avionics
 
 
 
-
   // Combinational logic
   always @(*) begin
 
