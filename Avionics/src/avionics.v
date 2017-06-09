@@ -27,13 +27,16 @@ module avionics
 
   );
 
+
+
+
+  // Disconnect when not in use
   assign spi_miso = 1'bz;
   assign avr_rx = 1'bz;
   assign spi_ch = 4'bzzzz;
 
   // Assign LED values
   assign led = led_q;
-  //assign led = {8{clk_1hz}};
 
 
 
@@ -54,6 +57,7 @@ module avionics
   reg [7:0] led_d, led_q;
   reg onoff_d, onoff_q;
   reg onoff_prev_d, onoff_prev_q;
+  reg [23:0] timestamp_d, timestamp_q;
 
 
 
@@ -65,21 +69,21 @@ module avionics
     .btn_i(!rst_n),
     .btn_o(rst) );
 
-  // Debugging 1hz clock
-  wire clk_1hz;
-  clock clock_1hz_debug (
+  // Connect 'timers' module
+  timers timers_mod (
     .clk(clk),
-    .rst(rst),
-    .sig(clk_1hz) );
+    .rst( state_board_q == BOARD_IDLE ),
+    .tmr_1khz(tmr_1khz),
+    .tmr_10hz(tmr_10hz) );
 
-  // Debugging 2hz clock
-  wire clk_2hz;
+  // Debugging 5hz clock
+  wire clk_5hz;
   clock #(
-    .PERIOD(25000000) )
-    clock_2hz_debug (
+    .PERIOD(10000000) )
+    clock_5hz_debug (
     .clk(clk),
-    .rst(rst),
-    .sig(clk_2hz) );
+    .rst( state_board_q == BOARD_IDLE ),
+    .sig(clk_5hz) );
 
 
 
@@ -92,6 +96,7 @@ module avionics
     led_d = led_q;
     onoff_d = rst;
     onoff_prev_d = onoff_q;
+    timestamp_d = timestamp_q + 1'b1;
 
     // State machine: avionics board
     case (state_board_q)
@@ -107,7 +112,7 @@ module avionics
       // Implement start up processes
       BOARD_STARTUP: begin
         // Add conditions here
-        led_d = {8{clk_1hz}};
+        led_d = {8{clk_5hz}};
         if ( !onoff_prev_q && onoff_q ) begin
           state_board_d = BOARD_RUNNING;
         end
@@ -115,7 +120,7 @@ module avionics
 
       // Normal operation until shutdown
       BOARD_RUNNING: begin
-        led_d = {8{1'b1}};
+        led_d = timestamp_q[12:5];
         if ( !onoff_prev_q && onoff_q ) begin
           state_board_d = BOARD_SHUTDOWN;
         end
@@ -124,7 +129,7 @@ module avionics
       // Implement shutdown processes
       BOARD_SHUTDOWN: begin
         // Add conditions here
-        led_d = {8{clk_2hz}};
+        led_d = {8{clk_5hz}};
         if ( !onoff_prev_q && onoff_q ) begin
           state_board_d = BOARD_IDLE;
         end
@@ -147,6 +152,15 @@ module avionics
     onoff_prev_q <= onoff_prev_d;
   end
 
+  // Synchronous '1khz' logic
+  always @( posedge tmr_1khz ) begin
+    if ( state_board_q != BOARD_RUNNING ) begin
+      timestamp_q <= {24{1'b0}};
+    end else begin
+      timestamp_q <= timestamp_d;
+    end
+  end
+
 endmodule
 
 
@@ -164,15 +178,6 @@ endmodule
   // Timestamp: Define registers
   wire [23:0] timestamp;
   assign timestamp = timestamp_q;
-  reg [23:0] timestamp_d, timestamp_q;
-*/
-/*
-  // Connect 'timers' module
-  timers timers_mod (
-    .clk(clk),
-    .rst(rst),
-    .tmr_1khz(tmr_1khz),
-    .tmr_10hz(tmr_10hz) );
 */
 /*
   // Connections for 'avr_interface' module
@@ -223,21 +228,6 @@ endmodule
     .new_rx_data(new_rx_data) );
 */
 
-
-  // Combinational logic
-  //always @(*) begin
-  //  timestamp_d = timestamp_q + 1'b1;
-  //end
-/*
-  // Synchronous 1khz logic
-  always @( posedge tmr_1khz ) begin
-    if (rst) begin
-      timestamp_q <= { 24 {1'b0} };
-    end else begin
-      timestamp_q <= timestamp_d;
-    end
-  end
-*/
 
 
 //~~~~~~~~~~~~~~~~~~~~~~
