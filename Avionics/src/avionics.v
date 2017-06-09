@@ -27,35 +27,71 @@ module avionics
 
   );
 
-  // Swicth reset button
-  wire rst = ~rst_n;
-
   assign spi_miso = 1'bz;
   assign avr_rx = 1'bz;
   assign spi_ch = 4'bzzzz;
 
   // Assign LED values
   assign led = led_q;
+  //assign led = {8{clk_1hz}};
+
+
 
 
   // Avionics board states
   localparam
-    STATE_BOARD_BITS = 2,
+    BOARD_BITS      = 2,
     BOARD_IDLE      = 2'd0,
     BOARD_STARTUP   = 2'd1,
     BOARD_RUNNING   = 2'd2,
     BOARD_SHUTDOWN  = 2'd3;
 
+
+
+
   // Registers
-  reg [STATE_BOARD_BITS-1:0] state_board_d, state_board_q = BOARD_IDLE;
+  reg [BOARD_BITS-1:0] state_board_d, state_board_q = BOARD_IDLE;
   reg [7:0] led_d, led_q;
+  reg onoff_d, onoff_q;
+  reg onoff_prev_d, onoff_prev_q;
+
+
+
+
+  // Connect 'button' module for reset 
+  wire rst;
+  button button_reset (
+    .clk(clk),
+    .btn_i(!rst_n),
+    .btn_o(rst) );
+
+  // Debugging 1hz clock
+  wire clk_1hz;
+  clock clock_1hz_debug (
+    .clk(clk),
+    .rst(rst),
+    .sig(clk_1hz) );
+
+  // Debugging 2hz clock
+  wire clk_2hz;
+  clock #(
+    .PERIOD(25000000) )
+    clock_2hz_debug (
+    .clk(clk),
+    .rst(rst),
+    .sig(clk_2hz) );
+
+
 
 
   // Combinational logic
   always @(*) begin
 
+    // Initial assignments
     state_board_d = state_board_q;
     led_d = led_q;
+    onoff_d = rst;
+    onoff_prev_d = onoff_q;
 
     // State machine: avionics board
     case (state_board_q)
@@ -63,7 +99,7 @@ module avionics
       // Wait for user command
       BOARD_IDLE: begin
         led_d = {8{1'b0}};
-        if (rst) begin
+        if ( !onoff_prev_q && onoff_q ) begin
           state_board_d = BOARD_STARTUP;
         end
       end
@@ -71,13 +107,16 @@ module avionics
       // Implement start up processes
       BOARD_STARTUP: begin
         // Add conditions here
-        state_board_d = BOARD_RUNNING;
+        led_d = {8{clk_1hz}};
+        if ( !onoff_prev_q && onoff_q ) begin
+          state_board_d = BOARD_RUNNING;
+        end
       end
 
       // Normal operation until shutdown
       BOARD_RUNNING: begin
         led_d = {8{1'b1}};
-        if (rst) begin
+        if ( !onoff_prev_q && onoff_q ) begin
           state_board_d = BOARD_SHUTDOWN;
         end
       end
@@ -85,7 +124,10 @@ module avionics
       // Implement shutdown processes
       BOARD_SHUTDOWN: begin
         // Add conditions here
-        state_board_d = BOARD_IDLE;
+        led_d = {8{clk_2hz}};
+        if ( !onoff_prev_q && onoff_q ) begin
+          state_board_d = BOARD_IDLE;
+        end
       end
 
       // Default to idle
@@ -97,19 +139,13 @@ module avionics
 
   end
 
-  // Synchronous clk logic
+  // Synchronous 'clk' logic
   always @( posedge clk ) begin
-    //if (rst) begin
-      //state_board_q <= BOARD_IDLE;
-    //end else begin
-      //state_board_q <= state_board_d;
-    //end
-
-    state_board_q <= state_board_d;
     led_q <= led_d;
-
+    state_board_q <= state_board_d;
+    onoff_q <= onoff_d;
+    onoff_prev_q <= onoff_prev_d;
   end
-
 
 endmodule
 
