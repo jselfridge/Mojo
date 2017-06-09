@@ -33,7 +33,6 @@ module debugging (
     OUTPUT_IDLE  = 1'd0,
     OUTPUT_MSG   = 1'd1;
 
-/*
   // Input command states
   localparam
     INPUT_BITS   = 2,
@@ -41,14 +40,13 @@ module debugging (
     INPUT_RESET  = 2'd1,
     INPUT_MOTOR  = 2'd2,
     INPUT_DATA   = 2'd3;
-*/
 
   localparam MESSAGE_LEN = 16;
  
   // Internal registers
   reg [3:0] addr_d, addr_q;
   reg [OUTPUT_BITS-1:0] state_output_d, state_output_q;
-  //reg [INPUT_BITS-1:0] state_input_d, state_input_q;
+  reg [INPUT_BITS-1:0] state_input_d, state_input_q;
  
   // Connect output signals
   assign tx_data = debug_msg[addr_q];
@@ -73,14 +71,24 @@ module debugging (
   wire [7:0] timestamp_msg [7:0];
   `VEC_ARR_2D( timestamp_ascii, 8, 8, timestamp_msg )
 
+  // Motor
+  wire [7:0] motor_msg;
+  reg motor_d, motor_q;
+  assign motor_msg = motor_q ? "A" : "D";
+
+  // Data
+  wire [7:0] data_msg;
+  reg data_d, data_q;
+  assign data_msg = data_q ? "R" : "I";
+
   // Assemble debug message
   wire [7:0] debug_msg [15:0];
-  assign debug_msg[ 0] = "X";
-  assign debug_msg[ 1] = " ";
-  assign debug_msg[ 2] = "T";
-  assign debug_msg[ 3] = "i";
-  assign debug_msg[ 4] = "m";
-  assign debug_msg[ 5] = "e";
+  assign debug_msg[ 0] = " ";
+  assign debug_msg[ 1] = motor_msg;  // MOTOR => A:armed D:disarmed
+  assign debug_msg[ 2] = " ";
+  assign debug_msg[ 3] = data_msg;  // DATA => I:idle R:record
+  assign debug_msg[ 4] = " ";
+  assign debug_msg[ 5] = "T";
   assign debug_msg[ 6] = ":";
   assign debug_msg[ 7] = " ";
   assign debug_msg[ 8] = timestamp_msg[5];
@@ -99,8 +107,10 @@ module debugging (
     // Initial assignments
     addr_d          = addr_q;
     state_output_d  = state_output_q;
-    //state_input_d   = state_input_q;
+    state_input_d   = state_input_q;
     new_tx_data     = 1'b0;
+    motor_d         = motor_q;
+    data_d          = data_q;
 
     // Begin 'output' FSM
     case (state_output_q)
@@ -128,53 +138,53 @@ module debugging (
     // Finish 'output' FSM 
     endcase
 
-/*
-    // State machine: Input user commands
-    case (state_in_q)
+    // Begin 'input' FSM
+    case (state_input_q)
 
-      // Wait for change
+      // Wait for terminal input
       INPUT_IDLE: begin
 
-        // New command from terminal
-        if ( new_rx_data ) begin
+        // New command available
+        if (new_rx_data) begin
 
-          // Detected 'system reset'
+          // Detected 'reset' command
           if ( rx_data == "r" ) begin
-            state_in_d = RESET_CMD;
+            state_input_d = INPUT_RESET;
           end
 
           // Detected 'motor' command
           if ( rx_data == "m" ) begin
-            state_in_d = MOTOR_CMD;
+            state_input_d = INPUT_MOTOR;
           end
 
-          // Detected 'datalog' command
+          // Detected 'data' command
           if ( rx_data == "d" ) begin
-            state_in_d = DATA_CMD;
+            state_input_d = INPUT_DATA;
           end
 
         end
 
       end
 
-      // Reset the avionics board (WIP)
-      RESET_CMD: begin
-        state_in_d = INPUT_IDLE;
+      // Reset the avionics board
+      INPUT_RESET: begin
+        state_input_d = INPUT_IDLE;
       end
 
-      // Change the motor arm/disarm status (WIP)
-      MOTOR_CMD: begin
-        state_in_d = INPUT_IDLE;
+      // Change the motor arm/disarm status
+      INPUT_MOTOR: begin
+        motor_d = ~motor_q;
+        state_input_d = INPUT_IDLE;
       end
 
-      // Change the datalog status (WIP)
-      DATA_CMD: begin
-        state_in_d = INPUT_IDLE;
+      // Change the datalog status
+      INPUT_DATA: begin
+        data_d = ~data_q;
+        state_input_d = INPUT_IDLE;
       end
 
-    // Conclude 'input' FSM
+    // Finish 'input' FSM 
     endcase
-*/
 
   end
 
@@ -183,10 +193,14 @@ module debugging (
 
     if (rst) begin
       state_output_q  <= OUTPUT_IDLE;
-      //state_input_q   <= INPUT_IDLE;
+      state_input_q   <= INPUT_IDLE;
+      motor_q         <= 1'b0;
+      data_q          <= 1'b0;
     end else begin
       state_output_q  <= state_output_d;
-      //state_input_q   <= state_input_d;
+      state_input_q   <= state_input_d;
+      motor_q         <= motor_d;
+      data_q          <= data_d;
     end
  
     addr_q <= addr_d;

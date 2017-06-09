@@ -13,21 +13,6 @@ The goal of Version0, is to have all of the components needed to
 develop an avionics solution from FPGA hardware.
 
 <ul>
-<li> V0.0 - Setup a new project </li>
-<ul>
-  <li> Confirm 'util' modules are ready for use. </li>
-  <li> Utilize template for mojo development board. </li>
-  <li> Rename files for avionics project. </li>
-  <li> Demonstrate working hardware through LEDs. </li>
-</ul>
-
-<li> V0.1 - Establish debugging terminal </li>
-<ul>
-  <li> Configure internal clocks. </li>
-  <li> Counter to track system time. </li>
-  <li> Convert time stamp to ASCII serial data. </li>
-  <li> Display system time on terminal screen. </li>
-</ul>
 
 <li> V0.2 - Connect inputs and outputs </li>
 <ul>
@@ -108,6 +93,25 @@ develop an avionics solution from FPGA hardware.
 </ul>
 
 </ul>
+
+
+
+
+V0.1 - New Project /w Debug Terminal
+------------------------------------------
+<ul>
+  <li> Setup initial 'Util' modules. </li>
+  <li> Started with mojo development board template. </li>
+  <li> Renamed files for avionics project. </li>
+  <li> Demonstrated working hardware through LEDs. </li>
+  <li> Developed basic states for avionics board. </li>
+  <li> Configured internal clocks and timers. </li>
+  <li> Established counter for timestamp. </li>
+  <li> Converted timestamp to ASCII serial data. </li>
+  <li> Displayed system time on terminal screen. </li>
+  <li> Reading input commands from keyboard. </li>
+</ul>
+
 
 
 
