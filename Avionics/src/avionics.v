@@ -23,7 +23,13 @@ module avionics
   // AVR serial connections
   input avr_tx,
   input avr_rx_busy,
-  output avr_rx
+  output avr_rx,
+
+  // RC I/O
+  input thrl_i,
+  input elev_i,
+  output thrl_o,
+  output elev_o
 
   );
 
@@ -73,6 +79,7 @@ module avionics
   timers timers_mod (
     .clk(clk),
     .rst( state_board_q == BOARD_IDLE ),
+    .tmr_1Mhz(tmr_1Mhz),
     .tmr_1khz(tmr_1khz),
     .tmr_10hz(tmr_10hz) );
 
@@ -135,6 +142,39 @@ module avionics
     .rx_data(rx_data),
     .new_rx_data(new_rx_data) );
 
+  // Connect 'radio' module for throttle input
+  wire [9:0] thrl_val;
+  radio #(
+    .DEFAULT(10'd0) )
+    radio_thrl (
+    .tmr_1Mhz(tmr_1Mhz),
+    .rst( state_board_q == BOARD_IDLE ),
+    .sig(thrl_i),
+    .val(thrl_val) );
+
+  // Connect 'radio' module for elevator input
+  wire [9:0] elev_val;
+  radio #(
+    .DEFAULT(10'd512) )
+    radio_elev (
+    .tmr_1Mhz(tmr_1Mhz),
+    .rst( state_board_q == BOARD_IDLE ),
+    .sig(elev_i),
+    .val(elev_val) );
+
+  // Connect 'esc' module for throttle output
+  esc esc_thrl (
+    .tmr_1Mhz(tmr_1Mhz),
+    .rst( state_board_q == BOARD_IDLE ),
+    .cmd(thrl_val),
+    .esc(thrl_o) );
+
+  // Connect 'servo' module for elevator output
+  servo servo_elev (
+    .clk(clk),
+    .rst( state_board_q == BOARD_IDLE ),
+    .val(elev_val[9:2]),
+    .servo(elev_o) );
 
 
   // Combinational logic

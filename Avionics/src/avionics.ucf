@@ -31,5 +31,12 @@ NET "avr_tx"       LOC = P55  | IOSTANDARD = LVTTL;
 NET "avr_rx"       LOC = P59  | IOSTANDARD = LVTTL;
 NET "avr_rx_busy"  LOC = P39  | IOSTANDARD = LVTTL;
 
+# RC I/O
+NET "thrl_i"       LOC = P23  | IOSTANDARD = LVTTL;
+NET "elev_i"       LOC = P50  | IOSTANDARD = LVTTL;
+NET "thrl_o"       LOC = P41  | IOSTANDARD = LVTTL;
+NET "elev_o"       LOC = P51  | IOSTANDARD = LVTTL;
+
+
 
 

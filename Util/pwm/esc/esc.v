@@ -11,7 +11,7 @@
 
 module esc
   (
-  input clk_1M,
+  input tmr_1Mhz,
   input rst,
   input [9:0] cmd,
   output esc
@@ -45,7 +45,7 @@ module esc
   end
 
   // Synchronous logic
-  always @( posedge clk_1M ) begin
+  always @( posedge tmr_1Mhz ) begin
 
     if (rst) begin
       esc_q <= 1'b0;

@@ -8,22 +8,20 @@ module timers
   (
   input clk,
   input rst,
-  //output tmr_1Mhz,
+  output tmr_1Mhz,
   output tmr_1khz,
   //output tmr_100hz,
   output tmr_10hz
   //output tmr_1hz
   );
 
-  /*
-  // Connect a 1Mhz timer (future use)
+  // Connect a 1Mhz timer
   timer #(
     .PERIOD(50) )
     timer_1Mhz (
     .clk(clk),
     .rst(rst),
     .tmr(tmr_1Mhz) );
-  */
 
   // Connect a 1khz timer (timestamp)
   timer #(

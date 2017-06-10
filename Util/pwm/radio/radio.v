@@ -12,7 +12,7 @@ module radio
   #(
   parameter DEFAULT = 10'd512
   )(
-  input clk_1M,
+  input tmr_1Mhz,
   input rst,
   input sig,
   output [9:0] val
@@ -59,7 +59,7 @@ module radio
   end
 
   // Synchronous logic: Reset counter
-  always @( posedge clk_1M ) begin
+  always @( posedge tmr_1Mhz ) begin
 
     if (rst)
       ctr_q <= 1'b0;
