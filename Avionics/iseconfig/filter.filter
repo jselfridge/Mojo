@@ -7,4 +7,5 @@
 <filter task="xst" file="Xst" num="1710" type="warning"><arg index="1">data_q_7</arg><arg index="2">0</arg><arg index="3">avr_tx</arg></filter>
 <filter task="xst" file="Xst" num="1710" type="warning"><arg index="1">data_q_7</arg><arg index="2">0</arg><arg index="3">message_rom</arg></filter>
 <filter task="xst" file="Xst" num="1710" type="warning"><arg index="1">avr_mod/avr_tx/data_q_7</arg><arg index="2">0</arg><arg index="3">avionics</arg></filter>
+<filter task="xst" file="HDLCompiler" num="413" type="warning"><arg index="1">11</arg><arg index="2">10</arg></filter>
 </filters>

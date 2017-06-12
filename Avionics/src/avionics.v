@@ -37,9 +37,9 @@ module avionics
 
 
   // Disconnect when not in use
-  assign spi_miso = 1'bz;
-  assign avr_rx = 1'bz;
-  assign spi_ch = 4'bzzzz;
+  //assign spi_miso = 1'bz;
+  //assign avr_rx = 1'bz;
+  //assign spi_ch = 4'bzzzz;
 
   // Assign LED values
   assign led = led_q;
@@ -57,12 +57,14 @@ module avionics
 
 
 
-
   // Registers
   reg [BOARD_BITS-1:0] state_board_d, state_board_q = BOARD_IDLE;
+  reg state_motor_d, state_motor_q = 1'b0;
   reg [7:0] led_d, led_q;
   reg onoff_d, onoff_q;
   reg onoff_prev_d, onoff_prev_q;
+  reg motor_d, motor_q;
+  reg motor_prev_d, motor_prev_q;
   reg [23:0] timestamp_d, timestamp_q;
 
 
@@ -177,6 +179,19 @@ module avionics
     .servo(elev_o) );
 
 
+
+  // Connect 'flags' module
+  wire motor_flag;
+  (* keep="soft" *) wire data_flag_z;
+  flags flags_mod (
+    .tmr_10hz(tmr_10hz),
+    .thrl_val_i(thrl_val),
+    .elev_val_i(elev_val),
+    .motor_flag_o(motor_flag),
+    .data_flag_o(data_flag_z)
+  );
+
+
   // Combinational logic
   always @(*) begin
 
@@ -185,7 +200,15 @@ module avionics
     led_d = led_q;
     onoff_d = rst;
     onoff_prev_d = onoff_q;
+    motor_d = motor_flag;
+    motor_prev_d = motor_q;
     timestamp_d = timestamp_q + 1'b1;
+
+
+    // Switch motor state
+    if ( !motor_prev_q && motor_q ) begin
+      state_motor_d = ~state_motor_q;
+    end
 
     // State machine: avionics board
     case (state_board_q)
@@ -239,6 +262,9 @@ module avionics
     state_board_q <= state_board_d;
     onoff_q <= onoff_d;
     onoff_prev_q <= onoff_prev_d;
+    state_motor_q <= state_motor_d;
+    motor_q <= motor_d;
+    motor_prev_q <= motor_prev_d;
   end
 
   // Synchronous '1khz' logic

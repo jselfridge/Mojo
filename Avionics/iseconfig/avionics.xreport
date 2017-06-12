@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-06-09T16:52:34</DateModified>
+  <DateModified>2017-06-12T07:25:49</DateModified>
   <ModuleName>avionics</ModuleName>
-  <SummaryTimeStamp>2017-06-09T16:52:33</SummaryTimeStamp>
+  <SummaryTimeStamp>2017-06-12T06:29:27</SummaryTimeStamp>
   <SavedFilePath>/home/justin/Documents/FPGA/Avionics/iseconfig/avionics.xreport</SavedFilePath>
   <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Avionics/syn/</ImplementationReportsDirectory>
   <DateInitialized>2017-06-06T20:14:38</DateInitialized>
