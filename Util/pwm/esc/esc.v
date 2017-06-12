@@ -32,7 +32,7 @@ module esc
     // Increment counter
     ctr_d = ctr_q + 1'b1;
 
-    // Determine output status
+    // Assign command value
     if ( ctr_q > 10'd987 + cmd )
       esc_d = 1'b0;
     else

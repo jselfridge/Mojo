@@ -2,7 +2,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // radio.v
 // Reads a PWM signal from an RC transmitter.
-// Parameter sets default value during system reset.
+// Parameter assigns a default value during reset condition.
 // Uses a 1MHz clock input.
 // 10-bit 'val' provides 1024 discrete points.
 // An offset centers the signal at 1500us.
@@ -48,7 +48,7 @@ module radio
 
   end
 
-  // Synchronous logic: Assign output value
+  // Synchronous logic
   always @( negedge sig ) begin
 
     if (rst)
