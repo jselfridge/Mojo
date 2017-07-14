@@ -15,7 +15,7 @@ module button (
   reg [1:0] sync_d, sync_q;
 
   // Connect output signal
-  assign btn_o = ( ctr_q == { 20 {1'b1} } );
+  assign btn_o = ( ctr_q == { 20{1'b1} } );
 
   // Combinational logic
   always @(*) begin
@@ -28,7 +28,7 @@ module button (
     ctr_d = ctr_q + 1'b1;
 
     // Saturate counter
-    if ( ctr_q == { 20 {1'b1} } ) begin
+    if ( ctr_q == { 20{1'b1} } ) begin
       ctr_d = ctr_q;
     end
 

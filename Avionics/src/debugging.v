@@ -6,24 +6,25 @@
 //`include "../../Util/VEC_ARR_2D.v"
 `include "../../Sandbox/resize/VEC_ARR_2D/VEC_ARR_2D.v"
 
-module debugging (
+module debugging
+  (
 
-    // Clocks and timers
-    input clk,
-    input rst,
-    input tmr,
+  // Clocks and timers
+  input clk,
+  input rst,
+  input tmr,
 
-    // Terminal data
-    input [23:0] timestamp,
+  // Terminal data
+  input [23:0] timestamp,
 
-    // Inputs from AVR
-    input [7:0] rx_data,
-    input new_rx_data,
-    input tx_busy,
+  // Inputs from AVR
+  input [7:0] rx_data,
+  input new_rx_data,
+  input tx_busy,
 
-    // Outputs to AVR
-    output [7:0] tx_data,
-    output reg new_tx_data
+  // Outputs to AVR
+  output [7:0] tx_data,
+  output reg new_tx_data
 
   );
 
@@ -45,8 +46,8 @@ module debugging (
  
   // Internal registers
   reg [3:0] addr_d, addr_q;
-  reg [OUTPUT_BITS-1:0] state_output_d, state_output_q;
-  reg [INPUT_BITS-1:0] state_input_d, state_input_q;
+  reg [OUTPUT_BITS-1:0] state_output_d, state_output_q = OUTPUT_IDLE;
+  reg [INPUT_BITS-1:0] state_input_d, state_input_q = INPUT_IDLE;
  
   // Connect output signals
   assign tx_data = debug_msg[addr_q];
@@ -67,7 +68,7 @@ module debugging (
     .bcd({1'b0,timestamp_bcd}),
     .ascii(timestamp_ascii) );
 
-  // Timestamp: Convert vector to array 
+  // Timestamp: Convert vector to array
   wire [7:0] timestamp_msg [7:0];
   `VEC_ARR_2D( timestamp_ascii, 8, 8, timestamp_msg )
 
@@ -168,6 +169,7 @@ module debugging (
 
       // Reset the avionics board
       INPUT_RESET: begin
+        // Add specific code here...
         state_input_d = INPUT_IDLE;
       end
 
@@ -187,6 +189,7 @@ module debugging (
     endcase
 
   end
+
 
   // Synchronous logic 
   always @( posedge clk ) begin

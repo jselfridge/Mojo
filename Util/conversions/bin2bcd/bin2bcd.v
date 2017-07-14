@@ -17,7 +17,7 @@ module bin2bcd
 
   always @(bin) begin
 
-    for ( i=0; i<= BITS + (BITS-4) /3; i=i+1 )  bcd[i] = 1'b0;
+    for ( i=0; i <= BITS + (BITS-4) /3; i=i+1 )  bcd[i] = 1'b0;
 
     bcd[BITS-1:0] = bin;
 

@@ -14,9 +14,8 @@ Compiling module esc
 Compiling module esc_tb
 Compiling module glbl
 Time Resolution for simulation is 1ps.
-Waiting for 4 sub-compilation(s) to finish...
 Compiled 3 Verilog Units
 Built simulation executable /home/justin/Documents/FPGA/Util/pwm/esc/test/esc_tb_isim_beh.exe
 Fuse Memory Usage: 392716 KB
 Fuse CPU Usage: 1750 ms
-GCC CPU Usage: 450 ms
+GCC CPU Usage: 490 ms

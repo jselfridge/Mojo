@@ -1,7 +1,7 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // timer.v
-// Generates a pulse at a specified period.
+// Generates a single pulse at a specified period.
 // Defaults to a one second period duration.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 

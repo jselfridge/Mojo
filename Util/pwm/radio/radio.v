@@ -48,7 +48,7 @@ module radio
 
   end
 
-  // Synchronous logic
+  // Synchronous logic: signal
   always @( negedge sig ) begin
 
     if (rst)
@@ -58,7 +58,7 @@ module radio
 
   end
 
-  // Synchronous logic: Reset counter
+  // Synchronous logic: timer
   always @( posedge tmr_1Mhz ) begin
 
     if (rst)

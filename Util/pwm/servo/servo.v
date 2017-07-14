@@ -13,17 +13,17 @@ module servo
   input clk,
   input rst,
   input [7:0] val,
-  output servo
+  output sig
   );
 
   // Output register
-  reg servo_d, servo_q;
+  reg sig_d, sig_q;
 
   // Internal register
   reg [19:0] ctr_d, ctr_q;
 
   // Connect output signal
-  assign servo = servo_q;
+  assign sig = sig_q;
 
   // Combinational logic
   always @(*) begin
@@ -33,9 +33,9 @@ module servo
 
     // Determine output status
     if ( val + 9'd167 > ctr_q[19:8] )
-      servo_d = 1'b1;
+      sig_d = 1'b1;
     else
-      servo_d = 1'b0;
+      sig_d = 1'b0;
 
   end
 
@@ -48,7 +48,7 @@ module servo
       ctr_q <= ctr_d;
     end
 
-    servo_q <= servo_d;
+    sig_q <= sig_d;
 
   end
 

@@ -12,14 +12,14 @@ module servo_tb ();
   reg [7:0] val;
 
   // Test bench outputs
-  wire servo;
+  wire sig;
 
   // Connect 'servo' module
   servo DUT_servo (
     .clk(clk),
     .rst(rst),
     .val(val),
-    .servo(servo) );
+    .sig(sig) );
 
   // Initial reset, then run clock forever
   initial begin

@@ -25,21 +25,26 @@ module avionics
   input avr_rx_busy,
   output avr_rx,
 
-  // RC I/O
-  input thrl_i,
-  input elev_i,
-  output thrl_o,
-  output elev_o
+  // Radio command input signals
+  input ch1_isig,
+  input ch2_isig,
+  //input ch3_isig,
+  //input ch4_isig,
+  //input ch5_isig,
+  //input ch6_isig,
+  //input ch7_isig,
+  //input ch8_isig,
+
+  // ESC command output signals
+  output ch1_osig,
+
+  // Servo command output signals
+  output ch5_osig
 
   );
 
 
 
-
-  // Disconnect when not in use
-  //assign spi_miso = 1'bz;
-  //assign avr_rx = 1'bz;
-  //assign spi_ch = 4'bzzzz;
 
   // Assign LED values
   assign led = led_q;
@@ -54,6 +59,7 @@ module avionics
     BOARD_STARTUP   = 2'd1,
     BOARD_RUNNING   = 2'd2,
     BOARD_SHUTDOWN  = 2'd3;
+
 
 
 
@@ -85,7 +91,7 @@ module avionics
     .tmr_1khz(tmr_1khz),
     .tmr_10hz(tmr_10hz) );
 
-  // Debugging 5hz clock
+  // DEBUG: Connect 5hz clock
   wire clk_5hz;
   clock #(
     .PERIOD(10000000) )
@@ -144,39 +150,40 @@ module avionics
     .rx_data(rx_data),
     .new_rx_data(new_rx_data) );
 
-  // Connect 'radio' module for throttle input
-  wire [9:0] thrl_val;
+  // Connect 'radio' module for CH1 input
+  wire [9:0] ch1_ival;
   radio #(
     .DEFAULT(10'd0) )
-    radio_thrl (
+    radio_ch1 (
     .tmr_1Mhz(tmr_1Mhz),
     .rst( state_board_q == BOARD_IDLE ),
-    .sig(thrl_i),
-    .val(thrl_val) );
+    .sig(ch1_isig),
+    .val(ch1_ival) );
 
-  // Connect 'radio' module for elevator input
-  wire [9:0] elev_val;
+  // Connect 'radio' module for CH2 input
+  wire [9:0] ch2_ival;
   radio #(
     .DEFAULT(10'd512) )
-    radio_elev (
+    radio_ch2 (
     .tmr_1Mhz(tmr_1Mhz),
     .rst( state_board_q == BOARD_IDLE ),
-    .sig(elev_i),
-    .val(elev_val) );
+    .sig(ch2_isig),
+    .val(ch2_ival) );
 
-  // Connect 'esc' module for throttle output
-  esc esc_thrl (
+  // Connect 'esc' module for CH1 output
+  esc esc_ch1 (
     .tmr_1Mhz(tmr_1Mhz),
     .rst( ( state_board_q == BOARD_IDLE ) || (!state_motor_q) ),
-    .cmd(thrl_val),
-    .esc(thrl_o) );
+    .val(ch1_ival),
+    .sig(ch1_osig) );
 
-  // Connect 'servo' module for elevator output
-  servo servo_elev (
+  // Connect 'servo' module for CH5 output
+  servo servo_ch5 (
     .clk(clk),
     .rst( ( state_board_q == BOARD_IDLE ) || (!state_motor_q) ),
-    .val(elev_val[9:2]),
-    .servo(elev_o) );
+    .val(ch2_ival[9:2]),
+    .sig(ch5_osig) );
+
 
 
 
@@ -185,26 +192,27 @@ module avionics
   (* keep="soft" *) wire data_flag_z;
   flags flags_mod (
     .tmr_10hz(tmr_10hz),
-    .thrl_val_i(thrl_val),
-    .elev_val_i(elev_val),
+    .thrl_val_i(ch1_ival),
+    .elev_val_i(ch2_ival),
     .motor_flag_o(motor_flag),
     .data_flag_o(data_flag_z)
   );
+
+
 
 
   // Combinational logic
   always @(*) begin
 
     // Initial assignments
-    state_board_d = state_board_q;
-    led_d = led_q;
-    onoff_d = rst;
-    onoff_prev_d = onoff_q;
-    state_motor_d = state_motor_q;
-    motor_d = motor_flag;
-    motor_prev_d = motor_q;
-    timestamp_d = timestamp_q + 1'b1;
-
+    state_board_d  = state_board_q;
+    led_d          = led_q;
+    onoff_d        = rst;
+    onoff_prev_d   = onoff_q;
+    state_motor_d  = state_motor_q;
+    motor_d        = motor_flag;
+    motor_prev_d   = motor_q;
+    timestamp_d    = timestamp_q + 1'b1;
 
     // Switch motor state
     if ( !motor_prev_q && motor_q ) begin
@@ -216,7 +224,7 @@ module avionics
 
       // Wait for user command
       BOARD_IDLE: begin
-        led_d = {8{1'b0}};
+        led_d = { 8{1'b0} };
         if ( !onoff_prev_q && onoff_q ) begin
           state_board_d = BOARD_STARTUP;
         end
@@ -225,7 +233,7 @@ module avionics
       // Implement start up processes
       BOARD_STARTUP: begin
         // Add conditions here
-        led_d = {8{clk_5hz}};
+        led_d = { 8{clk_5hz} };
         if ( !onoff_prev_q && onoff_q ) begin
           state_board_d = BOARD_RUNNING;
         end
@@ -242,7 +250,7 @@ module avionics
       // Implement shutdown processes
       BOARD_SHUTDOWN: begin
         // Add conditions here
-        led_d = {8{clk_5hz}};
+        led_d = { 8{clk_5hz} };
         if ( !onoff_prev_q && onoff_q ) begin
           state_board_d = BOARD_IDLE;
         end
@@ -257,25 +265,34 @@ module avionics
 
   end
 
+
+
+
   // Synchronous 'clk' logic
   always @( posedge clk ) begin
-    led_q <= led_d;
-    state_board_q <= state_board_d;
-    onoff_q <= onoff_d;
-    onoff_prev_q <= onoff_prev_d;
-    state_motor_q <= state_motor_d;
-    motor_q <= motor_d;
-    motor_prev_q <= motor_prev_d;
+    led_q          <= led_d;
+    state_board_q  <= state_board_d;
+    onoff_q        <= onoff_d;
+    onoff_prev_q   <= onoff_prev_d;
+    state_motor_q  <= state_motor_d;
+    motor_q        <= motor_d;
+    motor_prev_q   <= motor_prev_d;
   end
+
+
+
 
   // Synchronous '1khz' logic
   always @( posedge tmr_1khz ) begin
     if ( state_board_q != BOARD_RUNNING ) begin
-      timestamp_q <= {24{1'b0}};
+      timestamp_q <= { 24{1'b0} };
     end else begin
       timestamp_q <= timestamp_d;
     end
   end
+
+
+
 
 endmodule
 

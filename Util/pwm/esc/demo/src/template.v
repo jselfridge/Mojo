@@ -64,10 +64,10 @@ module template
 
   // Connect 'esc' module
   esc esc_demo (
-    .clk_1M(tmr_1M),
+    .tmr_1Mhz(tmr_1M),
     .rst(rst),
-    .cmd(sawtooth_sig),
-    .esc(esc_out) );
+    .val(sawtooth_sig),
+    .sig(esc_out) );
 
 endmodule
 

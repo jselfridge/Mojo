@@ -59,7 +59,7 @@ module template
     .clk(clk),
     .rst(rst),
     .val(sawtooth_sig),
-    .servo(servo_out) );
+    .sig(servo_out) );
 
 endmodule
 

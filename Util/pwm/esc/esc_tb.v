@@ -7,54 +7,54 @@
 module esc_tb ();
 
   // Test bench inputs
-  reg clk_1M;
+  reg tmr_1Mhz;
   reg rst;
-  reg [9:0] cmd;
+  reg [9:0] val;
 
   // Test bench outputs
-  wire esc;
+  wire sig;
 
   // Connect 'esc' module
   esc DUT_esc (
-    .clk_1M(clk_1M),
+    .tmr_1Mhz(tmr_1Mhz),
     .rst(rst),
-    .cmd(cmd),
-    .esc(esc) );
+    .val(val),
+    .sig(sig) );
 
   // Initial reset, then run clock forever
   initial begin
-    clk_1M = 1'b1;
+    tmr_1Mhz = 1'b1;
     rst = 1'b1;
-    repeat(10) #500 clk_1M = ~clk_1M;
+    repeat(10) #500 tmr_1Mhz = ~tmr_1Mhz;
     rst = 1'b0;
-    forever #500 clk_1M = ~clk_1M;
+    forever #500 tmr_1Mhz = ~tmr_1Mhz;
   end
 
   // Assign test stimulus
   initial begin
 
-    cmd = 8'd0;
+    val = 8'd0;
     @( negedge rst )
 
-    cmd = 10'd1023;
+    val = 10'd1023;
     repeat(10000)
-    @( posedge clk_1M );
+    @( posedge tmr_1Mhz );
 
-    cmd = 10'd1012;
+    val = 10'd1012;
     repeat(10000)
-    @( posedge clk_1M );
+    @( posedge tmr_1Mhz );
 
-    cmd = 10'd512;
+    val = 10'd512;
     repeat(10000)
-    @( posedge clk_1M );
+    @( posedge tmr_1Mhz );
 
-    cmd = 10'd12;
+    val = 10'd12;
     repeat(10000)
-    @( posedge clk_1M );
+    @( posedge tmr_1Mhz );
 
-    cmd = 10'd0;
+    val = 10'd0;
     repeat(10000)
-    @( posedge clk_1M );
+    @( posedge tmr_1Mhz );
 
     $finish;
 
