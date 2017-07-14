@@ -167,14 +167,14 @@ module avionics
   // Connect 'esc' module for throttle output
   esc esc_thrl (
     .tmr_1Mhz(tmr_1Mhz),
-    .rst( state_board_q == BOARD_IDLE ),
+    .rst( ( state_board_q == BOARD_IDLE ) || (!state_motor_q) ),
     .cmd(thrl_val),
     .esc(thrl_o) );
 
   // Connect 'servo' module for elevator output
   servo servo_elev (
     .clk(clk),
-    .rst( state_board_q == BOARD_IDLE ),
+    .rst( ( state_board_q == BOARD_IDLE ) || (!state_motor_q) ),
     .val(elev_val[9:2]),
     .servo(elev_o) );
 
@@ -200,6 +200,7 @@ module avionics
     led_d = led_q;
     onoff_d = rst;
     onoff_prev_d = onoff_q;
+    state_motor_d = state_motor_q;
     motor_d = motor_flag;
     motor_prev_d = motor_q;
     timestamp_d = timestamp_q + 1'b1;
