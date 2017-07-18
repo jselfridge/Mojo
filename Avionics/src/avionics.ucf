@@ -51,6 +51,12 @@ NET "esc_sig<5>"     LOC = P101 | IOSTANDARD = LVTTL;
 NET "esc_sig<6>"     LOC = P105 | IOSTANDARD = LVTTL;
 NET "esc_sig<7>"     LOC = P104 | IOSTANDARD = LVTTL;
 
+# IMU SPI pins
+NET "imu_miso"       LOC = P138 | IOSTANDARD = LVTTL;
+NET "imu_mosi"       LOC = P137 | IOSTANDARD = LVTTL;
+NET "imu_sck"        LOC = P140 | IOSTANDARD = LVTTL;
+NET "imu_ss"         LOC = P139 | IOSTANDARD = LVTTL;
+
 
 
 
@@ -61,9 +67,9 @@ NET "esc_sig<7>"     LOC = P104 | IOSTANDARD = LVTTL;
 # |  LED4 127  126 LED5  |  ---- TDI  TCK ----  | #
 # |  LED2 132  131 LED3  |  ---- TMS  TDO ----  | #
 # |  LED0 134  133 LED1  |     - 121  120 -     | #
-# |     - 138  137 -     |     - 119  118 -     | #
-# |     - 140  139 -     |     - 117  116 -     | #
-# |     - 142  141 -     |     - 115  114 -     | #
+# |  IMUI 138  137 IMUO  |     - 119  118 -     | #
+# |  IMUS 140  139 IMU1  |     - 117  116 -     | #
+# | XIMU2 142  141 IMU3X |     - 115  114 -     | #
 # |     - 144  143 -     |     - 112  111 -     | #
 # |     - 002  001 -     |  ESC6 105  104 ESC7  | #
 # |     - 006  005 -     |  ESC4 102  101 ESC5  | #
