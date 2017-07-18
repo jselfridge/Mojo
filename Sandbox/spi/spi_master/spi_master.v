@@ -27,7 +27,7 @@ module spi_master
     TRANSFER   = 2'd2;
 
   // Input/Output registers
-  reg [7:0] data_d, data_q;
+  reg [7:0] data_in_d, data_in_q;
   reg [CLK_DIV-1:0] sck_d, sck_q;
   reg new_data_d, new_data_q;
   reg mosi_d, mosi_q;
@@ -48,7 +48,7 @@ module spi_master
   always @(*) begin
 
     // Initial assignments
-    data_d      = data_q;
+    data_in_d   = data_in_q;
     sck_d       = sck_q;
     new_data_d  = 1'b0;
     mosi_d      = mosi_q;
@@ -61,12 +61,12 @@ module spi_master
 
       IDLE: begin
 
-        sck_d = 4'b0;
-        ctr_d = 3'b0;
+        sck_d  = 4'b0;
+        ctr_d  = 3'b0;
         mosi_d = 1'b0;
 
         if ( start == 1'b1 ) begin
-          data_d = data_in;
+          data_in_d = data_in;
           state_d = WAIT_HALF;
         end
 
@@ -88,11 +88,11 @@ module spi_master
         sck_d = sck_q + 1'b1;
 
         if ( sck_q == 4'b0000 ) begin
-          mosi_d = data_q[7];
+          mosi_d = data_in_q[7];
         end
 
         else if ( sck_q == { CLK_DIV-1 {1'b1} } ) begin
-          data_d = { data_q[6:0], miso };
+          data_in_d = { data_in_q[6:0], miso };
         end
 
         else if ( sck_q == { CLK_DIV {1'b1} } ) begin
@@ -100,7 +100,7 @@ module spi_master
           ctr_d = ctr_q + 1'b1;
 
           if ( ctr_q == 3'b111 ) begin
-            data_out_d = data_q;
+            data_out_d = data_in_q;
             new_data_d = 1'b1;
             state_d = IDLE;
           end
@@ -117,7 +117,7 @@ module spi_master
   always @( posedge clk ) begin
 
     if (rst) begin
-      data_q      <= 8'b0;
+      data_in_q   <= 8'b0;
       sck_q       <= 1'b0;
       new_data_q  <= 1'b0;
       mosi_q      <= 1'b0;
@@ -125,7 +125,7 @@ module spi_master
       state_q     <= IDLE;
       ctr_q       <= 3'b0;
     end else begin
-      data_q      <= data_d;
+      data_in_q   <= data_in_d;
       sck_q       <= sck_d;
       new_data_q  <= new_data_d;
       mosi_q      <= mosi_d;

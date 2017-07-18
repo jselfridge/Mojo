@@ -21,7 +21,7 @@ module spi_slave(
   reg sck_old_d, sck_old_q;
   reg ss_d, ss_q;
   reg mosi_d, mosi_q;
-  reg [7:0] data_d, data_q;
+  reg [7:0] din_d, din_q;
   reg miso_d, miso_q;
   reg done_d, done_q;
   reg [7:0] dout_d, dout_q;
@@ -40,7 +40,7 @@ module spi_slave(
     sck_old_d  = sck_q;
     ss_d       = ss;
     mosi_d     = mosi;
-    data_d     = data_q;
+    din_d      = din_q;
     miso_d     = miso_q;
     done_d     = 1'b0;
     dout_d     = dout_q;
@@ -49,8 +49,8 @@ module spi_slave(
     // Slave select is high (deselcted)
     if (ss_q) begin
       bit_ct_d = 3'b0;
-      data_d   = din;
-      miso_d   = data_q[7];
+      din_d    = din;
+      miso_d   = din_q[7];
     end
 
     // Slave select is low (selected)
@@ -61,20 +61,20 @@ module spi_slave(
 
         // Increment and shift data
         bit_ct_d = bit_ct_q + 1'b1;
-        data_d = { data_q[6:0], mosi_q };
+        din_d = { din_q[6:0], mosi_q };
 
         // Final bit
         if ( bit_ct_q == 3'b111 ) begin
-          dout_d = { data_q[6:0], mosi_q };
+          dout_d = { din_q[6:0], mosi_q };
           done_d = 1'b1;
-          data_d = din;
+          din_d  = din;
         end
 
       end
 
       // Falling edge
       else if ( sck_old_q && !sck_q ) begin
-        miso_d = data_q[7];
+        miso_d = din_q[7];
       end
 
     end
@@ -102,7 +102,7 @@ module spi_slave(
     sck_old_q  <= sck_old_d;
     ss_q       <= ss_d;
     mosi_q     <= mosi_d;
-    data_q     <= data_d;
+    din_q      <= din_d;
 
   end
 

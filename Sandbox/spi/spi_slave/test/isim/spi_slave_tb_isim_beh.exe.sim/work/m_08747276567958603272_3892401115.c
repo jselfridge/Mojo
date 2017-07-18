@@ -934,9 +934,9 @@ LAB9:    xsi_set_current_line(89, ng0);
 }
 
 
-extern void work_m_07486698604723622694_3892401115_init()
+extern void work_m_08747276567958603272_3892401115_init()
 {
 	static char *pe[] = {(void *)Cont_31_0,(void *)Cont_32_1,(void *)Cont_33_2,(void *)Always_36_3,(void *)Always_85_4};
-	xsi_register_didat("work_m_07486698604723622694_3892401115", "isim/spi_slave_tb_isim_beh.exe.sim/work/m_07486698604723622694_3892401115.didat");
+	xsi_register_didat("work_m_08747276567958603272_3892401115", "isim/spi_slave_tb_isim_beh.exe.sim/work/m_08747276567958603272_3892401115.didat");
 	xsi_register_executes(pe);
 }

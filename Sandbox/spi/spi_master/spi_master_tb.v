@@ -66,7 +66,7 @@ module spi_master_tb ();
     #2000;
 
     // Assign new data
-    data_in = 8'b10101011;
+    data_in = 8'b11101101;
     #100;
 
     // Toggle start flag
