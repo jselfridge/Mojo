@@ -1,13 +1,13 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// spi_master_cpol1_cpha1.v
+// spi_master_11.v
 // Implements an SPI master module.
 // CPOL=1 (POLARITY: sck idle high).
 // CPHA=1 (PHASE: sample falling edge).
 // CLK_DIV (>=2) determines 'sck' frequency.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module spi_master_cpol1_cpha1
+module spi_master_11
   #(
   parameter CLK_DIV = 2
   )(
