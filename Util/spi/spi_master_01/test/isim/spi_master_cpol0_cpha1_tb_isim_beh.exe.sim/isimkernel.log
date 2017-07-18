@@ -1,0 +1,29 @@
+Command line:
+   spi_master_cpol0_cpha1_tb_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  58541
+
+Tue Jul 18 14:58:00 2017
+
+
+ Elaboration Time: 0.04 sec
+
+ Current Memory Usage: 196.268 Meg
+
+ Total Signals          : 28
+ Total Nets             : 37
+ Total Signal Drivers   : 15
+ Total Blocks           : 3
+ Total Primitive Blocks : 2
+ Total Processes        : 20
+ Total Traceable Variables  : 42
+ Total Scalar Nets and Variables : 251
+Total Line Count : 94
+
+ Total Simulation Time: 0.04 sec
+
+ Current Memory Usage: 271.77 Meg
+
+Tue Jul 18 15:03:34 2017
+
