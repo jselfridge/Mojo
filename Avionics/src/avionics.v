@@ -208,8 +208,8 @@ module avionics
   wire new_data_imu;
   wire mosi_imu;
   wire [7:0] data_out_imu;
-  spi_master #(
-    .CLK_DIV(3) )
+  spi_master_cpol0_cpha1 #(
+    .CLK_DIV(6) )
     spi_master_imu (
     .clk(clk),
     .rst( state_board_q == BOARD_IDLE ),
