@@ -23,7 +23,7 @@ module spi_master_cpol1_cpha1_tb ();
   // Device Under Test
   spi_master_cpol1_cpha1
     #(
-    .CLK_DIV(3)
+    .CLK_DIV(4)
     ) spi_master_DUT (
     .clk(clk),
     .rst(rst),
@@ -63,7 +63,7 @@ module spi_master_cpol1_cpha1_tb ();
     start = 1'b1;
     #50;
     start = 1'b0;
-    #2000;
+    #4000;
 
     // Assign new data
     data_in = 8'b11101101;
@@ -73,7 +73,7 @@ module spi_master_cpol1_cpha1_tb ();
     start = 1'b1;
     #50;
     start = 1'b0;
-    #2000;
+    #4000;
 
     #1000;
     $finish;

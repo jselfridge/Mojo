@@ -41,7 +41,7 @@ module spi_master_cpol1_cpha1
   reg [2:0] ctr_d, ctr_q;
 
   // Connect output signals
-  assign sck = ( ~sck_q[CLK_DIV-1] ) & ( state_q == TRANSFER );
+  assign sck = ~( ( ~sck_q[CLK_DIV-1] ) & ( state_q == TRANSFER ) );
   assign busy = state_q != IDLE;
   assign new_data = new_data_q;
   assign mosi = mosi_q;
