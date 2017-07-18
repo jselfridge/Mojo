@@ -14,17 +14,6 @@ develop an avionics solution from FPGA hardware.
 
 <ul>
 
-<li> V0.2 - Connect inputs and outputs </li>
-<ul>
-  <li> Add 8CH radio input module. </li>
-  <li> Add 4CH ESC output module. </li>
-  <li> Add 4CH servo output module. </li>
-  <li> Establish simple arm/disarm FSM. </li>
-  <li> Default signal outputs when disarmed. </li>
-  <li> Direct pass input/output mapping once armed. </li>
-  <li> Display values on debugging terminal. </li>
-</ul>
-
 <li> V0.3 - Connect IMU sensor </li>
 <ul>
   <li> Establish SPI communication for IMU. </li>
@@ -92,6 +81,19 @@ develop an avionics solution from FPGA hardware.
   <li> Store results within data log files. </li>
 </ul>
 
+</ul>
+
+
+
+
+V0.2 - Connect inputs and outputs
+---------------------------------
+<ul>
+  <li> Added 8CH radio inputs. </li>
+  <li> Added 8CH ESC outputs. </li>
+  <li> Established stick commands for arming, data logging, etc. </li>
+  <li> Default signal outputs while motors are disarmed. </li>
+  <li> Direct pass input/output mapping once armed. </li>
 </ul>
 
 

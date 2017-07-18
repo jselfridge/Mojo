@@ -8,38 +8,28 @@ module avionics
   (
 
   // Clocks and hardware
-  input clk,
-  input rst_n,
-  input cclk,
+  input  clk,
+  input  rst_n,
+  input  cclk,
   output [7:0] led,
 
   // AVR SPI connections
-  input spi_sck,
-  input spi_ss,
-  input spi_mosi,
+  input  spi_sck,
+  input  spi_ss,
+  input  spi_mosi,
   output spi_miso,
   output [3:0] spi_ch,
 
   // AVR serial connections
-  input avr_tx,
-  input avr_rx_busy,
+  input  avr_tx,
+  input  avr_rx_busy,
   output avr_rx,
 
-  // Radio command input signals
-  input ch1_isig,
-  input ch2_isig,
-  //input ch3_isig,
-  //input ch4_isig,
-  //input ch5_isig,
-  //input ch6_isig,
-  //input ch7_isig,
-  //input ch8_isig,
+  // Radio input signals
+  input  [7:0] radio_sig,
 
-  // ESC command output signals
-  output ch1_osig,
-
-  // Servo command output signals
-  output ch5_osig
+  // ESC output signals
+  output [7:0] esc_sig
 
   );
 
@@ -67,38 +57,11 @@ module avionics
   reg [BOARD_BITS-1:0] state_board_d, state_board_q = BOARD_IDLE;
   reg state_motor_d, state_motor_q = 1'b0;
   reg [7:0] led_d, led_q;
-  reg onoff_d, onoff_q;
-  reg onoff_prev_d, onoff_prev_q;
+  reg reset_d, reset_q;
+  reg reset_prev_d, reset_prev_q;
   reg motor_d, motor_q;
   reg motor_prev_d, motor_prev_q;
   reg [23:0] timestamp_d, timestamp_q;
-
-
-
-
-  // Connect 'button' module for reset 
-  wire rst;
-  button button_reset (
-    .clk(clk),
-    .btn_i(!rst_n),
-    .btn_o(rst) );
-
-  // Connect 'timers' module
-  timers timers_mod (
-    .clk(clk),
-    .rst( state_board_q == BOARD_IDLE ),
-    .tmr_1Mhz(tmr_1Mhz),
-    .tmr_1khz(tmr_1khz),
-    .tmr_10hz(tmr_10hz) );
-
-  // DEBUG: Connect 5hz clock
-  wire clk_5hz;
-  clock #(
-    .PERIOD(10000000) )
-    clock_5hz_debug (
-    .clk(clk),
-    .rst( state_board_q == BOARD_IDLE ),
-    .sig(clk_5hz) );
 
 
 
@@ -138,51 +101,61 @@ module avionics
     .rx_data(rx_data),
     .new_rx_data(new_rx_data) );
 
+
+
+
+  // Connect 'button' module for reset 
+  wire rst;
+  button button_reset (
+    .clk(clk),
+    .btn_i(!rst_n),
+    .btn_o(rst) );
+
+  // Connect 'timers' module
+  timers timers_mod (
+    .clk(clk),
+    .rst( state_board_q == BOARD_IDLE ),
+    .tmr_1Mhz(tmr_1Mhz),
+    .tmr_1khz(tmr_1khz),
+    .tmr_10hz(tmr_10hz) );
+
+
+
+
   // Connect 'debugging' module 
   debugging debug_mod (
     .clk(clk),
     .rst( state_board_q == BOARD_IDLE ),
     .tmr(tmr_10hz),
     .timestamp(timestamp_q),
+    //.radio_val(radio_val[39:0]),
     .tx_data(tx_data),
     .new_tx_data(new_tx_data),
     .tx_busy(tx_busy),
     .rx_data(rx_data),
     .new_rx_data(new_rx_data) );
 
-  // Connect 'radio' module for CH1 input
-  wire [9:0] ch1_ival;
-  radio #(
-    .DEFAULT(10'd0) )
-    radio_ch1 (
+
+
+
+  // Connect 'inputs' module
+  wire [79:0] radio_val;
+  inputs inputs_mod (
     .tmr_1Mhz(tmr_1Mhz),
     .rst( state_board_q == BOARD_IDLE ),
-    .sig(ch1_isig),
-    .val(ch1_ival) );
+    .radio_sig(radio_sig),
+    .radio_val(radio_val) );
 
-  // Connect 'radio' module for CH2 input
-  wire [9:0] ch2_ival;
-  radio #(
-    .DEFAULT(10'd512) )
-    radio_ch2 (
-    .tmr_1Mhz(tmr_1Mhz),
-    .rst( state_board_q == BOARD_IDLE ),
-    .sig(ch2_isig),
-    .val(ch2_ival) );
 
-  // Connect 'esc' module for CH1 output
-  esc esc_ch1 (
+  // Connect 'control' module
+
+
+  // Connect 'outputs' module
+  outputs outputs_mod (
     .tmr_1Mhz(tmr_1Mhz),
     .rst( ( state_board_q == BOARD_IDLE ) || (!state_motor_q) ),
-    .val(ch1_ival),
-    .sig(ch1_osig) );
-
-  // Connect 'servo' module for CH5 output
-  servo servo_ch5 (
-    .clk(clk),
-    .rst( ( state_board_q == BOARD_IDLE ) || (!state_motor_q) ),
-    .val(ch2_ival[9:2]),
-    .sig(ch5_osig) );
+    .esc_val(radio_val),  // REVISE!!!
+    .esc_sig(esc_sig) );
 
 
 
@@ -190,12 +163,15 @@ module avionics
   // Connect 'flags' module
   wire motor_flag;
   (* keep="soft" *) wire data_flag_z;
+  (* keep="soft" *) wire reset_flag_z;
+  (* keep="soft" *) wire power_flag_z;
   flags flags_mod (
     .tmr_10hz(tmr_10hz),
-    .thrl_val_i(ch1_ival),
-    .elev_val_i(ch2_ival),
-    .motor_flag_o(motor_flag),
-    .data_flag_o(data_flag_z)
+    .radio_val(radio_val[39:0]),
+    .motor_flag(motor_flag),
+    .data_flag(data_flag_z),
+    .reset_flag(reset_flag_z),
+    .power_flag(power_flag_z)
   );
 
 
@@ -207,8 +183,8 @@ module avionics
     // Initial assignments
     state_board_d  = state_board_q;
     led_d          = led_q;
-    onoff_d        = rst;
-    onoff_prev_d   = onoff_q;
+    reset_d        = rst; // OR RESET_FALG
+    reset_prev_d   = reset_q;
     state_motor_d  = state_motor_q;
     motor_d        = motor_flag;
     motor_prev_d   = motor_q;
@@ -224,25 +200,25 @@ module avionics
 
       // Wait for user command
       BOARD_IDLE: begin
-        led_d = { 8{1'b0} };
-        if ( !onoff_prev_q && onoff_q ) begin
+        led_d = { 8{1'b1} };
+        //if ( !reset_prev_q && reset_q ) begin
           state_board_d = BOARD_STARTUP;
-        end
+        //end
       end
 
       // Implement start up processes
       BOARD_STARTUP: begin
         // Add conditions here
-        led_d = { 8{clk_5hz} };
-        if ( !onoff_prev_q && onoff_q ) begin
+        //led_d = { 8{1'b1} };
+        //if ( !reset_prev_q && reset_q ) begin
           state_board_d = BOARD_RUNNING;
-        end
+        //end
       end
 
       // Normal operation until shutdown
       BOARD_RUNNING: begin
-        led_d = timestamp_q[12:5];
-        if ( !onoff_prev_q && onoff_q ) begin
+        led_d = { 8{1'b0} };
+        if ( !reset_prev_q && reset_q ) begin
           state_board_d = BOARD_SHUTDOWN;
         end
       end
@@ -250,10 +226,10 @@ module avionics
       // Implement shutdown processes
       BOARD_SHUTDOWN: begin
         // Add conditions here
-        led_d = { 8{clk_5hz} };
-        if ( !onoff_prev_q && onoff_q ) begin
+        //led_d = { 8{1'b1} };
+        //if ( !reset_prev_q && reset_q ) begin
           state_board_d = BOARD_IDLE;
-        end
+        //end
       end
 
       // Default to idle
@@ -272,8 +248,8 @@ module avionics
   always @( posedge clk ) begin
     led_q          <= led_d;
     state_board_q  <= state_board_d;
-    onoff_q        <= onoff_d;
-    onoff_prev_q   <= onoff_prev_d;
+    reset_q        <= reset_d;
+    reset_prev_q   <= reset_prev_d;
     state_motor_q  <= state_motor_d;
     motor_q        <= motor_d;
     motor_prev_q   <= motor_prev_d;

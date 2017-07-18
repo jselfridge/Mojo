@@ -4,7 +4,7 @@
 // Macro that resizes a 2D array into a vector.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-`define ARR_VEC_2D( ARR, ROW, COL, VEC) \
+`define ARR_VEC_2D( ARR, ROW, COL, VEC ) \
 genvar r; \
 generate \
 for( r=0; r<ROW; r=r+1 ) begin: arr_vec_2d_loop \

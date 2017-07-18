@@ -32,14 +32,59 @@ NET "avr_rx"       LOC = P59  | IOSTANDARD = LVTTL;
 NET "avr_rx_busy"  LOC = P39  | IOSTANDARD = LVTTL;
 
 # Radio command inputs
-NET "ch1_isig"     LOC = P23  | IOSTANDARD = LVTTL;
-NET "ch2_isig"     LOC = P50  | IOSTANDARD = LVTTL;
+NET "radio_sig<0>"     LOC = P85  | IOSTANDARD = LVTTL;
+NET "radio_sig<1>"     LOC = P84  | IOSTANDARD = LVTTL;
+NET "radio_sig<2>"     LOC = P88  | IOSTANDARD = LVTTL;
+NET "radio_sig<3>"     LOC = P87  | IOSTANDARD = LVTTL;
+NET "radio_sig<4>"     LOC = P93  | IOSTANDARD = LVTTL;
+NET "radio_sig<5>"     LOC = P92  | IOSTANDARD = LVTTL;
+NET "radio_sig<6>"     LOC = P95  | IOSTANDARD = LVTTL;
+NET "radio_sig<7>"     LOC = P94  | IOSTANDARD = LVTTL;
 
-// ESC command outputs
-NET "ch1_osig"     LOC = P41  | IOSTANDARD = LVTTL;
+# ESC command outputs
+NET "esc_sig<0>"     LOC = P98  | IOSTANDARD = LVTTL;
+NET "esc_sig<1>"     LOC = P97  | IOSTANDARD = LVTTL;
+NET "esc_sig<2>"     LOC = P100 | IOSTANDARD = LVTTL;
+NET "esc_sig<3>"     LOC = P99  | IOSTANDARD = LVTTL;
+NET "esc_sig<4>"     LOC = P102 | IOSTANDARD = LVTTL;
+NET "esc_sig<5>"     LOC = P101 | IOSTANDARD = LVTTL;
+NET "esc_sig<6>"     LOC = P105 | IOSTANDARD = LVTTL;
+NET "esc_sig<7>"     LOC = P104 | IOSTANDARD = LVTTL;
 
-// Servo command outputs
-NET "ch5_osig"     LOC = P51  | IOSTANDARD = LVTTL;
+
+
+
+# +---------------------------------------------+ #
+# |                     LED                     | #
+# +---------------------------------------------+ #
+# |  LED6 124  123 LED7  |  ---- RST  GND ----  | #
+# |  LED4 127  126 LED5  |  ---- TDI  TCK ----  | #
+# |  LED2 132  131 LED3  |  ---- TMS  TDO ----  | #
+# |  LED0 134  133 LED1  |     - 121  120 -     | #
+# |     - 138  137 -     |     - 119  118 -     | #
+# |     - 140  139 -     |     - 117  116 -     | #
+# |     - 142  141 -     |     - 115  114 -     | #
+# |     - 144  143 -     |     - 112  111 -     | #
+# |     - 002  001 -     |  ESC6 105  104 ESC7  | #
+# |     - 006  005 -     |  ESC4 102  101 ESC5  | #
+# |     - 008  007 -     |  ESC2 100  099 ESC3  | #
+# |     - 010  009 -     |  ESC0 098  097 ESC1  | #
+# |     - 012  011 -     |  RAD6 095  094 RAD7  | #
+# |     R 015  014 R     |  RAD4 093  092 RAD5  | #
+# |     R 017  016 R     |  RAD2 088  087 RAD3  | #
+# |     - 022  021 R     |  RAD0 085  084 RAD1  | #
+# |     R 024  023 R     |     - 083  082 -     | #
+# |     - 027  026 -     |     - 081  080 -     | #
+# |     - 030  029 -     |     - 079  078 -     | #
+# |     - 033  032 -     |     - 075  074 -     | #
+# |     - 035  034 -     |     - 067  066 -     | #
+# |     - 041  040 -     |     - 058  057 -     | #
+# |     R 051  050 R     |  ---- SVS  DON ----  | #
+# |  ---- GND   +V ----  |  ---- ???   +V ----  | #
+# |  ---- GND  RAW ----  |  ---- GND  RAW ----  | #
+# +---------------------------------------------+ #
+# |                     PWR                     | #
+# +---------------------------------------------+ #
 
 
 

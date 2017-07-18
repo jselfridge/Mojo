@@ -3,24 +3,24 @@
 // debugging.v
 // Sends debugging messages to a terminal via the AVR USB.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-//`include "../../Util/VEC_ARR_2D.v"
-`include "../../Sandbox/resize/VEC_ARR_2D/VEC_ARR_2D.v"
+`include "../../Util/resize/VEC_ARR_2D/VEC_ARR_2D.v"
 
 module debugging
   (
 
   // Clocks and timers
-  input clk,
-  input rst,
-  input tmr,
+  input  clk,
+  input  rst,
+  input  tmr,
 
   // Terminal data
-  input [23:0] timestamp,
+  input  [23:0] timestamp,
+  //input  [39:0] radio_val,
 
   // Inputs from AVR
-  input [7:0] rx_data,
-  input new_rx_data,
-  input tx_busy,
+  input  [7:0] rx_data,
+  input  new_rx_data,
+  input  tx_busy,
 
   // Outputs to AVR
   output [7:0] tx_data,
@@ -72,6 +72,25 @@ module debugging
   wire [7:0] timestamp_msg [7:0];
   `VEC_ARR_2D( timestamp_ascii, 8, 8, timestamp_msg )
 
+/*  // Inputs: Convert binary to bcd
+  wire [xx:0] inputs_bcd;
+  bin2bcd #(
+    .BITS(XX) )
+    bin2bcd_inputs (
+    .bin(inputs),
+    .bcd(inputs_bcd) );
+
+  // Inputs: Convert bcd to ascii
+  wire [xx:0] inputs_ascii;
+  bcd2ascii #(
+    .CHAR_LEN(X) )
+    bcd2ascii_timestamp (
+    .bcd({1'b0,inputs_bcd}),
+    .ascii(inputs_ascii) );
+*/
+
+
+
   // Motor
   wire [7:0] motor_msg;
   reg motor_d, motor_q;
@@ -81,6 +100,49 @@ module debugging
   wire [7:0] data_msg;
   reg data_d, data_q;
   assign data_msg = data_q ? "R" : "I";
+
+
+/*  // Assemble debug message
+  genvar i;
+  wire [7:0] debug_msg [63:0];
+  assign i = 0;     assign debug_msg[i] = " ";
+  assign i=i+1'b1;  assign debug_msg[i] = motor_msg;  // MOTOR => A:armed D:disarmed
+  assign i=i+1'b1;  assign debug_msg[i] = " ";
+  assign i=i+1'b1;  assign debug_msg[i] = data_msg;  // DATA => I:idle R:record
+  assign i=i+1'b1;  assign debug_msg[i] = " ";
+  assign i=i+1'b1;  assign debug_msg[i] = "T";
+  assign i=i+1'b1;  assign debug_msg[i] = ":";
+  assign i=i+1'b1;  assign debug_msg[i] = " ";
+  assign i=i+1'b1;  assign debug_msg[i] = timestamp_msg[5];
+  assign i=i+1'b1;  assign debug_msg[i] = timestamp_msg[4];
+  assign i=i+1'b1;  assign debug_msg[i] = timestamp_msg[3];
+  assign i=i+1'b1;  assign debug_msg[i] = ".";
+  assign i=i+1'b1;  assign debug_msg[i] = timestamp_msg[2];
+  assign i=i+1'b1;  assign debug_msg[i] = " ";
+  assign i=i+1'b1;  assign debug_msg[i] = " ";
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[3][0];
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[2][0];
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[1][0];
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[0][0];
+  assign i=i+1'b1;  assign debug_msg[i] = " ";
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[3][1];
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[2][1];
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[1][1];
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[0][1];
+  assign i=i+1'b1;  assign debug_msg[i] = " ";
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[3][2];
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[2][2];
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[1][2];
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[0][2];
+  assign i=i+1'b1;  assign debug_msg[i] = " ";
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[3][3];
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[2][3];
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[1][3];
+  assign i=i+1'b1;  assign debug_msg[i] = inuts_msg[0][3];
+  assign i=i+1'b1;  assign debug_msg[i] = " ";
+  assign i=i+1'b1;  assign debug_msg[i] = " ";
+  assign i=i+1'b1;  assign debug_msg[i] = "\r";
+*/
 
   // Assemble debug message
   wire [7:0] debug_msg [15:0];
@@ -100,7 +162,6 @@ module debugging
   assign debug_msg[13] = " ";
   assign debug_msg[14] = " ";
   assign debug_msg[15] = "\r";
-
 
   // Combinational logic
   always @(*) begin
