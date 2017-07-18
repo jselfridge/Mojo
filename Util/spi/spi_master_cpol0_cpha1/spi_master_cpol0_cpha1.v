@@ -1,10 +1,13 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// spi_master.v
+// spi_master_cpol0_cpha1.v
 // Implements an SPI master module.
+// CPOL=0 (POLARITY: sck idle low).
+// CPHA=1 (PHASE: sample falling edge).
+// CLK_DIV (>=2) determines 'sck' frequency.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module spi_master
+module spi_master_cpol0_cpha1
   #(
   parameter CLK_DIV = 2
   )(
@@ -61,7 +64,7 @@ module spi_master
 
       IDLE: begin
 
-        sck_d  = 4'b0;
+        sck_d  = { CLK_DIV {1'b0} };
         ctr_d  = 3'b0;
         mosi_d = 1'b0;
 
@@ -87,7 +90,7 @@ module spi_master
 
         sck_d = sck_q + 1'b1;
 
-        if ( sck_q == 4'b0000 ) begin
+        if ( sck_q == { CLK_DIV {1'b0} } ) begin
           mosi_d = data_in_q[7];
         end
 

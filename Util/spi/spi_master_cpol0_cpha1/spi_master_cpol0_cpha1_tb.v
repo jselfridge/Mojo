@@ -1,10 +1,10 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// spi_master_tb.v
-// Test bench for the 'spi_master' module.
+// spi_master_cpol0_cpha1_tb.v
+// Test bench for the 'spi_master_cpol0_cpha1' module.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module spi_master_tb ();
+module spi_master_cpol0_cpha1_tb ();
 
   // Test bench inputs
   reg clk;
@@ -21,7 +21,7 @@ module spi_master_tb ();
   wire [7:0] data_out;
 
   // Device Under Test
-  spi_master
+  spi_master_cpol0_cpha1
     #(
     .CLK_DIV(3)
     ) spi_master_DUT (
