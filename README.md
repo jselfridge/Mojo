@@ -14,7 +14,17 @@ develop an avionics solution from FPGA hardware.
 
 <ul>
 
-<li> V0.3 - Connect IMU sensor </li>
+<li> V0.3 - SD card data logging </li>
+<ul>
+  <li> Setup MicroBlaze soft processor core. </li>
+  <li> Connect SD card with serial communication. </li>
+  <li> Store data locally on internal register. </li>
+  <li> Add data logging commands to FSM. </li>
+  <li> C code to handle file system operations. </li>
+  <li> Transfer internal data to SD card. </li>
+</ul>
+
+<li> V0.4 - Connect IMU sensor </li>
 <ul>
   <li> Establish SPI communication for IMU. </li>
   <li> Setup floating point arithmetic core. </li>
@@ -25,23 +35,13 @@ develop an avionics solution from FPGA hardware.
   <li> Display results on terminal. </li>
 </ul>
 
-<li> V0.4 - Complementary filter solution </li>
+<li> V0.5 - Complementary filter solution </li>
 <ul>
   <li> Setup trigonometry core. </li>
   <li> Calculate summation of rate gyro values. </li>
   <li> Tangent function on accelerometer values. </li>
   <li> Weighted average of two signals. </li>
   <li> Display results on terminal. </li>
-</ul>
-
-<li> V0.5 - SD card data logging </li>
-<ul>
-  <li> Setup MicroBlaze soft processor core. </li>
-  <li> Connect SD card with serial communication. </li>
-  <li> Store data locally on internal register. </li>
-  <li> Add data logging commands to FSM. </li>
-  <li> C code to handle file system operations. </li>
-  <li> Transfer internal data to SD card. </li>
 </ul>
 
 <li> V0.6 - Attitude Heading and Reference System (AHRS) </li>
