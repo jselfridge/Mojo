@@ -86,8 +86,8 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="73"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="13"/>
     </file>
-    <file xil_pn:name="../Util/spi/spi_master_cpol0_cpha1/spi_master_cpol0_cpha1.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="73"/>
+    <file xil_pn:name="../Util/spi/spi_master_cpol1_cpha1/spi_master_cpol1_cpha1.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="74"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="10"/>
     </file>
   </files>
