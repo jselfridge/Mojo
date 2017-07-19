@@ -15,7 +15,7 @@ module debugging
 
   // Terminal data
   input  [23:0] timestamp,
-  //input  [7:0] acc,
+  input  [7:0] acc,
 
   // Inputs from AVR
   input  [7:0] rx_data,
@@ -42,10 +42,12 @@ module debugging
     INPUT_MOTOR  = 2'd2,
     INPUT_DATA   = 2'd3;
 
-  localparam MESSAGE_LEN = 16;
+  // Message parameters
+  localparam MSG_LEN  = 32;
+  parameter MSG_BITS = $clog2(MSG_LEN);
  
   // Internal registers
-  reg [3:0] addr_d, addr_q;
+  reg [MSG_BITS-1:0] addr_d, addr_q;
   reg [OUTPUT_BITS-1:0] state_output_d, state_output_q = OUTPUT_IDLE;
   reg [INPUT_BITS-1:0] state_input_d, state_input_q = INPUT_IDLE;
  
@@ -73,15 +75,15 @@ module debugging
   `VEC_ARR_2D( timestamp_ascii, 8, 8, timestamp_msg )
 
   // Acc 
-  //wire [7:0] acc_msg [7:0];
-  //assign acc_msg[0] = 1 ? "1" : "0";
-  //assign acc_msg[1] = 1 ? "1" : "0";
-  //assign acc_msg[2] = 0 ? "1" : "0";
-  //assign acc_msg[3] = 0 ? "1" : "0";
-  //assign acc_msg[4] = 1 ? "1" : "0";
-  //assign acc_msg[5] = 1 ? "1" : "0";
-  //assign acc_msg[6] = 0 ? "1" : "0";
-  //assign acc_msg[7] = 0 ? "1" : "0";
+  wire [7:0] acc_msg [7:0];
+  assign acc_msg[0] = acc[0] ? "1" : "0";
+  assign acc_msg[1] = acc[1] ? "1" : "0";
+  assign acc_msg[2] = acc[2] ? "1" : "0";
+  assign acc_msg[3] = acc[3] ? "1" : "0";
+  assign acc_msg[4] = acc[4] ? "1" : "0";
+  assign acc_msg[5] = acc[5] ? "1" : "0";
+  assign acc_msg[6] = acc[6] ? "1" : "0";
+  assign acc_msg[7] = acc[7] ? "1" : "0";
 
 
 /*  // Inputs: Convert binary to bcd
@@ -157,7 +159,7 @@ module debugging
 */
 
   // Assemble debug message
-  wire [7:0] debug_msg [31:0];
+  wire [7:0] debug_msg [MSG_LEN-1:0];
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = motor_msg;  // MOTOR => A:armed D:disarmed
   assign debug_msg[ 2] = " ";
@@ -172,14 +174,14 @@ module debugging
   assign debug_msg[11] = ".";
   assign debug_msg[12] = timestamp_msg[2];
   assign debug_msg[13] = " ";
-  assign debug_msg[14] = " ";  //acc_msg[0];
-  assign debug_msg[15] = " ";  //acc_msg[1];
-  assign debug_msg[16] = " ";  //acc_msg[2];
-  assign debug_msg[17] = " ";  //acc_msg[3];
-  assign debug_msg[18] = " ";  //acc_msg[4];
-  assign debug_msg[19] = " ";  //acc_msg[5];
-  assign debug_msg[20] = " ";  //acc_msg[6];
-  assign debug_msg[21] = " ";  //acc_msg[7];
+  assign debug_msg[14] = acc_msg[0];
+  assign debug_msg[15] = acc_msg[1];
+  assign debug_msg[16] = acc_msg[2];
+  assign debug_msg[17] = acc_msg[3];
+  assign debug_msg[18] = acc_msg[4];
+  assign debug_msg[19] = acc_msg[5];
+  assign debug_msg[20] = acc_msg[6];
+  assign debug_msg[21] = acc_msg[7];
   assign debug_msg[22] = " ";
   assign debug_msg[23] = " ";
   assign debug_msg[24] = " ";
@@ -207,7 +209,7 @@ module debugging
 
       // Wait for timer signal
       OUTPUT_IDLE: begin
-        addr_d = 4'd0;
+        addr_d = { MSG_BITS {1'b0} };
         if (tmr)
           state_output_d = OUTPUT_MSG;
       end
@@ -217,7 +219,7 @@ module debugging
         if (!tx_busy) begin
           new_tx_data = 1'b1;
           addr_d = addr_q + 1'b1;
-          if ( addr_q == MESSAGE_LEN-1 )
+          if ( addr_q == MSG_LEN-1 )
             state_output_d = OUTPUT_IDLE;
         end
       end

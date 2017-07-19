@@ -11,8 +11,5 @@
 <msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;/home/justin/Documents/FPGA/Util/spi/spi_master_11/spi_master_11.v&quot; into library work</arg>
 </msg>
 
-<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;/home/justin/Documents/FPGA/Util/spi/spi_master_11/spi_master_11_tb.v&quot; into library work</arg>
-</msg>
-
 </messages>
 

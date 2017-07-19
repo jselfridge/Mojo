@@ -43,7 +43,7 @@ module avionics
 
 
   // Assign LED values
-  assign led = data_out_imu;
+  assign led = data_out_imu_q;
   //assign led = 8'b0;
 
   // Assign IMU SPI outputs
@@ -118,7 +118,9 @@ module avionics
   reg [7:0] data_in_imu_d, data_in_imu_q = 8'hFF;
   reg start_imu_d, start_imu_q;
 
-  //reg [7:0] acc_d, acc_q = 8'b0;
+  reg [7:0] data_out_imu_d, data_out_imu_q;
+  reg new_data_imu_d, new_data_imu_q = 1'b0;
+  reg [7:0] acc_d, acc_q = 8'b0;
 
 
 
@@ -185,7 +187,7 @@ module avionics
     .rst( state_board_q == BOARD_IDLE ),
     .tmr(tmr_10hz),
     .timestamp(timestamp_q),
-    //.acc(acc_q),
+    .acc(acc_q),
     .tx_data(tx_data),
     .new_tx_data(new_tx_data),
     .tx_busy(tx_busy),
@@ -271,6 +273,9 @@ module avionics
     motor_prev_d   = motor_q;
     timestamp_d    = timestamp_q + 1'b1;
     data_in_imu_d  = 8'b11111111;
+    data_out_imu_d = data_out_imu;
+    new_data_imu_d = new_data_imu;
+    acc_d          = acc_q;
 
     // Switch motor state
     if ( !motor_prev_q && motor_q ) begin
@@ -338,7 +343,7 @@ module avionics
         data_in_imu_d = 8'b1_011_1011;  // R3B
         if ( !busy_imu )
           start_imu_d = 1'b1;
-        if ( new_data_imu )
+        if ( new_data_imu_q )
           accx_d[15:8] = data_out_imu;
           state_imu_d = IMU_ACC_XL;
       end
@@ -348,8 +353,8 @@ module avionics
         data_in_imu_d = 8'b1_011_1100;  // R3C
         if ( !busy_imu )
           start_imu_d = 1'b1;
-        if ( new_data_imu )
-          //acc_d = data_out_imu;
+        if ( new_data_imu_q )
+          acc_d = data_out_imu_q;  // Might have a timing issue later...
           state_imu_d = IMU_FLUSH;
       end
 
@@ -358,7 +363,7 @@ module avionics
         data_in_imu_d = 8'b11111111;
         if ( !busy_imu )
           start_imu_d = 1'b1;
-        if ( new_data_imu )
+        if ( new_data_imu_q )
           state_imu_d = IMU_IDLE;
       end
 
@@ -392,7 +397,9 @@ module avionics
     state_motor_q  <= state_motor_d;
     motor_q        <= motor_d;
     motor_prev_q   <= motor_prev_d;
-    //acc_q          <= acc_d;
+    data_out_imu_q <= data_out_imu_d;
+    new_data_imu_q <= new_data_imu_d;
+    acc_q          <= acc_d;
 
   end
 
