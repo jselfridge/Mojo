@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-07-18T19:40:27</DateModified>
+  <DateModified>2017-07-18T19:55:34</DateModified>
   <ModuleName>spi_master_00</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
   <SavedFilePath>/home/justin/Documents/FPGA/Util/spi/spi_master_00/test/iseconfig/spi_master_00.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Util/spi/spi_master_00/test</ImplementationReportsDirectory>
+  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Util/spi/spi_master_00/test/</ImplementationReportsDirectory>
   <DateInitialized>2017-07-18T19:40:26</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
