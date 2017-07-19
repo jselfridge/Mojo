@@ -15,7 +15,7 @@ module debugging
 
   // Terminal data
   input  [23:0] timestamp,
-  //input  [39:0] radio_val,
+  //input  [7:0] acc,
 
   // Inputs from AVR
   input  [7:0] rx_data,
@@ -71,6 +71,18 @@ module debugging
   // Timestamp: Convert vector to array
   wire [7:0] timestamp_msg [7:0];
   `VEC_ARR_2D( timestamp_ascii, 8, 8, timestamp_msg )
+
+  // Acc 
+  //wire [7:0] acc_msg [7:0];
+  //assign acc_msg[0] = 1 ? "1" : "0";
+  //assign acc_msg[1] = 1 ? "1" : "0";
+  //assign acc_msg[2] = 0 ? "1" : "0";
+  //assign acc_msg[3] = 0 ? "1" : "0";
+  //assign acc_msg[4] = 1 ? "1" : "0";
+  //assign acc_msg[5] = 1 ? "1" : "0";
+  //assign acc_msg[6] = 0 ? "1" : "0";
+  //assign acc_msg[7] = 0 ? "1" : "0";
+
 
 /*  // Inputs: Convert binary to bcd
   wire [xx:0] inputs_bcd;
@@ -145,7 +157,7 @@ module debugging
 */
 
   // Assemble debug message
-  wire [7:0] debug_msg [15:0];
+  wire [7:0] debug_msg [31:0];
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = motor_msg;  // MOTOR => A:armed D:disarmed
   assign debug_msg[ 2] = " ";
@@ -160,8 +172,24 @@ module debugging
   assign debug_msg[11] = ".";
   assign debug_msg[12] = timestamp_msg[2];
   assign debug_msg[13] = " ";
-  assign debug_msg[14] = " ";
-  assign debug_msg[15] = "\r";
+  assign debug_msg[14] = " ";  //acc_msg[0];
+  assign debug_msg[15] = " ";  //acc_msg[1];
+  assign debug_msg[16] = " ";  //acc_msg[2];
+  assign debug_msg[17] = " ";  //acc_msg[3];
+  assign debug_msg[18] = " ";  //acc_msg[4];
+  assign debug_msg[19] = " ";  //acc_msg[5];
+  assign debug_msg[20] = " ";  //acc_msg[6];
+  assign debug_msg[21] = " ";  //acc_msg[7];
+  assign debug_msg[22] = " ";
+  assign debug_msg[23] = " ";
+  assign debug_msg[24] = " ";
+  assign debug_msg[25] = " ";
+  assign debug_msg[26] = " ";
+  assign debug_msg[27] = " ";
+  assign debug_msg[28] = " ";
+  assign debug_msg[29] = " ";
+  assign debug_msg[30] = " ";
+  assign debug_msg[31] = "\r";
 
   // Combinational logic
   always @(*) begin

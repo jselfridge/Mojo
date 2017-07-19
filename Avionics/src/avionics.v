@@ -44,12 +44,12 @@ module avionics
 
   // Assign LED values
   assign led = data_out_imu;
-  //assign led = led_q;
+  //assign led = 8'b0;
 
   // Assign IMU SPI outputs
   assign imu_mosi = mosi_imu;
   assign imu_sck = sck_imu;
-  assign imu_ss = !busy_imu;  // ss_imu_q;
+  assign imu_ss = !busy_imu;
 
 
 
@@ -64,23 +64,43 @@ module avionics
 
   // IMU sensor states
   localparam
-    IMU_BITS         = 2,
-    IMU_IDLE         = 2'd0,
-    // I2C_IF_DIS (Section 6.3)
-    //IMU_RESET        = 2'd1,  // 0x80
-    //IMU_PAUSE        = 2'd2,
-    //IMU_WAKE         = 2'd3,  // 0x00
-    //IMU_GYRO_FSR     = 2'd4,
-    //IMU_ACC_FSR      = 2'd5,
-    //IMU_LPF          = 2'd6,
-    //IMU_SAMPLE_RATE  = 2'd7,
-    //IMU_CONFIG_FIFO  = 2'd8,
-    IMU_SEND_AX      = 2'd1,
-    IMU_READ_AX      = 2'd2;
-  //IMU_SEND_AY      = 2'dX,
-  //IMU_READ_AY      = 2'dX,
-  //IMU_SEND_AZ      = 2'dX,
-  //IMU_READ_AZ      = 2'dX,
+    IMU_BITS    = 2,
+    // Initialize sensor 
+    //IMU_START   = X'dxx,
+    //I2C_IF_DIS (Section 6.3)
+    //IMU_RESET   = X'dxx,  // 0x80
+    //IMU_PAUSE   = X'dxx,
+    //IMU_WAKE    = X'dxx,  // 0x00
+    //IMU_GFSR    = X'dxx,
+    //IMU_AFSR    = X'dxx,
+    //IMU_LPF     = X'dxx,
+    //IMU_RATE    = X'dxx,
+    //IMU_FIFO    = X'dxx,
+    // Repetitive cycle
+    IMU_IDLE    = 2'd0,
+    // Accelerometer data
+    //IMU_ACC_XH  = 2'd1,
+    IMU_ACC_XL  = 2'd2,
+    //IMU_ACC_YH  = X'dxx,
+    //IMU_ACC_YL  = X'dxx,
+    //IMU_ACC_ZH  = X'dxx,
+    //IMU_ACC_ZL  = X'dxx,
+    // Rate gyro data
+    //IMU_GYR_XH  = X'dxx,
+    //IMU_GYR_XL  = X'dxx,
+    //IMU_GYR_YH  = X'dxx,
+    //IMU_GYR_YL  = X'dxx,
+    //IMU_GYR_ZH  = X'dxx,
+    //IMU_GYR_ZL  = X'dxx,
+    // Magnetometer data
+    //IMU_MAG_XH  = X'dxx,
+    //IMU_MAG_XL  = X'dxx,
+    //IMU_MAG_YH  = X'dxx,
+    //IMU_MAG_YL  = X'dxx,
+    //IMU_MAG_ZH  = X'dxx,
+    //IMU_MAG_ZL  = X'dxx,
+    // Flush last bit
+    IMU_FLUSH   = 2'd3;
 
 
 
@@ -89,7 +109,7 @@ module avionics
   reg [BOARD_BITS-1:0] state_board_d, state_board_q = BOARD_IDLE;
   reg [IMU_BITS-1:0] state_imu_d, state_imu_q = IMU_IDLE;
   reg state_motor_d, state_motor_q = 1'b0;
-  reg [7:0] led_d, led_q;
+  //reg [7:0] led_d, led_q;
   reg reset_d, reset_q;
   reg reset_prev_d, reset_prev_q;
   reg motor_d, motor_q;
@@ -97,7 +117,9 @@ module avionics
   reg [23:0] timestamp_d, timestamp_q;
   reg [7:0] data_in_imu_d, data_in_imu_q = 8'hFF;
   reg start_imu_d, start_imu_q;
-  //reg ss_imu_d, ss_imu_q;
+
+  //reg [7:0] acc_d, acc_q = 8'b0;
+
 
 
 
@@ -163,7 +185,7 @@ module avionics
     .rst( state_board_q == BOARD_IDLE ),
     .tmr(tmr_10hz),
     .timestamp(timestamp_q),
-    //.radio_val(radio_val[39:0]),
+    //.acc(acc_q),
     .tx_data(tx_data),
     .new_tx_data(new_tx_data),
     .tx_busy(tx_busy),
@@ -222,7 +244,7 @@ module avionics
     spi_master_imu (
     .clk(clk),
     .rst( state_board_q == BOARD_IDLE ),
-    .start(start_imu_q),  // Where des this go ???
+    .start(start_imu_q),
     .miso(imu_miso),
     .data_in(data_in_imu_q),
     .sck(sck_imu),
@@ -241,27 +263,26 @@ module avionics
     state_board_d  = state_board_q;
     state_imu_d    = state_imu_q;
     start_imu_d    = 1'b0;
-  //ss_imu_d       = 1'b1;
-    led_d          = led_q;
+    //led_d          = led_q;
     reset_d        = rst; // OR RESET_FALG
     reset_prev_d   = reset_q;
     state_motor_d  = state_motor_q;
     motor_d        = motor_flag;
     motor_prev_d   = motor_q;
     timestamp_d    = timestamp_q + 1'b1;
-    data_in_imu_d  = 8'hFF;
+    data_in_imu_d  = 8'b11111111;
 
     // Switch motor state
     if ( !motor_prev_q && motor_q ) begin
       state_motor_d = ~state_motor_q;
     end
 
-    // State machine: avionics board
+    // Begin 'board' state machine
     case (state_board_q)
 
       // Wait for user command
       BOARD_IDLE: begin
-        led_d = { 8{1'b1} };
+        //led_d = { 8{1'b1} };
         //if ( !reset_prev_q && reset_q ) begin
           state_board_d = BOARD_STARTUP;
         //end
@@ -278,7 +299,7 @@ module avionics
 
       // Normal operation until shutdown
       BOARD_RUNNING: begin
-        led_d = { 8{1'b0} };
+        //led_d = { 8{1'b0} };
         if ( !reset_prev_q && reset_q ) begin
           state_board_d = BOARD_SHUTDOWN;
         end
@@ -301,43 +322,48 @@ module avionics
     // End 'board' state machine
     endcase
 
-    // State machine: imu
+    // Begin 'imu' state machine
     case (state_imu_q)
 
       // Wait for next timer pulse
       IMU_IDLE: begin
-        //ss_imu_d = 1'b1;
         if ( tmr_10hz ) begin  // CHANGE TO 1kHz !!!
-          state_imu_d = IMU_SEND_AX;
-          //ss_imu_d = 1'b0;
+          state_imu_d = IMU_ACC_XL;
         end
       end
 
-      // Send command for acc x-axis data
-      IMU_SEND_AX: begin
-        //ss_imu_d = 1'b0;
-        data_in_imu_d = 8'b1_011_1100;   // R3C;
+/*
+      // Accelerometer x-axis high byte
+      IMU_ACC_XH: begin
+        data_in_imu_d = 8'b1_011_1011;  // R3B
         if ( !busy_imu )
           start_imu_d = 1'b1;
         if ( new_data_imu )
-          //ss_imu_d = 1'b1;
-          state_imu_d = IMU_READ_AX;
+          accx_d[15:8] = data_out_imu;
+          state_imu_d = IMU_ACC_XL;
+      end
+*/
+      // Accelerometer x-axis low byte
+      IMU_ACC_XL: begin
+        data_in_imu_d = 8'b1_011_1100;  // R3C
+        if ( !busy_imu )
+          start_imu_d = 1'b1;
+        if ( new_data_imu )
+          //acc_d = data_out_imu;
+          state_imu_d = IMU_FLUSH;
       end
 
-      // Send dummy byte and read acc x-axis data
-      IMU_READ_AX: begin
-        //ss_imu_d = 1'b0;
-        data_in_imu_d = 8'hFF;
+      // Send dummy byte to flush last bit
+      IMU_FLUSH: begin
+        data_in_imu_d = 8'b11111111;
         if ( !busy_imu )
           start_imu_d = 1'b1;
         if ( new_data_imu )
-          //ss_imu_d = 1'b1;
           state_imu_d = IMU_IDLE;
       end
 
       // Default to idle
       default: begin
-        //ss_imu_d = 1'b1;
         state_imu_d = IMU_IDLE;
       end
 
@@ -357,16 +383,17 @@ module avionics
       data_in_imu_q  <= data_in_imu_d;
     end
 
-    led_q          <= led_d;
+    //led_q          <= led_d;
     state_board_q  <= state_board_d;
     state_imu_q    <= state_imu_d;
     start_imu_q    <= start_imu_d;
-    //ss_imu_q       <= ss_imu_d;
     reset_q        <= reset_d;
     reset_prev_q   <= reset_prev_d;
     state_motor_q  <= state_motor_d;
     motor_q        <= motor_d;
     motor_prev_q   <= motor_prev_d;
+    //acc_q          <= acc_d;
+
   end
 
 
