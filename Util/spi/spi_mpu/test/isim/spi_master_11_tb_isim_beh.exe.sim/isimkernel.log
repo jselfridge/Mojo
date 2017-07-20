@@ -1,0 +1,29 @@
+Command line:
+   spi_master_11_tb_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  35583
+
+Wed Jul 19 19:27:47 2017
+
+
+ Elaboration Time: 0.03 sec
+
+ Current Memory Usage: 196.268 Meg
+
+ Total Signals          : 28
+ Total Nets             : 37
+ Total Signal Drivers   : 15
+ Total Blocks           : 3
+ Total Primitive Blocks : 2
+ Total Processes        : 20
+ Total Traceable Variables  : 42
+ Total Scalar Nets and Variables : 253
+Total Line Count : 94
+
+ Total Simulation Time: 0.07 sec
+
+ Current Memory Usage: 271.77 Meg
+
+Wed Jul 19 19:30:13 2017
+

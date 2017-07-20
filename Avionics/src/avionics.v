@@ -43,7 +43,7 @@ module avionics
 
 
   // Assign LED values
-  assign led = testout;
+  assign led = testout[7:0];
   //assign led = data_out_imu_q;
   //assign led = 8'b0;
 
@@ -139,7 +139,7 @@ module avionics
 
 
   // Connect 'states' module
-  wire [7:0] testout;
+  wire [15:0] testout;
   states states_mod (
     .clk(clk),
     .rst( state_board_q == BOARD_IDLE ),
