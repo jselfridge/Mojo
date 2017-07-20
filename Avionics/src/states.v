@@ -21,7 +21,8 @@ module states
   assign imu_sck = sck_imu;
   assign imu_ss = !busy_imu;
 
-  assign testout = data_out_imu;
+  //assign testout = data_out_imu_q;
+  assign testout = testout_q;
 
   // IMU sensor states
   localparam
@@ -64,11 +65,11 @@ module states
     IMU_FLUSH   = 2'd2;
 
   reg [IMU_BITS-1:0] state_imu_d, state_imu_q = IMU_IDLE;
-  reg [7:0] data_in_imu_d, data_in_imu_q = 8'b11111111;
+  reg [7:0] data_in_imu_d, data_in_imu_q = 8'hFF;
   reg start_imu_d, start_imu_q = 1'b0;
-  //reg [7:0] data_out_imu_d, data_out_imu_q;
+  reg [7:0] data_out_imu_d, data_out_imu_q;
+  reg [7:0] testout_d, testout_q = 8'h00;
   //reg new_data_imu_d, new_data_imu_q = 1'b0;
-  //reg [7:0] acc_d, acc_q = 8'b0;
 
   // Connect 'spi_master' module for IMU
   wire sck_imu;
@@ -97,7 +98,8 @@ module states
     state_imu_d    = state_imu_q;
     data_in_imu_d  = 8'b11111111;
     start_imu_d    = 1'b0;
-    //data_out_imu_d = data_out_imu;
+    data_out_imu_d = data_out_imu;
+    testout_d      = testout_q;
     //new_data_imu_d = new_data_imu;
 
     // Begin 'imu' state machine
@@ -123,18 +125,20 @@ module states
 */
       // Accelerometer x-axis low byte
       IMU_ACC_XL: begin
-        data_in_imu_d = 8'b1_011_1100;  // R3C
-        if ( !busy_imu )
+        if ( !busy_imu ) begin
+          data_in_imu_d = 8'b1_011_1100;  // R3C
           start_imu_d = 1'b1;
-        if ( new_data_imu )
-          //acc_d = data_out_imu_q;  // Might have a timing issue later...
+        end
+        if ( new_data_imu ) begin
+          testout_d = data_out_imu_q;
           state_imu_d = IMU_FLUSH;
+        end
       end
 
       // Send dummy byte to flush last bit
       IMU_FLUSH: begin
-        data_in_imu_d = 8'b11111111;
         if ( !busy_imu )
+          data_in_imu_d = 8'b11111111;
           start_imu_d = 1'b1;
         if ( new_data_imu )
           state_imu_d = IMU_IDLE;
@@ -161,7 +165,8 @@ module states
 
     state_imu_q    <= state_imu_d;
     start_imu_q    <= start_imu_d;
-    //data_out_imu_q <= data_out_imu_d;
+    data_out_imu_q <= data_out_imu_d;
+    testout_q      <= testout_d;
     //new_data_imu_q <= new_data_imu_d;
 
   end

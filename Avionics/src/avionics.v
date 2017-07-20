@@ -43,7 +43,7 @@ module avionics
 
 
   // Assign LED values
-  //assign led = acc;
+  assign led = testout;
   //assign led = data_out_imu_q;
   //assign led = 8'b0;
 
@@ -129,22 +129,6 @@ module avionics
 
 
 
-  // Connect 'debugging' module 
-  debugging debug_mod (
-    .clk(clk),
-    .rst( state_board_q == BOARD_IDLE ),
-    .tmr(tmr_10hz),
-    .timestamp(timestamp_q),
-    //.acc(acc_q),
-    .tx_data(tx_data),
-    .new_tx_data(new_tx_data),
-    .tx_busy(tx_busy),
-    .rx_data(rx_data),
-    .new_rx_data(new_rx_data) );
-
-
-
-
   // Connect 'inputs' module
   wire [79:0] radio_val;
   inputs inputs_mod (
@@ -155,6 +139,7 @@ module avionics
 
 
   // Connect 'states' module
+  wire [7:0] testout;
   states states_mod (
     .clk(clk),
     .rst( state_board_q == BOARD_IDLE ),
@@ -163,7 +148,7 @@ module avionics
     .imu_mosi(imu_mosi),
     .imu_sck(imu_sck),
     .imu_ss(imu_ss),
-    .testout(led) );
+    .testout(testout) );
 
 
   // Connect 'control' module
@@ -175,6 +160,22 @@ module avionics
     .rst( ( state_board_q == BOARD_IDLE ) || (!state_motor_q) ),
     .esc_val(radio_val),  // REVISE!!!
     .esc_sig(esc_sig) );
+
+
+
+
+  // Connect 'debugging' module 
+  debugging debug_mod (
+    .clk(clk),
+    .rst( state_board_q == BOARD_IDLE ),
+    .tmr(tmr_10hz),
+    .timestamp(timestamp_q),
+    .acc(testout),
+    .tx_data(tx_data),
+    .new_tx_data(new_tx_data),
+    .tx_busy(tx_busy),
+    .rx_data(rx_data),
+    .new_rx_data(new_rx_data) );
 
 
 
