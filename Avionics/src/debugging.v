@@ -15,7 +15,7 @@ module debugging
 
   // Terminal data
   input  [23:0] timestamp,
-  input  [7:0] acc,
+  //input  [7:0] acc,
 
   // Inputs from AVR
   input  [7:0] rx_data,
@@ -75,15 +75,15 @@ module debugging
   `VEC_ARR_2D( timestamp_ascii, 8, 8, timestamp_msg )
 
   // Acc 
-  wire [7:0] acc_msg [7:0];
-  assign acc_msg[0] = acc[0] ? "1" : "0";
-  assign acc_msg[1] = acc[1] ? "1" : "0";
-  assign acc_msg[2] = acc[2] ? "1" : "0";
-  assign acc_msg[3] = acc[3] ? "1" : "0";
-  assign acc_msg[4] = acc[4] ? "1" : "0";
-  assign acc_msg[5] = acc[5] ? "1" : "0";
-  assign acc_msg[6] = acc[6] ? "1" : "0";
-  assign acc_msg[7] = acc[7] ? "1" : "0";
+  //wire [7:0] acc_msg [7:0];
+  //assign acc_msg[0] = acc[0] ? "1" : "0";
+  //assign acc_msg[1] = acc[1] ? "1" : "0";
+  //assign acc_msg[2] = acc[2] ? "1" : "0";
+  //assign acc_msg[3] = acc[3] ? "1" : "0";
+  //assign acc_msg[4] = acc[4] ? "1" : "0";
+  //assign acc_msg[5] = acc[5] ? "1" : "0";
+  //assign acc_msg[6] = acc[6] ? "1" : "0";
+  //assign acc_msg[7] = acc[7] ? "1" : "0";
 
 
 /*  // Inputs: Convert binary to bcd
@@ -173,15 +173,15 @@ module debugging
   assign debug_msg[10] = timestamp_msg[3];
   assign debug_msg[11] = ".";
   assign debug_msg[12] = timestamp_msg[2];
-  assign debug_msg[13] = " ";
-  assign debug_msg[14] = acc_msg[0];
-  assign debug_msg[15] = acc_msg[1];
-  assign debug_msg[16] = acc_msg[2];
-  assign debug_msg[17] = acc_msg[3];
-  assign debug_msg[18] = acc_msg[4];
-  assign debug_msg[19] = acc_msg[5];
-  assign debug_msg[20] = acc_msg[6];
-  assign debug_msg[21] = acc_msg[7];
+  assign debug_msg[13] = " ";  // 
+  assign debug_msg[14] = " ";  // acc_msg[0];
+  assign debug_msg[15] = " ";  // acc_msg[1];
+  assign debug_msg[16] = " ";  // acc_msg[2];
+  assign debug_msg[17] = " ";  // acc_msg[3];
+  assign debug_msg[18] = " ";  // acc_msg[4];
+  assign debug_msg[19] = " ";  // acc_msg[5];
+  assign debug_msg[20] = " ";  // acc_msg[6];
+  assign debug_msg[21] = " ";  // acc_msg[7];
   assign debug_msg[22] = " ";
   assign debug_msg[23] = " ";
   assign debug_msg[24] = " ";
