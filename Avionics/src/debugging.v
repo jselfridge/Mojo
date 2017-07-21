@@ -15,7 +15,10 @@ module debugging
 
   // Terminal data
   input  [23:0] timestamp,
-  input  [47:0] acc,
+  //input  [47:0] acc,
+  //input  [47:0] gyr,
+  //input  [47:0] mag,
+  input  [7:0] debug,
 
   // Inputs from AVR
   input  [7:0] rx_data,
@@ -43,7 +46,7 @@ module debugging
     INPUT_DATA   = 2'd3;
 
   // Message parameters
-  localparam MSG_LEN  = 64;
+  localparam MSG_LEN  = 24;
   parameter MSG_BITS = $clog2(MSG_LEN);
  
   // Internal registers
@@ -97,28 +100,46 @@ module debugging
 
 
   // Motor
-  //wire [7:0] motor_msg;
-  //reg motor_d, motor_q;
-  //assign motor_msg = motor_q ? "A" : "D";
+  wire [7:0] motor_msg;
+  reg motor_d, motor_q;
+  assign motor_msg = motor_q ? "A" : "D";
 
   // Data
-  //wire [7:0] data_msg;
-  //reg data_d, data_q;
-  //assign data_msg = data_q ? "R" : "I";
+  wire [7:0] data_msg;
+  reg data_d, data_q;
+  assign data_msg = data_q ? "R" : "I";
 
 
 
 
   // Assemble debug message
   wire [7:0] debug_msg [MSG_LEN-1:0];
-  //assign debug_msg[ 0] = " ";
-  //assign debug_msg[ 1] = motor_msg;  // MOTOR => A:armed D:disarmed
-  //assign debug_msg[ 2] = " ";
-  //assign debug_msg[ 3] = data_msg;  // DATA => I:idle R:record
-  //assign debug_msg[ 4] = " ";
-  //assign debug_msg[ 5] = "T";
-  //assign debug_msg[ 6] = ":";
-  //assign debug_msg[ 7] = " ";
+  assign debug_msg[ 0] = " ";
+  assign debug_msg[ 1] = motor_msg;  // MOTOR => A:armed D:disarmed
+  assign debug_msg[ 2] = " ";
+  assign debug_msg[ 3] = data_msg;  // DATA => I:idle R:record
+  assign debug_msg[ 4] = " ";
+  assign debug_msg[ 5] = "T";
+  assign debug_msg[ 6] = ":";
+  assign debug_msg[ 7] = " ";
+  assign debug_msg[ 8] = timestamp_msg[5];
+  assign debug_msg[ 9] = timestamp_msg[4];
+  assign debug_msg[10] = timestamp_msg[3];
+  assign debug_msg[11] = ".";
+  assign debug_msg[12] = timestamp_msg[2];
+  assign debug_msg[13] = " ";
+  assign debug_msg[14] = debug[7] ? "1" : "0";
+  assign debug_msg[15] = debug[6] ? "1" : "0";
+  assign debug_msg[16] = debug[5] ? "1" : "0";
+  assign debug_msg[17] = debug[4] ? "1" : "0";
+  assign debug_msg[18] = debug[3] ? "1" : "0";
+  assign debug_msg[19] = debug[2] ? "1" : "0";
+  assign debug_msg[20] = debug[1] ? "1" : "0";
+  assign debug_msg[21] = debug[0] ? "1" : "0";
+  assign debug_msg[22] = " ";
+  assign debug_msg[23] = "\r";
+
+/*
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = timestamp_msg[5];
   assign debug_msg[ 2] = timestamp_msg[4];
@@ -183,7 +204,7 @@ module debugging
   assign debug_msg[61] = " ";
   assign debug_msg[62] = " ";
   assign debug_msg[63] = "\r";
-
+*/
 
 
 
@@ -195,8 +216,8 @@ module debugging
     state_output_d  = state_output_q;
     state_input_d   = state_input_q;
     new_tx_data     = 1'b0;
-    //motor_d         = motor_q;
-    //data_d          = data_q;
+    motor_d         = motor_q;
+    data_d          = data_q;
 
     // Begin 'output' FSM
     case (state_output_q)
@@ -260,13 +281,13 @@ module debugging
 
       // Change the motor arm/disarm status
       INPUT_MOTOR: begin
-        //motor_d = ~motor_q;
+        motor_d = ~motor_q;
         state_input_d = INPUT_IDLE;
       end
 
       // Change the datalog status
       INPUT_DATA: begin
-        //data_d = ~data_q;
+        data_d = ~data_q;
         state_input_d = INPUT_IDLE;
       end
 
@@ -282,13 +303,13 @@ module debugging
     if (rst) begin
       state_output_q  <= OUTPUT_IDLE;
       state_input_q   <= INPUT_IDLE;
-      //motor_q         <= 1'b0;
-      //data_q          <= 1'b0;
+      motor_q         <= 1'b0;
+      data_q          <= 1'b0;
     end else begin
       state_output_q  <= state_output_d;
       state_input_q   <= state_input_d;
-      //motor_q         <= motor_d;
-      //data_q          <= data_d;
+      motor_q         <= motor_d;
+      data_q          <= data_d;
     end
  
     addr_q <= addr_d;

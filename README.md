@@ -16,13 +16,19 @@ develop an avionics solution from FPGA hardware.
 
 <li> V0.3 - Connect IMU sensor </li>
 <ul>
-  <li> Establish SPI communication for IMU. </li>
-  <li> Setup floating point arithmetic core. </li>
+  <li> Established SPI communication for IMU. </li>
+  <li> WIP </li>
   <li> Add setup configuration to FSM. </li>
   <li> Read register values. </li>
+  <li> Setup floating point arithmetic core. </li>
   <li> Scale reg outputs into floating point values. </li>
   <li> Implement low-pass filters. </li>
   <li> Display results on terminal. </li>
+  <li> FUTURE WORK </li>
+  <li> Configure magnetometer </li>
+  <li> Run Acc/Gyr self test </li>
+  <li> Assign offsets </li>
+  <li> FIFO counting. </li>
 </ul>
 
 <li> V0.4 - SD card data logging </li>

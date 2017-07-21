@@ -43,9 +43,9 @@ module avionics
 
 
   // Disconnect when not in use
-  assign spi_miso = 1'bz;
-  assign spi_ch = 4'bzzzz;
-  assign avr_rx = 1'bz;
+  //assign spi_miso = 1'bz;
+  //assign spi_ch = 4'bzzzz;
+  //assign avr_rx = 1'bz;
 
 
   // Assign LED values
@@ -144,6 +144,7 @@ module avionics
 
   // Connect 'states' module
   wire [47:0] acc, gyr, mag;
+  wire [7:0] debug;
   states states_mod (
     .clk(clk),
     .rst( state_board_q == BOARD_IDLE ),
@@ -152,9 +153,10 @@ module avionics
     .imu_mosi(imu_mosi),
     .imu_sclk(imu_sclk),
     .imu_ss(imu_ss),
-    .acc(acc) );//,
+    //.acc(acc),
     //.gyr(gyr),
-    //.mag(mag) );
+    //.mag(mag),
+    .debug(debug) );
 
 
   // Connect 'control' module
@@ -176,7 +178,10 @@ module avionics
     .rst( state_board_q == BOARD_IDLE ),
     .tmr(tmr_10hz),
     .timestamp(timestamp_q),
-    .acc(acc),
+    //.acc(acc),
+    //.gyr(gyr),
+    //.mag(mag),
+    .debug(debug),
     .tx_data(tx_data),
     .new_tx_data(new_tx_data),
     .tx_busy(tx_busy),
