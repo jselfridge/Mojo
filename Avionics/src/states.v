@@ -13,7 +13,9 @@ module states
   output imu_mosi,
   output imu_sck,
   output imu_ss,
-  output [47:0] acc
+  output [47:0] acc,
+  output [47:0] gyr,
+  output [47:0] mag
   );
 
   // Assign SPI outputs
@@ -23,18 +25,32 @@ module states
 
   // Assign sensor data outputs
   assign acc = acc_q;
+  assign gyr = gyr_q;
+  assign mag = mag_q;
 
   // IMU sensor states
   localparam
-    IMU_BITS    = 3,
-    IMU_IDLE    = 3'd0,
-    IMU_ACC_XH  = 3'd1,
-    IMU_ACC_XL  = 3'd2,
-    IMU_ACC_YH  = 3'd3,
-    IMU_ACC_YL  = 3'd4,
-    IMU_ACC_ZH  = 3'd5,
-    IMU_ACC_ZL  = 3'd6,
-    IMU_FLUSH   = 3'd7;
+    IMU_BITS    = 5,
+    IMU_IDLE    = 5'd0,
+    IMU_ACC_XH  = 5'd1,
+    IMU_ACC_XL  = 5'd2,
+    IMU_ACC_YH  = 5'd3,
+    IMU_ACC_YL  = 5'd4,
+    IMU_ACC_ZH  = 5'd5,
+    IMU_ACC_ZL  = 5'd6,
+    IMU_GYR_XH  = 5'd7,
+    IMU_GYR_XL  = 5'd8,
+    IMU_GYR_YH  = 5'd9,
+    IMU_GYR_YL  = 5'd10,
+    IMU_GYR_ZH  = 5'd11,
+    IMU_GYR_ZL  = 5'd12,
+    IMU_MAG_XH  = 5'd13,
+    IMU_MAG_XL  = 5'd14,
+    IMU_MAG_YH  = 5'd15,
+    IMU_MAG_YL  = 5'd16,
+    IMU_MAG_ZH  = 5'd17,
+    IMU_MAG_ZL  = 5'd18,
+    IMU_FLUSH   = 5'd19;
 
   // Declare registers
   reg [IMU_BITS-1:0] state_imu_d, state_imu_q = IMU_IDLE;
@@ -43,6 +59,8 @@ module states
   reg new_data_imu_d, new_data_imu_q = 1'b0;
   reg [7:0] data_out_imu_d, data_out_imu_q;
   reg [47:0] acc_d, acc_q = 48'h000000000000;
+  reg [47:0] gyr_d, gyr_q = 48'h000000000000;
+  reg [47:0] mag_d, mag_q = 48'h000000000000;
 
   // Connect 'spi_master' module for IMU
   wire sck_imu;
@@ -74,6 +92,8 @@ module states
     new_data_imu_d = new_data_imu;
     data_out_imu_d = data_out_imu;
     acc_d          = acc_q;
+    gyr_d          = gyr_q;
+    mag_d          = mag_q;
 
     // Begin 'imu' state machine
     case (state_imu_q)

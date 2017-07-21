@@ -21,7 +21,7 @@
 #include <malloc.h>
 #define alloca _alloca
 #endif
-static const char *ng0 = "/home/justin/Documents/FPGA/Util/spi/spi_master_11/spi_master_11_tb.v";
+static const char *ng0 = "/home/justin/Documents/FPGA/Util/spi/spi_master_00/spi_master_00_tb.v";
 static unsigned int ng1[] = {1U, 0U};
 static int ng2[] = {10, 0};
 static unsigned int ng3[] = {0U, 0U};
@@ -89,10 +89,10 @@ LAB4:    xsi_set_current_line(42, ng0);
     t5 = (~(t4));
     t6 = *((unsigned int *)t2);
     t7 = (t6 & t5);
-    t8 = (t0 + 5904);
+    t8 = (t0 + 5888);
     *((int *)t8) = t7;
 
-LAB5:    t9 = (t0 + 5904);
+LAB5:    t9 = (t0 + 5888);
     if (*((int *)t9) > 0)
         goto LAB6;
 
@@ -150,7 +150,7 @@ LAB13:    t30 = *((unsigned int *)t11);
     *((unsigned int *)t22) = (t31 & 1U);
     t32 = (t0 + 2088);
     xsi_vlogvar_assign_value(t32, t11, 0, 0, 1);
-    t2 = (t0 + 5904);
+    t2 = (t0 + 5888);
     t7 = *((int *)t2);
     *((int *)t2) = (t7 - 1);
     goto LAB5;
@@ -325,9 +325,9 @@ LAB12:    xsi_set_current_line(79, ng0);
 }
 
 
-extern void work_m_01343184136459283237_3369072558_init()
+extern void work_m_11891880009302353091_1293138299_init()
 {
 	static char *pe[] = {(void *)Initial_41_0,(void *)Initial_50_1};
-	xsi_register_didat("work_m_01343184136459283237_3369072558", "isim/spi_master_11_tb_isim_beh.exe.sim/work/m_01343184136459283237_3369072558.didat");
+	xsi_register_didat("work_m_11891880009302353091_1293138299", "isim/spi_master_00_tb_isim_beh.exe.sim/work/m_11891880009302353091_1293138299.didat");
 	xsi_register_executes(pe);
 }

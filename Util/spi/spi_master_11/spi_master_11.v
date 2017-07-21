@@ -2,9 +2,9 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // spi_master_11.v
 // Implements an SPI master module.
-// CPOL=1 (POLARITY: sck idle high).
+// CPOL=1 (POLARITY: sclk idle high).
 // CPHA=1 (PHASE: sample falling edge).
-// CLK_DIV (>=2) determines 'sck' frequency.
+// CLK_DIV (>=2) determines 'sclk' frequency.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 module spi_master_11
@@ -15,12 +15,12 @@ module spi_master_11
   input rst,
   input start,
   input miso,
-  input [7:0] data_in,
-  output sck,
+  input [7:0] addr,
+  output sclk,
   output busy,
-  output new_data,
+  output finish,
   output mosi,
-  output [7:0] data_out
+  output [7:0] data
   );
 
   // Define module states
@@ -30,46 +30,46 @@ module spi_master_11
     TRANSFER   = 2'd2;
 
   // Input/Output registers
-  reg [7:0] data_in_d, data_in_q;
-  reg [CLK_DIV-1:0] sck_d, sck_q;
-  reg new_data_d, new_data_q;
+  reg [7:0] addr_d, addr_q;
+  reg [CLK_DIV-1:0] sclk_d, sclk_q;
+  reg finish_d, finish_q;
   reg mosi_d, mosi_q;
-  reg [7:0] data_out_d, data_out_q;
+  reg [7:0] data_d, data_q;
 
   // Internal registers
   reg [STATE_SIZE-1:0] state_d, state_q;
   reg [2:0] ctr_d, ctr_q;
 
   // Connect output signals
-  assign sck = ~( ( ~sck_q[CLK_DIV-1] ) & ( state_q == TRANSFER ) );
+  assign sclk = ~( ( ~sclk_q[CLK_DIV-1] ) & ( state_q == TRANSFER ) );
   assign busy = state_q != IDLE;
-  assign new_data = new_data_q;
+  assign finish = finish_q;
   assign mosi = mosi_q;
-  assign data_out = data_out_q;
+  assign data = data_q;
 
   // Combinational logic
   always @(*) begin
 
     // Initial assignments
-    data_in_d   = data_in_q;
-    sck_d       = sck_q;
-    new_data_d  = 1'b0;
-    mosi_d      = mosi_q;
-    data_out_d  = data_out_q;
-    state_d     = state_q;
-    ctr_d       = ctr_q;
+    addr_d    = addr_q;
+    sclk_d    = sclk_q;
+    finish_d  = 1'b0;
+    mosi_d    = mosi_q;
+    data_d    = data_q;
+    state_d   = state_q;
+    ctr_d     = ctr_q;
 
     // Module states
     case (state_q)
 
       IDLE: begin
 
-        sck_d  = { CLK_DIV {1'b0} };
-        ctr_d  = 3'b0;
+        sclk_d = { CLK_DIV {1'b0} };
+        ctr_d = 3'b0;
         mosi_d = 1'b0;
 
         if ( start == 1'b1 ) begin
-          data_in_d = data_in;
+          addr_d = addr;
           state_d = WAIT_HALF;
         end
 
@@ -77,10 +77,10 @@ module spi_master_11
 
       WAIT_HALF: begin
 
-        sck_d = sck_q + 1'b1;
+        sclk_d = sclk_q + 1'b1;
 
-        if ( sck_q == { CLK_DIV-1 {1'b1} } ) begin
-          sck_d = 1'b0;
+        if ( sclk_q == { CLK_DIV-1 {1'b1} } ) begin
+          sclk_d = 1'b0;
           state_d = TRANSFER;
         end
 
@@ -88,23 +88,23 @@ module spi_master_11
 
       TRANSFER: begin
 
-        sck_d = sck_q + 1'b1;
+        sclk_d = sclk_q + 1'b1;
 
-        if ( sck_q == { CLK_DIV {1'b0} } ) begin
-          mosi_d = data_in_q[7];
+        if ( sclk_q == { CLK_DIV {1'b0} } ) begin
+          mosi_d = addr_q[7];
         end
 
-        else if ( sck_q == { CLK_DIV-1 {1'b1} } ) begin
-          data_in_d = { data_in_q[6:0], miso };
+        else if ( sclk_q == { CLK_DIV-1 {1'b1} } ) begin
+          addr_d = { addr_q[6:0], miso };
         end
 
-        else if ( sck_q == { CLK_DIV {1'b1} } ) begin
+        else if ( sclk_q == { CLK_DIV {1'b1} } ) begin
 
           ctr_d = ctr_q + 1'b1;
 
           if ( ctr_q == 3'b111 ) begin
-            data_out_d = data_in_q;
-            new_data_d = 1'b1;
+            data_d = addr_q;
+            finish_d = 1'b1;
             state_d = IDLE;
           end
 
@@ -120,21 +120,21 @@ module spi_master_11
   always @( posedge clk ) begin
 
     if (rst) begin
-      data_in_q   <= 8'b0;
-      sck_q       <= 1'b0;
-      new_data_q  <= 1'b0;
-      mosi_q      <= 1'b0;
-      data_out_q  <= 8'b0;
-      state_q     <= IDLE;
-      ctr_q       <= 3'b0;
+      addr_q    <= 8'b0;
+      sclk_q    <= 1'b0;
+      finish_q  <= 1'b0;
+      mosi_q    <= 1'b0;
+      data_q    <= 8'b0;
+      state_q   <= IDLE;
+      ctr_q     <= 3'b0;
     end else begin
-      data_in_q   <= data_in_d;
-      sck_q       <= sck_d;
-      new_data_q  <= new_data_d;
-      mosi_q      <= mosi_d;
-      data_out_q  <= data_out_d;
-      state_q     <= state_d;
-      ctr_q       <= ctr_d;
+      addr_q    <= addr_d;
+      sclk_q    <= sclk_d;
+      finish_q  <= finish_d;
+      mosi_q    <= mosi_d;
+      data_q    <= data_d;
+      state_q   <= state_d;
+      ctr_q     <= ctr_d;
     end
 
   end

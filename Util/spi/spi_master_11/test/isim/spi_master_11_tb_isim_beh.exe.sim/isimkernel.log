@@ -2,12 +2,12 @@ Command line:
    spi_master_11_tb_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  35583
+     -socket  45275
 
-Wed Jul 19 19:27:47 2017
+Thu Jul 20 23:42:40 2017
 
 
- Elaboration Time: 0.03 sec
+ Elaboration Time: 0.04 sec
 
  Current Memory Usage: 196.268 Meg
 
@@ -21,9 +21,9 @@ Wed Jul 19 19:27:47 2017
  Total Scalar Nets and Variables : 253
 Total Line Count : 94
 
- Total Simulation Time: 0.07 sec
+ Total Simulation Time: 0.05 sec
 
  Current Memory Usage: 271.77 Meg
 
-Wed Jul 19 19:30:13 2017
+Thu Jul 20 23:42:58 2017
 

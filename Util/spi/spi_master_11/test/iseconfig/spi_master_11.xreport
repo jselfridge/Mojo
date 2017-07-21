@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-07-19T19:27:25</DateModified>
+  <DateModified>2017-07-20T23:42:29</DateModified>
   <ModuleName>spi_master_11</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
   <SavedFilePath>/home/justin/Documents/FPGA/Util/spi/spi_master_11/test/iseconfig/spi_master_11.xreport</SavedFilePath>

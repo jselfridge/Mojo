@@ -63,9 +63,10 @@
       <outfile xil_pn:name="../spi_master_10.v"/>
       <outfile xil_pn:name="../spi_master_10_tb.v"/>
     </transform>
-    <transform xil_pn:end_ts="1500418974" xil_pn:in_ck="1110509315313068289" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="4538185336261599365" xil_pn:start_ts="1500418970">
+    <transform xil_pn:end_ts="1500607735" xil_pn:in_ck="1110509315313068289" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="4538185336261599365" xil_pn:start_ts="1500607732">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
       <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="fuse.log"/>
@@ -75,9 +76,10 @@
       <outfile xil_pn:name="spi_master_10_tb_isim_beh.exe"/>
       <outfile xil_pn:name="xilinxsim.ini"/>
     </transform>
-    <transform xil_pn:end_ts="1500420520" xil_pn:in_ck="1521937056888247681" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-8566273214557468408" xil_pn:start_ts="1500420519">
+    <transform xil_pn:end_ts="1500607735" xil_pn:in_ck="1521937056888247681" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-8566273214557468408" xil_pn:start_ts="1500607735">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
       <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="isim.cmd"/>

@@ -11,14 +11,14 @@ module spi_master_11_tb ();
   reg rst;
   reg start;
   reg miso;
-  reg [7:0] data_in;
+  reg [7:0] addr;
 
   // Test bench outputs
-  wire sck;
+  wire sclk;
   wire busy;
-  wire new_data;
+  wire finish;
   wire mosi;
-  wire [7:0] data_out;
+  wire [7:0] data;
 
   // Device Under Test
   spi_master_11
@@ -29,12 +29,12 @@ module spi_master_11_tb ();
     .rst(rst),
     .start(start),
     .miso(miso),
-    .data_in(data_in),
-    .sck(sck),
+    .addr(addr),
+    .sclk(sclk),
     .busy(busy),
-    .new_data(new_data),
+    .finish(finish),
     .mosi(mosi),
-    .data_out(data_out)
+    .data(data)
   );
 
   // Toggle reset, then clock forever
@@ -52,11 +52,11 @@ module spi_master_11_tb ();
     // Initial values
     start = 1'b0;
     miso = 1'b1;
-    data_in = 8'b0;
+    addr = 8'b0;
     #1000;
 
     // Assign new data
-    data_in = 8'b10110111;
+    addr = 8'b10110111;
     #100;
 
     // Toggle start flag
@@ -66,7 +66,7 @@ module spi_master_11_tb ();
     #4000;
 
     // Assign new data
-    data_in = 8'b11101101;
+    addr = 8'b11101101;
     #100;
 
     // Toggle start flag
