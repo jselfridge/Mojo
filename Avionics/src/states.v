@@ -13,7 +13,7 @@ module states
   output imu_mosi,
   output imu_sclk,
   output imu_ss,
-  //output [47:0] acc
+  output [47:0] acc,
   //output [47:0] gyr,
   //output [47:0] mag
   output [7:0] debug
@@ -25,10 +25,10 @@ module states
   assign imu_ss = !busy_imu;
 
   // Assign sensor data outputs
-  assign debug = debug_q;
-  //assign acc = acc_q;
+  assign acc = acc_q;
   //assign gyr = gyr_q;
   //assign mag = mag_q;
+  assign debug = debug_q;
 
 
 
@@ -87,27 +87,32 @@ module states
   localparam
     IMU_BITS        = 6,
     // Initialize sensor
-    IMU_INIT        = 6'd0,  // wait 100ms
-    IMU_RESET_ADDR  = 6'd1,  // 0x6B PWR_MGMT_1
-    IMU_RESET_DATA  = 6'd2,  // 0x80 Restore default settings
-    IMU_DELAY       = 6'd3,  // wait 100ms
-    IMU_WAKE_ADDR   = 6'd4,  // 0x6B PWR_MGMT_1
-    IMU_WAKE_DATA   = 6'd5,  // 0x00 Allow defaults to take effect
+    //IMU_INIT        = 6'd0,  // wait 100ms
+    //IMU_RESET_ADDR  = 6'd1,  // 0x6B PWR_MGMT_1
+    //IMU_RESET_DATA  = 6'd2,  // 0x80 Restore default settings
+    //IMU_DELAY       = 6'd3,  // wait 100ms
+    //IMU_WAKE_ADDR   = 6'd4,  // 0x6B PWR_MGMT_1
+    //IMU_WAKE_DATA   = 6'd5,  // 0x00 Allow defaults to take effect
     // Assign sensor settings
     //IMU_SAMPLE_ADDR = 6'd6,  // Temp debugging value
     //IMU_SAMPLE_DATA = 6'd7,  // Temp debugging value
     // Begin reading sensor data
-    IMU_IDLE        = 6'd32,
+    IMU_IDLE    = 6'd0,
     // Accelerometer data
-    // ~~~~
+    IMU_ACC_XH  = 6'd1,
+    IMU_ACC_XL  = 6'd2,
+    IMU_ACC_YH  = 6'd3,
+    IMU_ACC_YL  = 6'd4,
+    IMU_ACC_ZH  = 6'd5,
+    IMU_ACC_ZL  = 6'd6,
     // Rate gyro data
     // ~~~~
     // Magnetometer data
     // ~~~~
     // Read debugging output
-    IMU_DEBUG       = 6'd62,
+    //IMU_DEBUG       = 6'd1,
     // Flush out last byte
-    IMU_FLUSH       = 6'd63;
+    IMU_FLUSH       = 6'd7;
 
   //GYR_FSR  ADDR 0x1B
   //GYR_FSR  DATA XX<<3
@@ -127,12 +132,6 @@ module states
   // setsensors (pwr_mgmt_2 int_pin_cfg)
 
 /*
-    IMU_ACC_XH  = 6'dx,
-    IMU_ACC_XL  = 6'dx,
-    IMU_ACC_YH  = 6'dx,
-    IMU_ACC_YL  = 6'dx,
-    IMU_ACC_ZH  = 6'dx,
-    IMU_ACC_ZL  = 6'dx,
     IMU_GYR_XH  = 6'dx,
     IMU_GYR_XL  = 6'dx,
     IMU_GYR_YH  = 6'dx,
@@ -148,7 +147,7 @@ module states
 */
 
   // Bits for delay counter
-  localparam DELAY_BITS = 26;  // REVISE 2^22 = 4.1M cycles = 83ms
+  //localparam DELAY_BITS = 27;  // REVISE 2^22 = 4.1M cycles = 83ms
 
 
   // Declare registers
@@ -157,11 +156,11 @@ module states
   reg start_imu_d, start_imu_q = 1'b0;
   reg finish_imu_d, finish_imu_q = 1'b0;
   reg [7:0] data_imu_d, data_imu_q;
-  reg [DELAY_BITS-1:0] delay_d, delay_q = { DELAY_BITS {1'b0} };
-  //reg [47:0] acc_d, acc_q = 48'h000000000000;
+  //reg [DELAY_BITS-1:0] delay_d, delay_q = { DELAY_BITS {1'b0} };
+  reg [47:0] acc_d, acc_q = 48'h000000000000;
   //reg [47:0] gyr_d, gyr_q = 48'h000000000000;
   //reg [47:0] mag_d, mag_q = 48'h000000000000;
-  reg [7:0] debug_d, debug_q = 8'h00;
+  reg [7:0] debug_d, debug_q;  // = 8'h00;
 
   // Connect 'spi_master' module for IMU
   wire sclk_imu;
@@ -192,11 +191,11 @@ module states
     start_imu_d   = 1'b0;
     finish_imu_d  = finish_imu;
     data_imu_d    = data_imu;
-    delay_d       = delay_q;
-    //acc_d         = acc_q;
+    //delay_d       = delay_q;
+    acc_d         = acc_q;
     //gyr_d         = gyr_q;
     //mag_d         = mag_q;
-    debug_d       = debug_q;
+    debug_d   = debug_q;
 
 
         /*  SAMPLE CASE CODE
@@ -215,15 +214,16 @@ module states
     case (state_imu_q)
 
       // Begin sensor initialization (wait 83ms)
-      IMU_INIT : begin
-        delay_d = delay_q + 1'b1;
+      //IMU_INIT : begin
+        /*delay_d = delay_q + 1'b1;
         if ( delay_q == { DELAY_BITS {1'b1} } ) begin
           delay_d = { DELAY_BITS {1'b0} };
           state_imu_d = IMU_RESET_ADDR;
-        end
-      end
+        end*/
+        //state_imu_d = IMU_IDLE;  //= TEMP =//
+      //end
 
-      // Specify address for 'reset' command
+/*      // Specify address for 'reset' command
       IMU_RESET_ADDR : begin
         if ( !busy_imu ) begin
           addr_imu_d = 8'b0_110_1011;  // W6B: PWR_MGMT_1
@@ -233,8 +233,8 @@ module states
           state_imu_d = IMU_RESET_DATA;
         end
       end
-
-      // Send data for 'reset' command
+*/
+/*      // Send data for 'reset' command
       IMU_RESET_DATA : begin
         if ( !busy_imu ) begin
           addr_imu_d = 8'h80;  // Restore default settings
@@ -244,8 +244,8 @@ module states
           state_imu_d = IMU_DELAY;
         end
       end
-
-      // Wait for sensor reset (wait 83ms)
+*/
+/*      // Wait for sensor reset (wait 83ms)
       IMU_DELAY : begin
         delay_d = delay_q + 1'b1;
         if ( delay_q == { DELAY_BITS {1'b1} } ) begin
@@ -253,8 +253,8 @@ module states
           state_imu_d = IMU_WAKE_ADDR;
         end
       end
-
-      // Specify address for 'wake' command
+*/
+/*      // Specify address for 'wake' command
       IMU_WAKE_ADDR : begin
         if ( !busy_imu ) begin
           addr_imu_d = 8'b0_110_1011;  // W6B: PWR_MGMT_1
@@ -264,8 +264,8 @@ module states
           state_imu_d = IMU_WAKE_DATA;
         end
       end
-
-      // Send data for 'wake' command
+*/
+/*      // Send data for 'wake' command
       IMU_WAKE_DATA : begin
         if ( !busy_imu ) begin
           addr_imu_d = 8'h00;  // Allow defaults to take effect
@@ -276,7 +276,7 @@ module states
           state_imu_d = IMU_IDLE;
         end
       end
-
+*/
 /*      // Specify address for 'sample' command
       IMU_SAMPLE_ADDR : begin  // Temp debugging value
         if ( !busy_imu ) begin
@@ -288,8 +288,8 @@ module states
           state_imu_d = IMU_SAMPLE_DATA;
         end
       end
-
-      // Send data for 'sample' command
+*/
+/*      // Send data for 'sample' command
       IMU_SAMPLE_DATA : begin  // Temp debugging value
         if ( !busy_imu ) begin
           addr_imu_d = 8'bX_XXX_XXXX;  // RWXX
@@ -304,48 +304,11 @@ module states
       // Begin reading sensor data
       IMU_IDLE: begin
         if ( tmr_1khz ) begin
-          //state_imu_d = IMU_ACC_XXX;
-          state_imu_d = IMU_DEBUG;
+          state_imu_d = IMU_ACC_XH;
+          //state_imu_d = IMU_DEBUG;
         end
       end
 
-      // Specify address for 'debug' command
-      IMU_DEBUG : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  //bX_XXX_XXXX;  // Address to read
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          state_imu_d = IMU_FLUSH;
-        end
-      end
-
-      // Flush out last byte
-      IMU_FLUSH : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  // Dummy address
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          //mag_d[xx:xx] = data_imu_q;
-          //debug_d[7:0] = data_imu_q;
-          debug_d[7:0] = 8'b10101010;
-          state_imu_d = IMU_IDLE;
-        end
-      end
-
-      // Specify default condition
-      default : begin
-        state_imu_d = IMU_INIT;
-      end
-
-    // End 'imu' state machine
-    endcase
-
-  end
-
-
-      /*
       // Acc X-axis high byte
       IMU_ACC_XH: begin
         if ( !busy_imu ) begin
@@ -393,7 +356,6 @@ module states
         end
       end
 
-
       // Acc Z-axis high byte
       IMU_ACC_ZH: begin
         if ( !busy_imu ) begin
@@ -429,7 +391,43 @@ module states
           state_imu_d = IMU_IDLE;
         end
       end
-      */
+
+
+/*      // Specify address for 'debug' command
+      IMU_DEBUG : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b1_011_1011;  // Address to read
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_FLUSH;
+        end
+      end
+*/
+/*      // Flush out last byte
+      IMU_FLUSH : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b1_011_1011;  //8'hFF;  // Dummy address
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          //mag_d[xx:xx] = data_imu_q;
+          debugbyte_d[7:0] = data_imu;  //_q;
+          state_imu_d = IMU_IDLE;
+        end
+      end
+*/
+      // Specify default condition
+      //default : begin
+        //state_imu_d = IMU_IDLE;
+        //state_imu_d = IMU_INIT;
+      //end
+
+    // End 'imu' state machine
+    endcase
+
+  end
+
 
 
 
@@ -439,17 +437,17 @@ module states
 
     if (rst) begin
       addr_imu_q  <= 8'hFF;
-      delay_q     <= { DELAY_BITS {1'b0} };
+      //delay_q     <= { DELAY_BITS {1'b0} };
     end else begin
       addr_imu_q  <= addr_imu_d;
-      delay_q     <= delay_d;
+      //delay_q     <= delay_d;
     end
 
     state_imu_q   <= state_imu_d;
     start_imu_q   <= start_imu_d;
     finish_imu_q  <= finish_imu_d;
     data_imu_q    <= data_imu_d;
-    //acc_q         <= acc_d;
+    acc_q         <= acc_d;
     //gyr_q         <= gyr_d;
     //mag_q         <= mag_d;
     debug_q       <= debug_d;

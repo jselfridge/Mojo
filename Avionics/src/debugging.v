@@ -15,7 +15,7 @@ module debugging
 
   // Terminal data
   input  [23:0] timestamp,
-  //input  [47:0] acc,
+  input  [47:0] acc,
   //input  [47:0] gyr,
   //input  [47:0] mag,
   input  [7:0] debug,
@@ -46,7 +46,7 @@ module debugging
     INPUT_DATA   = 2'd3;
 
   // Message parameters
-  localparam MSG_LEN  = 24;
+  localparam MSG_LEN  = 64;
   parameter MSG_BITS = $clog2(MSG_LEN);
  
   // Internal registers
@@ -114,6 +114,7 @@ module debugging
 
   // Assemble debug message
   wire [7:0] debug_msg [MSG_LEN-1:0];
+/*
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = motor_msg;  // MOTOR => A:armed D:disarmed
   assign debug_msg[ 2] = " ";
@@ -128,18 +129,18 @@ module debugging
   assign debug_msg[11] = ".";
   assign debug_msg[12] = timestamp_msg[2];
   assign debug_msg[13] = " ";
-  assign debug_msg[14] = debug[7] ? "1" : "0";
-  assign debug_msg[15] = debug[6] ? "1" : "0";
-  assign debug_msg[16] = debug[5] ? "1" : "0";
-  assign debug_msg[17] = debug[4] ? "1" : "0";
-  assign debug_msg[18] = debug[3] ? "1" : "0";
-  assign debug_msg[19] = debug[2] ? "1" : "0";
-  assign debug_msg[20] = debug[1] ? "1" : "0";
-  assign debug_msg[21] = debug[0] ? "1" : "0";
+  assign debug_msg[14] = debugbyte[7] ? "1" : "0";
+  assign debug_msg[15] = debugbyte[6] ? "1" : "0";
+  assign debug_msg[16] = debugbyte[5] ? "1" : "0";
+  assign debug_msg[17] = debugbyte[4] ? "1" : "0";
+  assign debug_msg[18] = debugbyte[3] ? "1" : "0";
+  assign debug_msg[19] = debugbyte[2] ? "1" : "0";
+  assign debug_msg[20] = debugbyte[1] ? "1" : "0";
+  assign debug_msg[21] = debugbyte[0] ? "1" : "0";
   assign debug_msg[22] = " ";
   assign debug_msg[23] = "\r";
+*/
 
-/*
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = timestamp_msg[5];
   assign debug_msg[ 2] = timestamp_msg[4];
@@ -182,29 +183,29 @@ module debugging
   assign debug_msg[39] = acc[18] ? "1" : "0";
   assign debug_msg[40] = acc[17] ? "1" : "0";
   assign debug_msg[41] = acc[16] ? "1" : "0";
-  assign debug_msg[42] = " ";
-  assign debug_msg[43] = acc[15] ? "1" : "0";
-  assign debug_msg[44] = acc[14] ? "1" : "0";
-  assign debug_msg[45] = acc[13] ? "1" : "0";
-  assign debug_msg[46] = acc[12] ? "1" : "0";
-  assign debug_msg[47] = acc[11] ? "1" : "0";
-  assign debug_msg[48] = acc[10] ? "1" : "0";
-  assign debug_msg[49] = acc[ 9]  ? "1" : "0";
-  assign debug_msg[50] = acc[ 8]  ? "1" : "0";
+  assign debug_msg[42] = " ";  // 
+  assign debug_msg[43] = " ";  // acc[15] ? "1" : "0";
+  assign debug_msg[44] = " ";  // acc[14] ? "1" : "0";
+  assign debug_msg[45] = " ";  // acc[13] ? "1" : "0";
+  assign debug_msg[46] = " ";  // acc[12] ? "1" : "0";
+  assign debug_msg[47] = " ";  // acc[11] ? "1" : "0";
+  assign debug_msg[48] = " ";  // acc[10] ? "1" : "0";
+  assign debug_msg[49] = " ";  // acc[ 9]  ? "1" : "0";
+  assign debug_msg[50] = " ";  // acc[ 8]  ? "1" : "0";
   assign debug_msg[51] = " ";
-  assign debug_msg[52] = acc[ 7]  ? "1" : "0";
-  assign debug_msg[53] = acc[ 6]  ? "1" : "0";
-  assign debug_msg[54] = acc[ 5]  ? "1" : "0";
-  assign debug_msg[55] = acc[ 4]  ? "1" : "0";
-  assign debug_msg[56] = acc[ 3]  ? "1" : "0";
-  assign debug_msg[57] = acc[ 2]  ? "1" : "0";
-  assign debug_msg[58] = acc[ 1]  ? "1" : "0";
-  assign debug_msg[59] = acc[ 0]  ? "1" : "0";
+  assign debug_msg[52] = debug[ 7]  ? "1" : "0";
+  assign debug_msg[53] = debug[ 6]  ? "1" : "0";
+  assign debug_msg[54] = debug[ 5]  ? "1" : "0";
+  assign debug_msg[55] = debug[ 4]  ? "1" : "0";
+  assign debug_msg[56] = debug[ 3]  ? "1" : "0";
+  assign debug_msg[57] = debug[ 2]  ? "1" : "0";
+  assign debug_msg[58] = debug[ 1]  ? "1" : "0";
+  assign debug_msg[59] = debug[ 0]  ? "1" : "0";
   assign debug_msg[60] = " ";
   assign debug_msg[61] = " ";
   assign debug_msg[62] = " ";
   assign debug_msg[63] = "\r";
-*/
+
 
 
 
