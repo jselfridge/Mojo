@@ -54,7 +54,7 @@ NET "esc_sig<7>"     LOC = P104 | IOSTANDARD = LVTTL;
 # IMU SPI pins
 NET "imu_miso"       LOC = P138 | IOSTANDARD = LVTTL;
 NET "imu_mosi"       LOC = P137 | IOSTANDARD = LVTTL;
-NET "imu_sck"        LOC = P140 | IOSTANDARD = LVTTL;
+NET "imu_sclk"       LOC = P140 | IOSTANDARD = LVTTL;
 NET "imu_ss"         LOC = P139 | IOSTANDARD = LVTTL;
 
 

@@ -31,7 +31,7 @@ module avionics
   // IMU SPI pins
   input  imu_miso,
   output imu_mosi,
-  output imu_sck,
+  output imu_sclk,
   output imu_ss,
 
   // ESC output signals
@@ -150,11 +150,11 @@ module avionics
     .tmr_1khz(tmr_10hz),  // REVISE!!!
     .imu_miso(imu_miso),
     .imu_mosi(imu_mosi),
-    .imu_sck(imu_sck),
+    .imu_sclk(imu_sclk),
     .imu_ss(imu_ss),
-    .acc(acc),
-    .gyr(gyr),
-    .mag(mag) );
+    .acc(acc) );//,
+    //.gyr(gyr),
+    //.mag(mag) );
 
 
   // Connect 'control' module
