@@ -43,9 +43,9 @@ module avionics
 
 
   // Assign LED values
-  assign led = testout[7:0];
+  //assign led = testout[7:0];
   //assign led = data_out_imu_q;
-  //assign led = 8'b0;
+  assign led = 8'b0;
 
 
 
@@ -139,7 +139,7 @@ module avionics
 
 
   // Connect 'states' module
-  wire [15:0] testout;
+  wire [47:0] acc;
   states states_mod (
     .clk(clk),
     .rst( state_board_q == BOARD_IDLE ),
@@ -148,7 +148,7 @@ module avionics
     .imu_mosi(imu_mosi),
     .imu_sck(imu_sck),
     .imu_ss(imu_ss),
-    .testout(testout) );
+    .acc(acc) );
 
 
   // Connect 'control' module
@@ -170,7 +170,7 @@ module avionics
     .rst( state_board_q == BOARD_IDLE ),
     .tmr(tmr_10hz),
     .timestamp(timestamp_q),
-    .acc(testout),
+    .acc(acc),
     .tx_data(tx_data),
     .new_tx_data(new_tx_data),
     .tx_busy(tx_busy),
