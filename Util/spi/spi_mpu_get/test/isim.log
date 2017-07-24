@@ -1,5 +1,5 @@
 ISim log file
-Running: /home/justin/Documents/FPGA/Util/spi/spi_master_11/test/spi_master_11_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/justin/Documents/FPGA/Util/spi/spi_master_11/test/spi_master_11_tb_isim_beh.wdb 
+Running: /home/justin/Documents/FPGA/Util/spi/spi_mpu_get/test/spi_mpu_get_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/justin/Documents/FPGA/Util/spi/spi_mpu_get/test/spi_mpu_get_tb_isim_beh.wdb 
 ISim P.20131013 (signature 0xfbc00daa)
 WARNING: A WEBPACK license was found.
 WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
@@ -12,5 +12,5 @@ Time resolution is 1 ps
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
 # run 1.00s
-Stopped at time : 10300 ns : File "/home/justin/Documents/FPGA/Util/spi/spi_master_11/spi_master_11_tb.v" Line 79
+Stopped at time : 14300 ns : File "/home/justin/Documents/FPGA/Util/spi/spi_mpu_get/spi_mpu_get_tb.v" Line 79
 # exit 0

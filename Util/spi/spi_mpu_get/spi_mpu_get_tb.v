@@ -21,7 +21,7 @@ module spi_mpu_get_tb ();
   wire [7:0] data;
 
   // Device Under Test
-  spi_master_11
+  spi_mpu_get
     #(
     .CLK_DIV(4)
     ) spi_master_DUT (
@@ -63,7 +63,7 @@ module spi_mpu_get_tb ();
     start = 1'b1;
     #50;
     start = 1'b0;
-    #4000;
+    #6000;
 
     // Assign new data
     addr = 8'b11101101;
@@ -73,7 +73,7 @@ module spi_mpu_get_tb ();
     start = 1'b1;
     #50;
     start = 1'b0;
-    #4000;
+    #6000;
 
     #1000;
     $finish;

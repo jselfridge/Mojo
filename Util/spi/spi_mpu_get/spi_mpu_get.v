@@ -2,6 +2,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 // spi_mpu_get.v
 // Gets an MPU9250 parameter via SPI serial communication.
+// First byte is address, second byte (dummy) moves data.
 // CPOL=1 (POLARITY: sclk idle high).
 // CPHA=1 (PHASE: sample falling edge).
 // CLK_DIV (>=2) determines 'sclk' frequency.
@@ -27,7 +28,8 @@ module spi_mpu_get
   localparam STATE_SIZE = 2,
     IDLE       = 2'd0,
     WAIT_HALF  = 2'd1,
-    TRANSFER   = 2'd2;
+    SEND_ADDR  = 2'd2,
+    SEND_BYTE  = 2'd3;
 
   // Input/Output registers
   reg [7:0] addr_d, addr_q;
@@ -38,10 +40,10 @@ module spi_mpu_get
 
   // Internal registers
   reg [STATE_SIZE-1:0] state_d, state_q;
-  reg [3:0] ctr_d, ctr_q;
+  reg [2:0] ctr_d, ctr_q;
 
   // Connect output signals
-  assign sclk = ~( ( ~sclk_q[CLK_DIV-1] ) & ( state_q == TRANSFER ) );
+  assign sclk = ~( ( ~sclk_q[CLK_DIV-1] ) & ( ( state_q == SEND_ADDR ) || ( state_q == SEND_BYTE ) ) );
   assign busy = state_q != IDLE;
   assign finish = finish_q;
   assign mosi = mosi_q;
@@ -62,11 +64,12 @@ module spi_mpu_get
     // Module states
     case (state_q)
 
-      IDLE: begin
+      IDLE : begin
 
         sclk_d = { CLK_DIV {1'b0} };
-        ctr_d = 4'b0;
+        ctr_d = 3'b0;
         mosi_d = 1'b0;
+        data_d = 8'b0;
 
         if ( start == 1'b1 ) begin
           addr_d = addr;
@@ -75,18 +78,18 @@ module spi_mpu_get
 
       end
 
-      WAIT_HALF: begin
+      WAIT_HALF : begin
 
         sclk_d = sclk_q + 1'b1;
 
         if ( sclk_q == { CLK_DIV-1 {1'b1} } ) begin
           sclk_d = 1'b0;
-          state_d = TRANSFER;
+          state_d = SEND_ADDR;
         end
 
       end
 
-      TRANSFER: begin
+      SEND_ADDR : begin
 
         sclk_d = sclk_q + 1'b1;
 
@@ -95,7 +98,7 @@ module spi_mpu_get
         end
 
         else if ( sclk_q == { CLK_DIV-1 {1'b1} } ) begin
-          addr_d = { addr_q[6:0], miso };
+          addr_d = { addr_q[6:0], 1'b0 };  // miso };
         end
 
         else if ( sclk_q == { CLK_DIV {1'b1} } ) begin
@@ -103,7 +106,34 @@ module spi_mpu_get
           ctr_d = ctr_q + 1'b1;
 
           if ( ctr_q == 3'b111 ) begin
-            data_d = addr_q;
+            //data_d = addr_q;
+            //finish_d = 1'b1;
+            state_d = SEND_BYTE;
+          end
+
+        end
+
+      end
+
+      SEND_BYTE : begin
+
+        sclk_d = sclk_q + 1'b1;
+
+        if ( sclk_q == { CLK_DIV {1'b0} } ) begin
+          mosi_d = 1'b0;  // addr_q[7];
+        end
+
+        else if ( sclk_q == { CLK_DIV-1 {1'b1} } ) begin
+          data_d = { data_q[6:0], miso };
+          //addr_d = { addr_q[6:0], miso };
+        end
+
+        else if ( sclk_q == { CLK_DIV {1'b1} } ) begin
+
+          ctr_d = ctr_q + 1'b1;
+
+          if ( ctr_q == 3'b111 ) begin
+            //data_d = addr_q;
             finish_d = 1'b1;
             state_d = IDLE;
           end
@@ -111,6 +141,7 @@ module spi_mpu_get
         end
 
       end
+
 
     endcase
 
