@@ -114,32 +114,6 @@ module debugging
 
   // Assemble debug message
   wire [7:0] debug_msg [MSG_LEN-1:0];
-/*
-  assign debug_msg[ 0] = " ";
-  assign debug_msg[ 1] = motor_msg;  // MOTOR => A:armed D:disarmed
-  assign debug_msg[ 2] = " ";
-  assign debug_msg[ 3] = data_msg;  // DATA => I:idle R:record
-  assign debug_msg[ 4] = " ";
-  assign debug_msg[ 5] = "T";
-  assign debug_msg[ 6] = ":";
-  assign debug_msg[ 7] = " ";
-  assign debug_msg[ 8] = timestamp_msg[5];
-  assign debug_msg[ 9] = timestamp_msg[4];
-  assign debug_msg[10] = timestamp_msg[3];
-  assign debug_msg[11] = ".";
-  assign debug_msg[12] = timestamp_msg[2];
-  assign debug_msg[13] = " ";
-  assign debug_msg[14] = debugbyte[7] ? "1" : "0";
-  assign debug_msg[15] = debugbyte[6] ? "1" : "0";
-  assign debug_msg[16] = debugbyte[5] ? "1" : "0";
-  assign debug_msg[17] = debugbyte[4] ? "1" : "0";
-  assign debug_msg[18] = debugbyte[3] ? "1" : "0";
-  assign debug_msg[19] = debugbyte[2] ? "1" : "0";
-  assign debug_msg[20] = debugbyte[1] ? "1" : "0";
-  assign debug_msg[21] = debugbyte[0] ? "1" : "0";
-  assign debug_msg[22] = " ";
-  assign debug_msg[23] = "\r";
-*/
 
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = timestamp_msg[5];
@@ -205,7 +179,72 @@ module debugging
   assign debug_msg[61] = " ";
   assign debug_msg[62] = " ";
   assign debug_msg[63] = "\r";
-
+/*
+  assign debug_msg[ 0] = " ";
+  assign debug_msg[ 1] = timestamp_msg[5];
+  assign debug_msg[ 2] = timestamp_msg[4];
+  assign debug_msg[ 3] = timestamp_msg[3];
+  assign debug_msg[ 4] = ".";
+  assign debug_msg[ 5] = timestamp_msg[2];
+  assign debug_msg[ 6] = " ";
+  assign debug_msg[ 7] = gyr[47] ? "1" : "0";
+  assign debug_msg[ 8] = gyr[46] ? "1" : "0";
+  assign debug_msg[ 9] = gyr[45] ? "1" : "0";
+  assign debug_msg[10] = gyr[44] ? "1" : "0";
+  assign debug_msg[11] = gyr[43] ? "1" : "0";
+  assign debug_msg[12] = gyr[42] ? "1" : "0";
+  assign debug_msg[13] = gyr[41] ? "1" : "0";
+  assign debug_msg[14] = gyr[40] ? "1" : "0";
+  assign debug_msg[15] = " ";
+  assign debug_msg[16] = gyr[39] ? "1" : "0";
+  assign debug_msg[17] = gyr[38] ? "1" : "0";
+  assign debug_msg[18] = gyr[37] ? "1" : "0";
+  assign debug_msg[19] = gyr[36] ? "1" : "0";
+  assign debug_msg[20] = gyr[35] ? "1" : "0";
+  assign debug_msg[21] = gyr[34] ? "1" : "0";
+  assign debug_msg[22] = gyr[33] ? "1" : "0";
+  assign debug_msg[23] = gyr[32] ? "1" : "0";
+  assign debug_msg[24] = " ";
+  assign debug_msg[25] = gyr[31] ? "1" : "0";
+  assign debug_msg[26] = gyr[30] ? "1" : "0";
+  assign debug_msg[27] = gyr[29] ? "1" : "0";
+  assign debug_msg[28] = gyr[28] ? "1" : "0";
+  assign debug_msg[29] = gyr[27] ? "1" : "0";
+  assign debug_msg[30] = gyr[26] ? "1" : "0";
+  assign debug_msg[31] = gyr[25] ? "1" : "0";
+  assign debug_msg[32] = gyr[24] ? "1" : "0";
+  assign debug_msg[33] = " ";
+  assign debug_msg[34] = gyr[23] ? "1" : "0";
+  assign debug_msg[35] = gyr[22] ? "1" : "0";
+  assign debug_msg[36] = gyr[21] ? "1" : "0";
+  assign debug_msg[37] = gyr[20] ? "1" : "0";
+  assign debug_msg[38] = gyr[19] ? "1" : "0";
+  assign debug_msg[39] = gyr[18] ? "1" : "0";
+  assign debug_msg[40] = gyr[17] ? "1" : "0";
+  assign debug_msg[41] = gyr[16] ? "1" : "0";
+  assign debug_msg[42] = " ";
+  assign debug_msg[43] = gyr[15] ? "1" : "0";
+  assign debug_msg[44] = gyr[14] ? "1" : "0";
+  assign debug_msg[45] = gyr[13] ? "1" : "0";
+  assign debug_msg[46] = gyr[12] ? "1" : "0";
+  assign debug_msg[47] = gyr[11] ? "1" : "0";
+  assign debug_msg[48] = gyr[10] ? "1" : "0";
+  assign debug_msg[49] = gyr[ 9] ? "1" : "0";
+  assign debug_msg[50] = gyr[ 8] ? "1" : "0";
+  assign debug_msg[51] = " ";
+  assign debug_msg[52] = gyr[ 7] ? "1" : "0";
+  assign debug_msg[53] = gyr[ 6] ? "1" : "0";
+  assign debug_msg[54] = gyr[ 5] ? "1" : "0";
+  assign debug_msg[55] = gyr[ 4] ? "1" : "0";
+  assign debug_msg[56] = gyr[ 3] ? "1" : "0";
+  assign debug_msg[57] = gyr[ 2] ? "1" : "0";
+  assign debug_msg[58] = gyr[ 1] ? "1" : "0";
+  assign debug_msg[59] = gyr[ 0] ? "1" : "0";
+  assign debug_msg[60] = " ";
+  assign debug_msg[61] = " ";
+  assign debug_msg[62] = " ";
+  assign debug_msg[63] = "\r";
+*/
 
 
 

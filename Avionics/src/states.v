@@ -88,14 +88,14 @@ module states
     IMU_BITS        = 6,
     // Initialize sensor
     IMU_INIT        = 6'd0,  // wait 100ms
-    //IMU_RESET_ADDR  = 6'd1,  // 0x6B PWR_MGMT_1
-    //IMU_RESET_DATA  = 6'd2,  // 0x80 Restore default settings
+    IMU_RESET_ADDR  = 6'd1,  // 0x6B PWR_MGMT_1
+    IMU_RESET_DATA  = 6'd2,  // 0x80 Restore default settings
     IMU_DELAY       = 6'd3,  // wait 100ms
-    //IMU_WAKE_ADDR   = 6'd4,  // 0x6B PWR_MGMT_1
-    //IMU_WAKE_DATA   = 6'd5,  // 0x00 Allow defaults to take effect
+    IMU_WAKE_ADDR   = 6'd4,  // 0x6B PWR_MGMT_1
+    IMU_WAKE_DATA   = 6'd5,  // 0x00 Allow defaults to take effect
     // Assign sensor settings
-    //IMU_AFSR_ADDR = 6'd11,  // 0x1C ACCEL_CONFIG
-    //IMU_AFSR_DATA = 6'd12,  // 000_00_000
+    //IMU_ACCFSR_ADDR = 6'd11,  // 0x1C ACCEL_CONFIG
+    //IMU_ACCFSR_DATA = 6'd12,  // 000_00_000
     // Begin reading sensor data
     IMU_IDLE    = 6'd30,
     // Accelerometer data
@@ -146,7 +146,7 @@ module states
 */
 
   // Bits for delay counter
-  localparam DELAY_BITS = 27;  // REVISE 2^22 = 4.1M cycles = 83ms
+  localparam DELAY_BITS = 23;  // REVISE 2^22 = 4.1M cycles = 83ms
 
 
   // Declare registers
@@ -217,11 +217,11 @@ module states
         delay_d = delay_q + 1'b1;
         if ( delay_q == { DELAY_BITS {1'b1} } ) begin
           delay_d = { DELAY_BITS {1'b0} };
-          state_imu_d = IMU_DELAY;
+          state_imu_d = IMU_RESET_ADDR;
         end
       end
 
-/*      // Specify address for 'reset' command
+      // Specify address for 'reset' command
       IMU_RESET_ADDR : begin
         if ( !busy_imu ) begin
           addr_imu_d = 8'b0_110_1011;  // W6B: PWR_MGMT_1
@@ -242,17 +242,17 @@ module states
           state_imu_d = IMU_DELAY;
         end
       end
-*/
+
       // Wait for sensor reset (wait 83ms)
       IMU_DELAY : begin
         delay_d = delay_q + 1'b1;
         if ( delay_q == { DELAY_BITS {1'b1} } ) begin
           delay_d = { DELAY_BITS {1'b0} };
-          state_imu_d = IMU_IDLE;
+          state_imu_d = IMU_WAKE_ADDR;
         end
       end
 
-/*      // Specify address for 'wake' command
+      // Specify address for 'wake' command
       IMU_WAKE_ADDR : begin
         if ( !busy_imu ) begin
           addr_imu_d = 8'b0_110_1011;  // W6B: PWR_MGMT_1
@@ -262,37 +262,54 @@ module states
           state_imu_d = IMU_WAKE_DATA;
         end
       end
-*/
-/*      // Send data for 'wake' command
+
+      // Send data for 'wake' command
       IMU_WAKE_DATA : begin
         if ( !busy_imu ) begin
           addr_imu_d = 8'h00;  // Allow defaults to take effect
           start_imu_d = 1'b1;
         end
         if ( finish_imu_q ) begin
-          //state_imu_d = IMU_SAMPLE_ADDR;
           state_imu_d = IMU_IDLE;
         end
       end
-*/
+
 /*      // Specify address for 'acc fsr' command
-      IMU_AFSR_ADDR : begin
+      IMU_ACCFSR_ADDR : begin
         if ( !busy_imu ) begin
           addr_imu_d = 8'b0_001_1100;  // W1C
           start_imu_d = 1'b1;
         end
         if ( finish_imu_q ) begin
-          state_imu_d = IMU_AFSR_DATA;
+          state_imu_d = IMU_DELAY1;
         end
       end
-
-      // Send data for 'acc fsr' command
-      IMU_AFSR_DATA : begin
+*/
+/*      // Wait for sensor reset (wait 83ms)
+      IMU_DELAY1 : begin
+        delay_d = delay_q + 1'b1;
+        if ( delay_q == { DELAY_BITS {1'b1} } ) begin
+          delay_d = { DELAY_BITS {1'b0} };
+          state_imu_d = IMU_ACCFSR_DATA;
+        end
+      end
+*/
+/*      // Send data for 'acc fsr' command
+      IMU_ACCFSR_DATA : begin
         if ( !busy_imu ) begin
-          addr_imu_d = 8'b000_11_000;
+          addr_imu_d = 8'b000_01_000;
           start_imu_d = 1'b1;
         end
         if ( finish_imu_q ) begin
+          state_imu_d = IMU_DELAY2;
+        end
+      end
+*/
+/*      // Wait for sensor reset (wait 83ms)
+      IMU_DELAY2 : begin
+        delay_d = delay_q + 1'b1;
+        if ( delay_q == { DELAY_BITS {1'b1} } ) begin
+          delay_d = { DELAY_BITS {1'b0} };
           state_imu_d = IMU_IDLE;
         end
       end
