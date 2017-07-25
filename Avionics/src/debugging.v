@@ -17,7 +17,7 @@ module debugging
   input  [23:0] timestamp,
   input  [47:0] acc,
   input  [47:0] gyr,
-  //input  [47:0] mag,
+  input  [47:0] mag,
   //input  [7:0] debug_imu,
 
   // Inputs from AVR
@@ -115,7 +115,7 @@ module debugging
   // Assemble debug message
   wire [7:0] debug_msg [MSG_LEN-1:0];
 
-/*
+  // Full ACC
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = timestamp_msg[5];
   assign debug_msg[ 2] = timestamp_msg[4];
@@ -180,8 +180,8 @@ module debugging
   assign debug_msg[61] = " ";
   assign debug_msg[62] = " ";
   assign debug_msg[63] = "\r";
-*/
-/*
+
+/*  // Full GYR
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = timestamp_msg[5];
   assign debug_msg[ 2] = timestamp_msg[4];
@@ -247,6 +247,73 @@ module debugging
   assign debug_msg[62] = " ";
   assign debug_msg[63] = "\r";
 */
+/*  // Full MAG
+  assign debug_msg[ 0] = " ";
+  assign debug_msg[ 1] = timestamp_msg[5];
+  assign debug_msg[ 2] = timestamp_msg[4];
+  assign debug_msg[ 3] = timestamp_msg[3];
+  assign debug_msg[ 4] = ".";
+  assign debug_msg[ 5] = timestamp_msg[2];
+  assign debug_msg[ 6] = " ";
+  assign debug_msg[ 7] = mag[39] ? "1" : "0";
+  assign debug_msg[ 8] = mag[38] ? "1" : "0";
+  assign debug_msg[ 9] = mag[37] ? "1" : "0";
+  assign debug_msg[10] = mag[36] ? "1" : "0";
+  assign debug_msg[11] = mag[35] ? "1" : "0";
+  assign debug_msg[12] = mag[34] ? "1" : "0";
+  assign debug_msg[13] = mag[33] ? "1" : "0";
+  assign debug_msg[14] = mag[32] ? "1" : "0";
+  assign debug_msg[15] = " ";
+  assign debug_msg[16] = mag[47] ? "1" : "0";
+  assign debug_msg[17] = mag[46] ? "1" : "0";
+  assign debug_msg[18] = mag[45] ? "1" : "0";
+  assign debug_msg[19] = mag[44] ? "1" : "0";
+  assign debug_msg[20] = mag[43] ? "1" : "0";
+  assign debug_msg[21] = mag[42] ? "1" : "0";
+  assign debug_msg[22] = mag[41] ? "1" : "0";
+  assign debug_msg[23] = mag[40] ? "1" : "0";
+  assign debug_msg[24] = " ";
+  assign debug_msg[25] = mag[23] ? "1" : "0";
+  assign debug_msg[26] = mag[22] ? "1" : "0";
+  assign debug_msg[27] = mag[21] ? "1" : "0";
+  assign debug_msg[28] = mag[20] ? "1" : "0";
+  assign debug_msg[29] = mag[19] ? "1" : "0";
+  assign debug_msg[30] = mag[18] ? "1" : "0";
+  assign debug_msg[31] = mag[17] ? "1" : "0";
+  assign debug_msg[32] = mag[16] ? "1" : "0";
+  assign debug_msg[33] = " ";
+  assign debug_msg[34] = mag[31] ? "1" : "0";
+  assign debug_msg[35] = mag[30] ? "1" : "0";
+  assign debug_msg[36] = mag[29] ? "1" : "0";
+  assign debug_msg[37] = mag[28] ? "1" : "0";
+  assign debug_msg[38] = mag[27] ? "1" : "0";
+  assign debug_msg[39] = mag[26] ? "1" : "0";
+  assign debug_msg[40] = mag[25] ? "1" : "0";
+  assign debug_msg[41] = mag[24] ? "1" : "0";
+  assign debug_msg[42] = " ";
+  assign debug_msg[43] = mag[ 7] ? "1" : "0";
+  assign debug_msg[44] = mag[ 6] ? "1" : "0";
+  assign debug_msg[45] = mag[ 5] ? "1" : "0";
+  assign debug_msg[46] = mag[ 4] ? "1" : "0";
+  assign debug_msg[47] = mag[ 3] ? "1" : "0";
+  assign debug_msg[48] = mag[ 2] ? "1" : "0";
+  assign debug_msg[49] = mag[ 1] ? "1" : "0";
+  assign debug_msg[50] = mag[ 0] ? "1" : "0";
+  assign debug_msg[51] = " ";
+  assign debug_msg[52] = mag[15] ? "1" : "0";
+  assign debug_msg[53] = mag[14] ? "1" : "0";
+  assign debug_msg[54] = mag[13] ? "1" : "0";
+  assign debug_msg[55] = mag[12] ? "1" : "0";
+  assign debug_msg[56] = mag[11] ? "1" : "0";
+  assign debug_msg[57] = mag[10] ? "1" : "0";
+  assign debug_msg[58] = mag[ 9] ? "1" : "0";
+  assign debug_msg[59] = mag[ 8] ? "1" : "0";
+  assign debug_msg[60] = " ";
+  assign debug_msg[61] = " ";
+  assign debug_msg[62] = " ";
+  assign debug_msg[63] = "\r";
+*/
+/*  // High byte ACC and MAG
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = timestamp_msg[5];
   assign debug_msg[ 2] = timestamp_msg[4];
@@ -311,7 +378,7 @@ module debugging
   assign debug_msg[61] = " ";
   assign debug_msg[62] = " ";
   assign debug_msg[63] = "\r";
-
+*/
 
   // Combinational logic
   always @(*) begin

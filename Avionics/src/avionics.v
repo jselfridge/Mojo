@@ -143,7 +143,7 @@ module avionics
 
 
   // Connect 'states' module
-  wire [47:0] acc, gyr;  //, mag;
+  wire [47:0] acc, gyr, mag;
   //wire [7:0] debug_imu;
   states states_mod (
     .clk(clk),
@@ -154,8 +154,8 @@ module avionics
     .imu_sclk(imu_sclk),
     .imu_ss(imu_ss),
     .acc(acc),
-    .gyr(gyr) );
-    //.mag(mag),
+    .gyr(gyr),
+    .mag(mag) );
     //.debug_imu(debug_imu) );
 
 
@@ -180,7 +180,7 @@ module avionics
     .timestamp(timestamp_q),
     .acc(acc),
     .gyr(gyr),
-    //.mag(mag),
+    .mag(mag),
     //.debug_imu(debug_imu),
     .tx_data(tx_data),
     .new_tx_data(new_tx_data),

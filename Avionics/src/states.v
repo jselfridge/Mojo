@@ -14,8 +14,8 @@ module states
   output imu_sclk,
   output imu_ss,
   output [47:0] acc,
-  output [47:0] gyr
-  //output [47:0] mag
+  output [47:0] gyr,
+  output [47:0] mag
   //output [7:0] debug_imu
   );
 
@@ -27,7 +27,7 @@ module states
   // Assign sensor data outputs
   assign acc = acc_q;
   assign gyr = gyr_q;
-  //assign mag = mag_q;
+  assign mag = mag_q;
   //assign debug_imu = debug_imu_q;
 
 
@@ -86,11 +86,13 @@ module states
 
   // IMU sensor states
   localparam
-    IMU_BITS  = 2,
-    IMU_IDLE  = 2'd0,
-    IMU_ACC   = 2'd1,
-    IMU_GYR   = 2'd2,
-    IMU_MAG   = 2'd3;
+    IMU_BITS  = 3,
+    IMU_INIT  = 3'd0,
+    IMU_TEMP  = 3'd1,
+    IMU_IDLE  = 3'd2,
+    IMU_ACC   = 3'd3,
+    IMU_GYR   = 3'd4,
+    IMU_MAG   = 3'd5;
 
   // IMU sensor states
   //localparam
@@ -105,26 +107,6 @@ module states
     // Assign sensor settings
     //IMU_ACCFSR_ADDR = 6'd11,  // 0x1C ACCEL_CONFIG
     //IMU_ACCFSR_DATA = 6'd12,  // 000_00_000
-    // Begin reading sensor data
-    //IMU_IDLE      = 6'd30,
-    // Accelerometer data
-    //IMU_ACC_XH    = 6'd31,
-    //IMU_ACC_XL    = 6'd32,
-    //IMU_ACC_YH    = 6'd33,
-    //IMU_ACC_YL    = 6'd34,
-    //IMU_ACC_ZH    = 6'd35,
-    //IMU_ACC_ZL    = 6'd36,
-    //IMU_ACC_DONE  = 6'd37,
-    // Rate gyro data
-    //IMU_GYR_XH    = 6'd41,
-    //IMU_GYR_XL    = 6'd42,
-    //IMU_GYR_YH    = 6'd43,
-    //IMU_GYR_YL    = 6'd44,
-    //IMU_GYR_ZH    = 6'd45,
-    //IMU_GYR_ZL    = 6'd46,
-    //IMU_GYR_DONE  = 6'd47,
-    // Magnetometer data
-    // ~~~~
     // Read debugging output
     //IMU_DEBUG     = 6'd62,
     // Flush out last byte
@@ -147,34 +129,25 @@ module states
   // find 'init_param' and 'reg_int_cb'
   // setsensors (pwr_mgmt_2 int_pin_cfg)
 
-/*
-    IMU_MAG_XH  = 6'dx,
-    IMU_MAG_XL  = 6'dx,
-    IMU_MAG_YH  = 6'dx,
-    IMU_MAG_YL  = 6'dx,
-    IMU_MAG_ZH  = 6'dx,
-    IMU_MAG_ZL  = 6'dx,
-*/
 
   // Bits for counters
-  localparam HOLD_BITS = 8;
-  //localparam DELAY_BITS = 23;  // REVISE 2^22 = 4.1M cycles = 83ms
-  //localparam DONE_BITS  = 12;  // 2^12 = 4096 cycles = 82us
+  localparam WAIT_BITS = 27;  // REVISE 2^22 = 4.1M cycles = 83ms
+  localparam HOLD_BITS = 12;
 
 
   // Declare registers
-  reg [IMU_BITS-1:0] state_imu_d, state_imu_q = IMU_IDLE;
+  reg [IMU_BITS-1:0] state_imu_d, state_imu_q = IMU_INIT;
   reg [7:0] addr_imu_d, addr_imu_q;
   reg start_imu_d, start_imu_q = 1'b0;
   reg finish_imu_d, finish_imu_q = 1'b0;
-  reg [2:0] byte_ctr_d, byte_ctr_q = 3'b000;
+  reg [1:0] param_ctr_d, param_ctr_q = 2'b00;
+  reg [2:0] data_ctr_d, data_ctr_q = 3'b000;
   reg [7:0] data_imu_d, data_imu_q;
+  reg [WAIT_BITS-1:0] wait_d, wait_q = { WAIT_BITS {1'b0} };
   reg [HOLD_BITS-1:0] hold_d, hold_q = { HOLD_BITS {1'b0} };
   reg [47:0] acc_d, acc_q = 48'h000000000000;
   reg [47:0] gyr_d, gyr_q = 48'h000000000000;
-  //reg [47:0] mag_d, mag_q = 48'h000000000000;
-  //reg [DELAY_BITS-1:0] delay_d, delay_q = { DELAY_BITS {1'b0} };
-  //reg [DONE_BITS-1:0] done_d, done_q = { DONE_BITS {1'b0} };
+  reg [47:0] mag_d, mag_q = 48'h000000000000;
   //reg [7:0] debug_imu_d, debug_imu_q = 8'h00;
 
   // Connect 'spi_master' module for IMU
@@ -206,35 +179,81 @@ module states
     start_imu_d   = 1'b0;
     finish_imu_d  = finish_imu;
     data_imu_d    = data_imu;
-    byte_ctr_d    = byte_ctr_q;
+    param_ctr_d   = param_ctr_q;
+    data_ctr_d    = data_ctr_q;
+    wait_d        = wait_q;
     hold_d        = hold_q;
     acc_d         = acc_q;
     gyr_d         = gyr_q;
-    //mag_d         = mag_q;
-    //delay_d       = delay_q;
-    //done_d        = done_q;
+    mag_d         = mag_q;
     //debug_imu_d   = debug_imu_q;
-
-
-        /*  SAMPLE CASE CODE
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'bX_XXX_XXXX;  // RWXX
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          xxx_d[xx:xx] = data_imu_q;
-          state_imu_d = IMU_XXX;
-        end
-        */
 
 
     // Begin 'imu' state machine
     case (state_imu_q)
 
+      // Begin the IMU configuration process
+      IMU_INIT : begin
+        wait_d = wait_q + 1'b1;
+        if ( wait_q == { WAIT_BITS {1'b1} } ) begin
+          wait_d = { WAIT_BITS {1'b0} };
+          state_imu_d = IMU_TEMP;
+        end
+      end
+
+      // Test new code here
+      IMU_TEMP : begin
+
+/*        // First: Send register address
+        if ( param_ctr_q == 2'd0 ) begin
+          if ( !busy_imu ) begin
+            addr_imu_d = 8'b0_110_1011;  // 8'b0_001_1100;
+            hold_d = { HOLD_BITS {1'b0} };
+            start_imu_d = 1'b1;
+          end
+          if ( finish_imu_q ) begin
+            param_ctr_d = param_ctr_q + 1'b1;
+          end
+        end
+
+        // Second: Hold for a moment
+        if ( param_ctr_q == 2'd1 ) begin
+          hold_d = hold_q + 1'b1;
+          if ( hold_q == { HOLD_BITS {1'b1} } ) begin
+            hold_d = { HOLD_BITS {1'b0} };
+            param_ctr_d = param_ctr_q + 1'b1;
+          end
+        end
+
+        // Third: Send register data
+        if ( param_ctr_q == 2'd2 ) begin
+          if ( !busy_imu ) begin
+            addr_imu_d = 8'b1000_0000;  // 8'b000_10_000;
+            wait_d = { WAIT_BITS {1'b0} };
+            start_imu_d = 1'b1;
+          end
+          if ( finish_imu_q ) begin
+            param_ctr_d = param_ctr_q + 1'b1;
+          end
+        end
+
+        // Fourth: Wait for it to process
+        if ( param_ctr_q == 2'd3 ) begin
+          wait_d = wait_q + 1'b1;
+          if ( wait_q == { WAIT_BITS {1'b1} } ) begin
+            wait_d = { WAIT_BITS {1'b0} };
+            param_ctr_d = 2'b00;
+            state_imu_d = IMU_IDLE;
+          end
+        end
+*/
+            state_imu_d = IMU_IDLE;
+      end
+
       // Wait for next timing signal
       IMU_IDLE : begin
         if ( tmr_1khz ) begin
-          byte_ctr_d = 3'b000;
+          data_ctr_d = 3'b000;
           state_imu_d = IMU_ACC;
         end
       end
@@ -243,7 +262,7 @@ module states
       IMU_ACC : begin
 
         // First pass: Send ACC register address
-        if ( byte_ctr_q == 3'b000 ) begin
+        if ( data_ctr_q == 3'b000 ) begin
           if ( !busy_imu ) begin
             addr_imu_d = 8'b1_011_1011;
             acc_d = 48'h000000000000;
@@ -251,20 +270,18 @@ module states
             start_imu_d = 1'b1;
           end
           if ( finish_imu_q ) begin
-            byte_ctr_d = byte_ctr_q + 1'b1;
+            data_ctr_d = data_ctr_q + 1'b1;
           end
         end
 
         // Last pass: Clean up
-        else if ( byte_ctr_q == 3'b111 ) begin
-
+        else if ( data_ctr_q == 3'b111 ) begin
           hold_d = hold_q + 1'b1;
           if ( hold_q == { HOLD_BITS {1'b1} } ) begin
             hold_d = { HOLD_BITS {1'b0} };
-            byte_ctr_d = 3'b000;
+            data_ctr_d = 3'b000;
             state_imu_d = IMU_GYR;
           end
-
         end
 
         // Otherwise: Loop through 6 data bytes
@@ -275,17 +292,18 @@ module states
           end
           if ( finish_imu_q ) begin
             acc_d = { acc_q[39:0], data_imu_q };
-            byte_ctr_d = byte_ctr_q + 1'b1;
+            data_ctr_d = data_ctr_q + 1'b1;
           end
         end
 
+            //state_imu_d = IMU_GYR;
       end
 
       // Collect rate gyro data 
       IMU_GYR : begin
 
-        // First pass: Send GYR register address
-        if ( byte_ctr_q == 3'b000 ) begin
+/*        // First pass: Send GYR register address
+        if ( data_ctr_q == 3'b000 ) begin
           if ( !busy_imu ) begin
             addr_imu_d = 8'b1_100_0011;
             hold_d = { HOLD_BITS {1'b0} };
@@ -293,20 +311,18 @@ module states
             start_imu_d = 1'b1;
           end
           if ( finish_imu_q ) begin
-            byte_ctr_d = byte_ctr_q + 1'b1;
+            data_ctr_d = data_ctr_q + 1'b1;
           end
         end
 
         // Last pass: Clean up
-        else if ( byte_ctr_q == 3'b111 ) begin
-
+        else if ( data_ctr_q == 3'b111 ) begin
           hold_d = hold_q + 1'b1;
           if ( hold_q == { HOLD_BITS {1'b1} } ) begin
             hold_d = { HOLD_BITS {1'b0} };
-            byte_ctr_d = 3'b000;
+            data_ctr_d = 3'b000;
             state_imu_d = IMU_MAG;
           end
-
         end
 
         // Otherwise: Loop through 6 data bytes
@@ -317,15 +333,52 @@ module states
           end
           if ( finish_imu_q ) begin
             gyr_d = { gyr_q[39:0], data_imu_q };
-            byte_ctr_d = byte_ctr_q + 1'b1;
+            data_ctr_d = data_ctr_q + 1'b1;
           end
         end
-
+*/
+            state_imu_d = IMU_MAG;
       end
 
       // Collect magnetometer data 
       IMU_MAG : begin
-        state_imu_d = IMU_IDLE;
+
+/*        // First pass: Send MAG register address
+        if ( data_ctr_q == 3'b000 ) begin
+          if ( !busy_imu ) begin
+            addr_imu_d = 8'b1_???_????;
+            hold_d = { HOLD_BITS {1'b0} };
+            mag_d = 48'h000000000000;
+            start_imu_d = 1'b1;
+          end
+          if ( finish_imu_q ) begin
+            data_ctr_d = data_ctr_q + 1'b1;
+          end
+        end
+
+        // Last pass: Clean up
+        else if ( data_ctr_q == 3'b111 ) begin
+          hold_d = hold_q + 1'b1;
+          if ( hold_q == { HOLD_BITS {1'b1} } ) begin
+            hold_d = { HOLD_BITS {1'b0} };
+            data_ctr_d = 3'b000;
+            state_imu_d = IMU_IDLE;
+          end
+        end
+
+        // Otherwise: Loop through 6 data bytes
+        else begin
+          if ( !busy_imu ) begin
+            addr_imu_d = 8'hFF;
+            start_imu_d = 1'b1;
+          end
+          if ( finish_imu_q ) begin
+            mag_d = { mag_q[39:0], data_imu_q };
+            data_ctr_d = data_ctr_q + 1'b1;
+          end
+        end
+*/
+            state_imu_d = IMU_IDLE;
       end
 
       // Specify default condition
@@ -337,10 +390,6 @@ module states
     endcase
 
   end
-
-
-
-
 
 
 
@@ -477,85 +526,7 @@ module states
         end
       end
 */
-/*      // Begin reading sensor data
-      IMU_IDLE : begin
-        if ( tmr_1khz ) begin
-          state_imu_d = IMU_ACC_XH;
-        end
-      end
-*/
-/*      // Acc X-axis high byte
-      IMU_ACC_XH : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'b1_011_1011;  // R3B
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          state_imu_d = IMU_ACC_XL;
-        end
-      end
 
-      // Acc X-axis low byte
-      IMU_ACC_XL : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  // 8'b1_011_1100;  // R3C
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          acc_d[47:40] = data_imu_q;
-          state_imu_d = IMU_ACC_YH;
-        end
-      end
-
-      // Acc Y-axis high byte
-      IMU_ACC_YH : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  // 8'b1_011_1101;  // R3D
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          acc_d[39:32] = data_imu_q;
-          state_imu_d = IMU_ACC_YL;
-        end
-      end
-
-      // Acc Y-axis low byte
-      IMU_ACC_YL : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  // 8'b1_011_1110;  // R3E
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          acc_d[31:24] = data_imu_q;
-          state_imu_d = IMU_ACC_ZH;
-        end
-      end
-
-      // Acc Z-axis high byte
-      IMU_ACC_ZH : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  // 8'b1_011_1111;  // R3F
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          acc_d[23:16] = data_imu_q;
-          state_imu_d = IMU_ACC_ZL;
-        end
-      end
-
-      // Acc Z-axis low byte
-      IMU_ACC_ZL : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  // 8'b1_100_0000;  // R40
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          acc_d[15:8] = data_imu_q;
-          //state_imu_d = IMU_GYR_XH;
-          state_imu_d = IMU_ACC_DONE;
-        end
-      end
-*/
 /*      // Wait for sensor reset (wait 83ms)
       IMU_DELAY : begin
         delay_d = delay_q + 1'b1;
@@ -565,87 +536,7 @@ module states
         end
       end
 */
-/*      // Gyr X-axis high byte
-      IMU_GYR_XH : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  // 8'b1_100_0011;  // R43
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          acc_d[7:0] = data_imu_q;
-          state_imu_d = IMU_GYR_XL;
-        end
-      end
 
-      // Gyr X-axis low byte
-      IMU_GYR_XL : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  // 8'b1_100_0100;  // R44
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          gyr_d[47:40] = data_imu_q;
-          state_imu_d = IMU_GYR_YH;
-        end
-      end
-
-      // Gyr Y-axis high byte
-      IMU_GYR_YH : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  // 8'b1_100_0101;  // R45
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          gyr_d[39:32] = data_imu_q;
-          state_imu_d = IMU_GYR_YL;
-        end
-      end
-
-      // Gyr Y-axis low byte
-      IMU_GYR_YL : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  // 8'b1_100_0110;  // R46
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          gyr_d[31:24] = data_imu_q;
-          state_imu_d = IMU_GYR_ZH;
-        end
-      end
-
-      // Gyr Z-axis high byte
-      IMU_GYR_ZH : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  // 8'b1_100_0111;  // R47
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          gyr_d[23:16] = data_imu_q;
-          state_imu_d = IMU_GYR_ZL;
-        end
-      end
-
-      // Gyr Z-axis low byte
-      IMU_GYR_ZL : begin
-        if ( !busy_imu ) begin
-          addr_imu_d = 8'hFF;  // 8'b1_100_1000;  // R48
-          start_imu_d = 1'b1;
-        end
-        if ( finish_imu_q ) begin
-          gyr_d[15:8] = data_imu_q;
-          state_imu_d = IMU_DEBUG;
-        end
-      end
-*/
-/*      // Wait for sensor reset (wait 83ms)
-      IMU_DELAY : begin
-        delay_d = delay_q + 1'b1;
-        if ( delay_q == { DELAY_BITS {1'b1} } ) begin
-          delay_d = { DELAY_BITS {1'b0} };
-          state_imu_d = IMU_WAKE_ADDR;
-        end
-      end
-*/
 /*      // Specify 'debug' command
       IMU_DEBUG : begin
         if ( !busy_imu ) begin
@@ -671,6 +562,7 @@ module states
       end
 */
 
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -689,13 +581,13 @@ module states
     start_imu_q   <= start_imu_d;
     finish_imu_q  <= finish_imu_d;
     data_imu_q    <= data_imu_d;
-    byte_ctr_q    <= byte_ctr_d;
+    param_ctr_q   <= param_ctr_d;
+    data_ctr_q    <= data_ctr_d;
+    wait_q        <= wait_d;
     hold_q        <= hold_d;
     acc_q         <= acc_d;
     gyr_q         <= gyr_d;
-    //mag_q         <= mag_d;
-    //delay_q       <= delay_d;
-    //done_q        <= done_d;
+    mag_q         <= mag_d;
     //debug_imu_q   <= debug_imu_d;
 
   end
