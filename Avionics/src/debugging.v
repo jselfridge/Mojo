@@ -16,7 +16,7 @@ module debugging
   // Terminal data
   input  [23:0] timestamp,
   input  [47:0] acc,
-  //input  [47:0] gyr,
+  input  [47:0] gyr,
   //input  [47:0] mag,
   //input  [7:0] debug_imu,
 
@@ -115,6 +115,7 @@ module debugging
   // Assemble debug message
   wire [7:0] debug_msg [MSG_LEN-1:0];
 
+/*
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = timestamp_msg[5];
   assign debug_msg[ 2] = timestamp_msg[4];
@@ -179,6 +180,7 @@ module debugging
   assign debug_msg[61] = " ";
   assign debug_msg[62] = " ";
   assign debug_msg[63] = "\r";
+*/
 /*
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = timestamp_msg[5];
@@ -245,7 +247,70 @@ module debugging
   assign debug_msg[62] = " ";
   assign debug_msg[63] = "\r";
 */
-
+  assign debug_msg[ 0] = " ";
+  assign debug_msg[ 1] = timestamp_msg[5];
+  assign debug_msg[ 2] = timestamp_msg[4];
+  assign debug_msg[ 3] = timestamp_msg[3];
+  assign debug_msg[ 4] = ".";
+  assign debug_msg[ 5] = timestamp_msg[2];
+  assign debug_msg[ 6] = " ";
+  assign debug_msg[ 7] = acc[47] ? "1" : "0";
+  assign debug_msg[ 8] = acc[46] ? "1" : "0";
+  assign debug_msg[ 9] = acc[45] ? "1" : "0";
+  assign debug_msg[10] = acc[44] ? "1" : "0";
+  assign debug_msg[11] = acc[43] ? "1" : "0";
+  assign debug_msg[12] = acc[42] ? "1" : "0";
+  assign debug_msg[13] = acc[41] ? "1" : "0";
+  assign debug_msg[14] = acc[40] ? "1" : "0";
+  assign debug_msg[15] = " ";
+  assign debug_msg[16] = acc[31] ? "1" : "0";
+  assign debug_msg[17] = acc[30] ? "1" : "0";
+  assign debug_msg[18] = acc[29] ? "1" : "0";
+  assign debug_msg[19] = acc[28] ? "1" : "0";
+  assign debug_msg[20] = acc[27] ? "1" : "0";
+  assign debug_msg[21] = acc[26] ? "1" : "0";
+  assign debug_msg[22] = acc[25] ? "1" : "0";
+  assign debug_msg[23] = acc[24] ? "1" : "0";
+  assign debug_msg[24] = " ";
+  assign debug_msg[25] = acc[15] ? "1" : "0";
+  assign debug_msg[26] = acc[14] ? "1" : "0";
+  assign debug_msg[27] = acc[13] ? "1" : "0";
+  assign debug_msg[28] = acc[12] ? "1" : "0";
+  assign debug_msg[29] = acc[11] ? "1" : "0";
+  assign debug_msg[30] = acc[10] ? "1" : "0";
+  assign debug_msg[31] = acc[9]  ? "1" : "0";
+  assign debug_msg[32] = acc[8]  ? "1" : "0";
+  assign debug_msg[33] = " ";
+  assign debug_msg[34] = gyr[47] ? "1" : "0";
+  assign debug_msg[35] = gyr[46] ? "1" : "0";
+  assign debug_msg[36] = gyr[45] ? "1" : "0";
+  assign debug_msg[37] = gyr[44] ? "1" : "0";
+  assign debug_msg[38] = gyr[43] ? "1" : "0";
+  assign debug_msg[39] = gyr[42] ? "1" : "0";
+  assign debug_msg[40] = gyr[41] ? "1" : "0";
+  assign debug_msg[41] = gyr[40] ? "1" : "0";
+  assign debug_msg[42] = " ";
+  assign debug_msg[43] = gyr[31] ? "1" : "0";
+  assign debug_msg[44] = gyr[30] ? "1" : "0";
+  assign debug_msg[45] = gyr[29] ? "1" : "0";
+  assign debug_msg[46] = gyr[28] ? "1" : "0";
+  assign debug_msg[47] = gyr[27] ? "1" : "0";
+  assign debug_msg[48] = gyr[26] ? "1" : "0";
+  assign debug_msg[49] = gyr[25] ? "1" : "0";
+  assign debug_msg[50] = gyr[24] ? "1" : "0";
+  assign debug_msg[51] = " ";
+  assign debug_msg[52] = gyr[15] ? "1" : "0";
+  assign debug_msg[53] = gyr[14] ? "1" : "0";
+  assign debug_msg[54] = gyr[13] ? "1" : "0";
+  assign debug_msg[55] = gyr[12] ? "1" : "0";
+  assign debug_msg[56] = gyr[11] ? "1" : "0";
+  assign debug_msg[57] = gyr[10] ? "1" : "0";
+  assign debug_msg[58] = gyr[ 9] ? "1" : "0";
+  assign debug_msg[59] = gyr[ 8] ? "1" : "0";
+  assign debug_msg[60] = " ";
+  assign debug_msg[61] = " ";
+  assign debug_msg[62] = " ";
+  assign debug_msg[63] = "\r";
 
 
   // Combinational logic
