@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-07-24T13:50:25</DateModified>
+  <DateModified>2017-07-24T17:40:32</DateModified>
   <ModuleName>spi_mpu_get</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
   <SavedFilePath>/home/justin/Documents/FPGA/Util/spi/spi_mpu_get/test/iseconfig/spi_mpu_get.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Util/spi/spi_mpu_get/test</ImplementationReportsDirectory>
+  <ImplementationReportsDirectory>/home/justin/Documents/FPGA/Util/spi/spi_mpu_get/test/</ImplementationReportsDirectory>
   <DateInitialized>2017-07-24T13:50:24</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

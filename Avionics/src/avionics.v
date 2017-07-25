@@ -49,7 +49,7 @@ module avionics
 
 
   // Assign LED values
-  assign led = debug_imu;
+  assign led = 8'b0;  //debug_imu;
 
 
 
@@ -143,8 +143,8 @@ module avionics
 
 
   // Connect 'states' module
-  wire [47:0] acc, gyr;  //, mag;
-  wire [7:0] debug_imu;
+  wire [47:0] acc; //, gyr;  //, mag;
+  //wire [7:0] debug_imu;
   states states_mod (
     .clk(clk),
     .rst( state_board_q == BOARD_IDLE ),
@@ -153,10 +153,10 @@ module avionics
     .imu_mosi(imu_mosi),
     .imu_sclk(imu_sclk),
     .imu_ss(imu_ss),
-    .acc(acc),
-    .gyr(gyr),
+    .acc(acc) );
+    //.gyr(gyr),
     //.mag(mag),
-    .debug_imu(debug_imu) );
+    //.debug_imu(debug_imu) );
 
 
   // Connect 'control' module
@@ -179,9 +179,9 @@ module avionics
     .tmr(tmr_10hz),
     .timestamp(timestamp_q),
     .acc(acc),
-    .gyr(gyr),
+    //.gyr(gyr),
     //.mag(mag),
-    .debug_imu(debug_imu),
+    //.debug_imu(debug_imu),
     .tx_data(tx_data),
     .new_tx_data(new_tx_data),
     .tx_busy(tx_busy),
