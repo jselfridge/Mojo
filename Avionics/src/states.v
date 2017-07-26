@@ -109,7 +109,7 @@ module states
     IMU_SMPL_DATA   = 6'd11,
     IMU_SMPL_WAIT   = 6'd12,
 
-    // Issue "Low Pass Filter" command: 0x1A 0x00
+    // Issue "Low Pass Filter" command: 0x1A 0x01
     IMU_LPF_ADDR    = 6'd13,
     IMU_LPF_DATA    = 6'd14,
     IMU_LPF_WAIT    = 6'd15,
@@ -130,9 +130,9 @@ module states
   //IMU_XXXX_WAIT   = 6'd24,
 
     // Issue "FIFO Enable" command: 0x23 0x00
-    IMU_FIFO_ADDR   = 6'd25,
-    IMU_FIFO_DATA   = 6'd26,
-    IMU_FIFO_WAIT   = 6'd27,
+  //IMU_FIFO_ADDR   = 6'd25,
+  //IMU_FIFO_DATA   = 6'd26,
+  //IMU_FIFO_WAIT   = 6'd27,
 
     // Issue "I2C Master Control" command: 0x24 0x0x0D
   //IMU_I2C_ADDR    = 6'd28,
@@ -140,9 +140,9 @@ module states
   //IMU_I2C_WAIT    = 6'd30,
 
     // Issue "Interrupt Enable" command: 0x38 0x00
-    IMU_INT_ADDR    = 6'd31,
-    IMU_INT_DATA    = 6'd32,
-    IMU_INT_WAIT    = 6'd33,
+  //IMU_INT_ADDR    = 6'd31,
+  //IMU_INT_DATA    = 6'd32,
+  //IMU_INT_WAIT    = 6'd33,
 
     // Issue "User Control" command: 0x6A 0x??
   //IMU_USER_ADDR   = 6'd34,
@@ -159,8 +159,8 @@ module states
 
 
   // Bits for counters
-  localparam WAIT_BITS = 27;  // REVISE 2^22 = 4.1M cycles = 83ms
-  localparam HOLD_BITS = 12;
+  localparam WAIT_BITS = 24;  // REVISE 2^22 = 4.1M cycles = 84ms
+  localparam HOLD_BITS = 10;
 
 
   // Declare registers
@@ -223,15 +223,258 @@ module states
         if ( wait_q == { WAIT_BITS {1'b1} } ) begin
           wait_d = { WAIT_BITS {1'b0} };
           state_imu_d = IMU_IDLE;
+          //state_imu_d = IMU_RESET_ADDR;
         end
       end
 
+/*      // Assign "Reset" address
+      IMU_RESET_ADDR : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b0_110_1011;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_RESET_DATA;
+        end
+      end
 
+      // Send "Reset" data
+      IMU_RESET_DATA : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b1000_0000;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_RESET_WAIT;
+        end
+      end
 
+      // Wait after "Reset" parameter
+      IMU_RESET_WAIT : begin
+        hold_d = hold_q + 1'b1;
+        if ( hold_q == { HOLD_BITS {1'b1} } ) begin
+          hold_d = { HOLD_BITS {1'b0} };
+          state_imu_d = IMU_WAKE_ADDR;
+        end
+      end
 
+      // Assign "Wake" address
+      IMU_WAKE_ADDR : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b0_110_1011;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_WAKE_DATA;
+        end
+      end
 
+      // Send "Wake" data
+      IMU_WAKE_DATA : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b0000_0000;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_WAKE_WAIT;
+        end
+      end
 
+      // Wait after "Wake" parameter
+      IMU_WAKE_WAIT : begin
+        hold_d = hold_q + 1'b1;
+        if ( hold_q == { HOLD_BITS {1'b1} } ) begin
+          hold_d = { HOLD_BITS {1'b0} };
+          state_imu_d = IMU_DIS_ADDR;
+        end
+      end
 
+      // Assign "Disable" address
+      IMU_DIS_ADDR : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b0_110_1100;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_DIS_DATA;
+        end
+      end
+
+      // Send "Disable" data
+      IMU_DIS_DATA : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b0000_0000;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_DIS_WAIT;
+        end
+      end
+
+      // Wait after "Disable" parameter
+      IMU_DIS_WAIT : begin
+        hold_d = hold_q + 1'b1;
+        if ( hold_q == { HOLD_BITS {1'b1} } ) begin
+          hold_d = { HOLD_BITS {1'b0} };
+          state_imu_d = IMU_SMPL_ADDR;
+        end
+      end
+
+      // Assign "Sample Rate" address
+      IMU_SMPL_ADDR : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b0_001_1001;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_SMPL_DATA;
+        end
+      end
+
+      // Send "Sample Rate" data
+      IMU_SMPL_DATA : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b0000_0000;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_SMPL_WAIT;
+        end
+      end
+
+      // Wait after "Sample Rate" parameter
+      IMU_SMPL_WAIT : begin
+        hold_d = hold_q + 1'b1;
+        if ( hold_q == { HOLD_BITS {1'b1} } ) begin
+          hold_d = { HOLD_BITS {1'b0} };
+          state_imu_d = IMU_LPF_ADDR;
+        end
+      end
+
+      // Assign "Low Pass Filter" address
+      IMU_LPF_ADDR : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b0_001_1010;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_LPF_DATA;
+        end
+      end
+
+      // Send "Low Pass Filter" data
+      IMU_LPF_DATA : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b0000_0001;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_LPF_WAIT;
+        end
+      end
+
+      // Wait after "Low Pass Filter" parameter
+      IMU_LPF_WAIT : begin
+        hold_d = hold_q + 1'b1;
+        if ( hold_q == { HOLD_BITS {1'b1} } ) begin
+          hold_d = { HOLD_BITS {1'b0} };
+          state_imu_d = IMU_GYR_ADDR;
+        end
+      end
+
+      // Assign "Rate Gyro" address
+      IMU_GYR_ADDR : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b0_001_1011;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_GYR_DATA;
+        end
+      end
+
+      // Send "Rate Gyro" data
+      IMU_GYR_DATA : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b000_10_000;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_GYR_WAIT;
+        end
+      end
+
+      // Wait after "Rate Gyro" parameter
+      IMU_GYR_WAIT : begin
+        hold_d = hold_q + 1'b1;
+        if ( hold_q == { HOLD_BITS {1'b1} } ) begin
+          hold_d = { HOLD_BITS {1'b0} };
+          state_imu_d = IMU_ACC_ADDR;
+        end
+      end
+
+      // Assign "Accelerometer" address
+      IMU_ACC_ADDR : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b0_001_1100;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_ACC_DATA;
+        end
+      end
+
+      // Send "Accelerometer" data
+      IMU_ACC_DATA : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b000_01_000;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_ACC_WAIT;
+        end
+      end
+
+      // Wait after "Accelerometer" parameter
+      IMU_ACC_WAIT : begin
+        hold_d = hold_q + 1'b1;
+        if ( hold_q == { HOLD_BITS {1'b1} } ) begin
+          hold_d = { HOLD_BITS {1'b0} };
+          state_imu_d = IMU_IDLE;
+        end
+      end
+*/
+/*      // Assign "xxxx" address
+      IMU_XXXX_ADDR : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b0_???_????;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_XXXX_DATA;
+        end
+      end
+
+      // Send "xxxx" data
+      IMU_XXXX_DATA : begin
+        if ( !busy_imu ) begin
+          addr_imu_d = 8'b????_????;
+          start_imu_d = 1'b1;
+        end
+        if ( finish_imu_q ) begin
+          state_imu_d = IMU_XXXX_WAIT;
+        end
+      end
+
+      // Wait after "xxxx" parameter
+      IMU_XXXX_WAIT : begin
+        hold_d = hold_q + 1'b1;
+        if ( hold_q == { HOLD_BITS {1'b1} } ) begin
+          hold_d = { HOLD_BITS {1'b0} };
+          state_imu_d = IMU_XXXX_ADDR;
+        end
+      end
+*/
 
       // Wait for next timing signal
       IMU_IDLE : begin
@@ -381,16 +624,17 @@ module states
   always @( posedge clk ) begin
 
     if (rst) begin
+      state_imu_q <= IMU_INIT;
       addr_imu_q  <= 8'hFF;
       wait_q      <= { WAIT_BITS {1'b0} };
       hold_q      <= { HOLD_BITS {1'b0} };
     end else begin
+      state_imu_q <= state_imu_d;
       addr_imu_q  <= addr_imu_d;
       wait_q      <= wait_d;
       hold_q      <= hold_d;
     end
 
-    state_imu_q   <= state_imu_d;
     start_imu_q   <= start_imu_d;
     finish_imu_q  <= finish_imu_d;
     data_imu_q    <= data_imu_d;
