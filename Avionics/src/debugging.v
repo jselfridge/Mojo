@@ -16,8 +16,8 @@ module debugging
   // Terminal data
   input  [23:0] timestamp,
   input  [47:0] acc,
-  input  [47:0] gyr,
-  input  [47:0] mag,
+  //input  [47:0] gyr,
+  //input  [47:0] mag,
 
   // Inputs from AVR
   input  [7:0] rx_data,
@@ -176,8 +176,8 @@ module debugging
   assign debug_msg[58] = acc[ 1] ? "1" : "0";
   assign debug_msg[59] = acc[ 0] ? "1" : "0";
   assign debug_msg[60] = " ";
-  assign debug_msg[61] = " ";
-  assign debug_msg[62] = " ";
+  assign debug_msg[61] = motor_msg;
+  assign debug_msg[62] = data_msg;
   assign debug_msg[63] = "\r";
 
 /*  // Full GYR
