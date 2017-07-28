@@ -90,10 +90,10 @@ module states
   localparam
     IMU_BITS        = 2,
     // Loop commands
-    IMU_INIT        = 2'd0,
-    IMU_IDLE        = 2'd1,
-    IMU_READ_ACC    = 2'd2,
-    IMU_DEBUG       = 2'd3;
+    IMU_INIT        = 2'd0;
+    //IMU_IDLE        = 2'd1,
+    //IMU_READ_ACC    = 2'd2,
+    //IMU_DEBUG       = 2'd3;
 
     //IMU_READ_GYR    = 2'd2,
     //IMU_READ_MAG    = 2'd3;
@@ -130,7 +130,7 @@ module states
   wire mosi_imu;
   wire [7:0] data_imu;
   spi_master_11 #(
-    .CLK_DIV(3) )
+    .CLK_DIV(6) )  // 3
     spi_master_imu (
     .clk(clk),
     .rst(rst),
@@ -190,7 +190,7 @@ module states
             loop_ctr_d = loop_ctr_q + 1'b1;
           end
         end
-
+ 
         // Third pass: Send configuration data byte
         else if ( loop_ctr_q == 3'd2 ) begin
           if ( !busy_imu ) begin
@@ -213,10 +213,10 @@ module states
         end
 
         // Fifth pass: Send register read address
-        // 8'b1_001_1100;  // 1C  AccelConfig
+        // 8'b1_111_0101;  // R75 WhoAmI
         else if ( loop_ctr_q == 3'd4 ) begin
           if ( !busy_imu ) begin
-            addr_imu_d = 8'b1_111_0101;  // R75 WhoAmI
+            addr_imu_d = 8'b1_001_1100;  // 1C  AccelConfig
             imu_out_d = 8'b0;
             hold_d = { HOLD_BITS {1'b0} };
             start_imu_d = 1'b1;
@@ -244,21 +244,21 @@ module states
           if ( hold_q == { HOLD_BITS {1'b1} } ) begin
             hold_d = { HOLD_BITS {1'b0} };
             loop_ctr_d = 3'b0;
-            state_imu_d = IMU_IDLE;
+            //state_imu_d = IMU_IDLE;
           end
         end
 
       end
 
-      // Wait for next timing signal
+/*      // Wait for next timing signal
       IMU_IDLE : begin
         if ( tmr_1khz ) begin
           loop_ctr_d = 3'b0;
           state_imu_d = IMU_READ_ACC;
         end
       end
-
-      // Read accelerometer data 
+*/
+/*      // Read accelerometer data 
       IMU_READ_ACC : begin
 
         // First pass: Send ACC register address
@@ -297,9 +297,9 @@ module states
         end
 
       end
-
+*/
       // Read debugging data 
-      IMU_DEBUG : begin
+//      IMU_DEBUG : begin
 
 /*        // First pass: Send register address
         // 8'b1_111_0101;  // R75 WhoAmI
@@ -338,8 +338,8 @@ module states
           end
         end
 */
-            state_imu_d = IMU_IDLE;
-      end
+//            state_imu_d = IMU_IDLE;
+//      end
 
 /*    // Read rate gyro data 
       IMU_READ_GYR : begin

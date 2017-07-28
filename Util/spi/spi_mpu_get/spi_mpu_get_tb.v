@@ -21,10 +21,7 @@ module spi_mpu_get_tb ();
   wire [7:0] data;
 
   // Device Under Test
-  spi_mpu_get
-    #(
-    .CLK_DIV(4)
-    ) spi_master_DUT (
+  spi_mpu_get spi_master_DUT (
     .clk(clk),
     .rst(rst),
     .start(start),
@@ -34,8 +31,7 @@ module spi_mpu_get_tb ();
     .busy(busy),
     .finish(finish),
     .mosi(mosi),
-    .data(data)
-  );
+    .data(data) );
 
   // Toggle reset, then clock forever
   initial begin
@@ -63,8 +59,9 @@ module spi_mpu_get_tb ();
     start = 1'b1;
     #50;
     start = 1'b0;
-    #6000;
+    #8000;
 
+/*
     // Assign new data
     addr = 8'b11101101;
     #100;
@@ -74,7 +71,7 @@ module spi_mpu_get_tb ();
     #50;
     start = 1'b0;
     #6000;
-
+*/
     #1000;
     $finish;
 
