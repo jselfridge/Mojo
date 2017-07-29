@@ -10,13 +10,12 @@ Starting static elaboration
 Completed static elaboration
 Fuse Memory Usage: 94704 KB
 Fuse CPU Usage: 1720 ms
-Compiling module spi_mpu_get
+Compiling module spi_mpu_get(CLK_DIV=3,HOLD_BITS=...
 Compiling module spi_mpu_get_tb
 Compiling module glbl
 Time Resolution for simulation is 1ps.
-Waiting for 2 sub-compilation(s) to finish...
 Compiled 3 Verilog Units
 Built simulation executable /home/justin/Documents/FPGA/Util/spi/spi_mpu_get/test/spi_mpu_get_tb_isim_beh.exe
-Fuse Memory Usage: 392804 KB
+Fuse Memory Usage: 392852 KB
 Fuse CPU Usage: 1740 ms
 GCC CPU Usage: 520 ms

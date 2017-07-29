@@ -48,7 +48,7 @@ module spi_mpu_get
 
   // Connect output signals
   assign sclk = ~( ( ~sclk_q[CLK_DIV-1] ) & ( state_q != MPU_IDLE ) );
-  assign busy = state_q != MPU_IDLE;
+  assign busy = ( state_q == MPU_HALF ) | (state_q == MPU_SEND );
   assign finish = finish_q;
   assign mosi = mosi_q;
   assign data = data_q;

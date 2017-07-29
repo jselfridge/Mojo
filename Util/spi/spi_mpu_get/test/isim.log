@@ -1,6 +1,5 @@
 ISim log file
 Running: /home/justin/Documents/FPGA/Util/spi/spi_mpu_get/test/spi_mpu_get_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/justin/Documents/FPGA/Util/spi/spi_mpu_get/test/spi_mpu_get_tb_isim_beh.wdb 
-INFO: There is another simulation running in the same directory. Using database file name isim1.wdb.
 ISim P.20131013 (signature 0xfbc00daa)
 WARNING: A WEBPACK license was found.
 WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
@@ -13,5 +12,5 @@ Time resolution is 1 ps
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
 # run 1.00s
-Stopped at time : 10150 ns : File "/home/justin/Documents/FPGA/Util/spi/spi_mpu_get/spi_mpu_get_tb.v" Line 76
+Stopped at time : 10150 ns : File "/home/justin/Documents/FPGA/Util/spi/spi_mpu_get/spi_mpu_get_tb.v" Line 79
 # exit 0

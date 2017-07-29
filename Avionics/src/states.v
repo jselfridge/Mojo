@@ -129,9 +129,10 @@ module states
   wire finish_imu;
   wire mosi_imu;
   wire [7:0] data_imu;
-  spi_master_11 #(
-    .CLK_DIV(6) )  // 3
-    spi_master_imu (
+  spi_mpu_get #(
+    .CLK_DIV(4),  // 3
+    .HOLD_BITS(8) )  // 3
+    spi_mpu_get (
     .clk(clk),
     .rst(rst),
     .start(start_imu_q),
@@ -168,7 +169,7 @@ module states
       // Initialize IMU 
       IMU_INIT : begin
 
-        // First pass: Warm up device
+        // Warm up device
         if ( loop_ctr_q == 3'd0 ) begin
           init_d = init_q + 1'b1;
           if ( init_q == { INIT_BITS {1'b1} } ) begin
@@ -177,21 +178,21 @@ module states
           end
         end
 
-        // Second pass: Send register write address
-        // 8'b1_111_0101;  // R75 WhoAmI
+        // Send register read address
+        // 8'b0_001_1100;  // 1C  AccelConfig
         else if ( loop_ctr_q == 3'd1 ) begin
           if ( !busy_imu ) begin
-            addr_imu_d = 8'b0_001_1100;  // 1C  AccelConfig
+            addr_imu_d = 8'b1_111_0101;  // R75 WhoAmI
             imu_out_d = 8'b0;
-            hold_d = { HOLD_BITS {1'b0} };
             start_imu_d = 1'b1;
           end
           if ( finish_imu_q ) begin
+            imu_out_d = data_imu_q;
             loop_ctr_d = loop_ctr_q + 1'b1;
           end
         end
  
-        // Third pass: Send configuration data byte
+/*        // Third pass: Send configuration data byte
         else if ( loop_ctr_q == 3'd2 ) begin
           if ( !busy_imu ) begin
             addr_imu_d = 8'b000_00_000;
@@ -247,7 +248,7 @@ module states
             //state_imu_d = IMU_IDLE;
           end
         end
-
+*/
       end
 
 /*      // Wait for next timing signal

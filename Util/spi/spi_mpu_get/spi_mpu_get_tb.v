@@ -21,7 +21,10 @@ module spi_mpu_get_tb ();
   wire [7:0] data;
 
   // Device Under Test
-  spi_mpu_get spi_master_DUT (
+  spi_mpu_get #(
+    .CLK_DIV(3),
+    .HOLD_BITS(4) )
+    spi_master_DUT (
     .clk(clk),
     .rst(rst),
     .start(start),

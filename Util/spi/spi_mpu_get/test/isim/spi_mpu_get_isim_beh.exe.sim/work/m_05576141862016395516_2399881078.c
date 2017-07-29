@@ -30,7 +30,6 @@ static unsigned int ng5[] = {8U, 0U};
 static unsigned int ng6[] = {2U, 0U};
 static unsigned int ng7[] = {7U, 0U};
 static unsigned int ng8[] = {3U, 0U};
-static unsigned int ng9[] = {63U, 0U};
 
 
 
@@ -745,7 +744,7 @@ LAB5:    xsi_set_current_line(61, ng0);
     t3 = (t2 + 56U);
     t4 = *((char **)t3);
     t5 = (t0 + 6080);
-    xsi_vlogvar_assign_value(t5, t4, 0, 0, 6);
+    xsi_vlogvar_assign_value(t5, t4, 0, 0, 8);
     xsi_set_current_line(71, ng0);
     t2 = (t0 + 5280);
     t3 = (t2 + 56U);
@@ -795,7 +794,7 @@ LAB18:    xsi_set_current_line(77, ng0);
     xsi_set_current_line(79, ng0);
     t2 = ((char*)((ng1)));
     t3 = (t0 + 6080);
-    xsi_vlogvar_assign_value(t3, t2, 0, 0, 6);
+    xsi_vlogvar_assign_value(t3, t2, 0, 0, 8);
     xsi_set_current_line(80, ng0);
     t2 = ((char*)((ng1)));
     t3 = (t0 + 4480);
@@ -1029,14 +1028,14 @@ LAB69:    xsi_set_current_line(137, ng0);
     t6 = *((char **)t5);
     t7 = ((char*)((ng3)));
     memset(t9, 0, 8);
-    xsi_vlog_unsigned_add(t9, 6, t6, 6, t7, 6);
+    xsi_vlog_unsigned_add(t9, 8, t6, 8, t7, 8);
     t22 = (t0 + 6080);
-    xsi_vlogvar_assign_value(t22, t9, 0, 0, 6);
+    xsi_vlogvar_assign_value(t22, t9, 0, 0, 8);
     xsi_set_current_line(140, ng0);
     t2 = (t0 + 6240);
     t3 = (t2 + 56U);
     t5 = *((char **)t3);
-    t6 = ((char*)((ng9)));
+    t6 = ((char*)((ng4)));
     memset(t9, 0, 8);
     t7 = (t5 + 4);
     t22 = (t6 + 4);
@@ -1351,7 +1350,7 @@ LAB10:    xsi_set_current_line(171, ng0);
     t3 = (t2 + 56U);
     t4 = *((char **)t3);
     t5 = (t0 + 6240);
-    xsi_vlogvar_wait_assign_value(t5, t4, 0, 0, 6, 0LL);
+    xsi_vlogvar_wait_assign_value(t5, t4, 0, 0, 8, 0LL);
 
 LAB8:    goto LAB2;
 
@@ -1388,7 +1387,7 @@ LAB9:    xsi_set_current_line(162, ng0);
     xsi_set_current_line(169, ng0);
     t2 = ((char*)((ng1)));
     t3 = (t0 + 6240);
-    xsi_vlogvar_wait_assign_value(t3, t2, 0, 0, 6, 0LL);
+    xsi_vlogvar_wait_assign_value(t3, t2, 0, 0, 8, 0LL);
     goto LAB8;
 
 }
@@ -1397,6 +1396,6 @@ LAB9:    xsi_set_current_line(162, ng0);
 extern void work_m_05576141862016395516_2399881078_init()
 {
 	static char *pe[] = {(void *)Cont_50_0,(void *)Cont_51_1,(void *)Cont_52_2,(void *)Cont_53_3,(void *)Cont_54_4,(void *)Always_58_5,(void *)Always_159_6};
-	xsi_register_didat("work_m_05576141862016395516_2399881078", "isim/spi_mpu_get_tb_isim_beh.exe.sim/work/m_05576141862016395516_2399881078.didat");
+	xsi_register_didat("work_m_05576141862016395516_2399881078", "isim/spi_mpu_get_isim_beh.exe.sim/work/m_05576141862016395516_2399881078.didat");
 	xsi_register_executes(pe);
 }
