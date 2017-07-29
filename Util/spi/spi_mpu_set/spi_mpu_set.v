@@ -1,15 +1,15 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// spi_mpu_get.v
-// Gets an MPU9250 parameter via SPI serial communication.
+// spi_mpu_set.v
+// Sets an MPU9250 parameter via SPI serial communication.
 // Input 'addr' specifies the register address.
-// Output 'data' returns the byte of data from the sensor.
+// Input 'data' sends the byte of data to the sensor.
 // CPOL=1 (POLARITY: sclk idle high).
 // CPHA=1 (PHASE: sample falling edge).
 // CLK_DIV (>=2) determines 'sclk' frequency.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-module spi_mpu_get
+module spi_mpu_set
   #(
   parameter CLK_DIV = 4,
   parameter HOLD_BITS = 8
@@ -19,11 +19,11 @@ module spi_mpu_get
   input start,
   input miso,
   input [7:0] addr,
+  input [7:0] data,
   output sclk,
   output busy,
   output finish,
-  output mosi,
-  output [7:0] data
+  output mosi
   );
 
   // Define module states
@@ -38,7 +38,6 @@ module spi_mpu_get
   reg [CLK_DIV-1:0] sclk_d, sclk_q;
   reg finish_d, finish_q;
   reg mosi_d, mosi_q;
-  reg [7:0] data_d, data_q;
 
   // Internal registers
   reg [MPU_BITS-1:0] state_d, state_q = MPU_IDLE;
@@ -51,7 +50,6 @@ module spi_mpu_get
   assign busy = ( state_q == MPU_HALF ) | (state_q == MPU_SEND );
   assign finish = finish_q;
   assign mosi = mosi_q;
-  assign data = data_q;
 
 
   // Combinational logic
@@ -61,7 +59,6 @@ module spi_mpu_get
     sclk_d    = sclk_q;
     finish_d  = 1'b0;
     mosi_d    = mosi_q;
-    data_d    = data_q;
     state_d   = state_q;
     send_d    = send_q;
     loop_d    = loop_q;
@@ -71,18 +68,17 @@ module spi_mpu_get
     case (state_q)
 
       // Wait for next start signal
-      MPU_IDLE : begin
+      MPU_IDLE: begin
 
         // Reset counters and registers
         sclk_d = { CLK_DIV {1'b1} };
         loop_d = 4'b1111;
         hold_d = { HOLD_BITS {1'b0} };
         mosi_d = 1'b0;
-        data_d = 8'b0;
 
         // Start condition has arrived
         if ( start == 1'b1 ) begin
-          send_d = { addr, 8'hFF };
+          send_d = { addr, data };
           state_d = MPU_HALF;
         end
 
@@ -111,11 +107,6 @@ module spi_mpu_get
         // Set bit output
         if ( sclk_q == { CLK_DIV {1'b0} } ) begin
           mosi_d = send_q[loop_q];
-        end
-
-        // Get bit input
-        else if ( sclk_q == { CLK_DIV-1 {1'b1} } ) begin
-          data_d = { data_q[6:0], miso };
         end
 
         // Reset for next bit
@@ -162,7 +153,6 @@ module spi_mpu_get
       sclk_q    <= 1'b0;
       finish_q  <= 1'b0;
       mosi_q    <= 1'b0;
-      data_q    <= 8'b0;
       state_q   <= MPU_IDLE;
       send_q    <= 16'b0;
       loop_q    <= 4'b1111;
@@ -171,7 +161,6 @@ module spi_mpu_get
       sclk_q    <= sclk_d;
       finish_q  <= finish_d;
       mosi_q    <= mosi_d;
-      data_q    <= data_d;
       state_q   <= state_d;
       send_q    <= send_d;
       loop_q    <= loop_d;
