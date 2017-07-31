@@ -14,20 +14,20 @@ module states
   output imu_sclk,
   output imu_ss,
   output [7:0] debug_byte,
-  output [47:0] acc
-  //output [47:0] gyr,
+  output [47:0] acc,
+  output [47:0] gyr
   //output [47:0] mag
   );
 
   // Assign SPI outputs
-  assign imu_mosi = mosi_set || mosi_get;
-  assign imu_sclk = sclk_set && sclk_get;
-  assign imu_ss = ( !busy_set ) && ( !busy_get );
+  assign imu_mosi = mosi_set || mosi_get || mosi_read;
+  assign imu_sclk = sclk_set && sclk_get && sclk_read;
+  assign imu_ss = ( !busy_set ) && ( !busy_get ) && ( !busy_read );
 
   // Assign sensor data outputs
   assign debug_byte = debug_byte_q;
   assign acc = acc_q;
-  //assign gyr = gyr_q;
+  assign gyr = gyr_q;
   //assign mag = mag_q;
 
 
@@ -88,15 +88,13 @@ module states
 
   // IMU sensor states
   localparam
-    IMU_BITS        = 2,
+    IMU_BITS  = 2,
     // Loop commands
-    IMU_INIT        = 2'd0;
-    //IMU_IDLE        = 2'd1,
-    //IMU_READ_ACC    = 2'd2,
-    //IMU_DEBUG       = 2'd3;
-
-    //IMU_READ_GYR    = 2'd2,
-    //IMU_READ_MAG    = 2'd3;
+    IMU_INIT  = 2'd0,
+    IMU_IDLE  = 2'd1,
+    IMU_ACC   = 2'd2,
+    IMU_GYR   = 2'd3;
+    //IMU_MAG    = 2'd3;
 
 
 
@@ -109,21 +107,25 @@ module states
 
   // Declare registers
   reg [IMU_BITS-1:0] state_imu_d, state_imu_q = IMU_INIT;
-  reg [7:0] data_set_d, data_set_q;
   reg [7:0] addr_set_d, addr_set_q;
   reg [7:0] addr_get_d, addr_get_q;
+  reg [7:0] addr_read_d, addr_read_q;
+  reg [7:0] data_set_d, data_set_q;
+  reg [7:0] data_get_d, data_get_q;
+  reg [47:0] data_read_d, data_read_q;
   reg start_set_d, start_set_q = 1'b0;
   reg start_get_d, start_get_q = 1'b0;
+  reg start_read_d, start_read_q = 1'b0;
   reg finish_set_d, finish_set_q = 1'b0;
   reg finish_get_d, finish_get_q = 1'b0;
+  reg finish_read_d, finish_read_q = 1'b0;
   reg [2:0] loop_ctr_d, loop_ctr_q = 3'b0;
-  reg [7:0] data_get_d, data_get_q;
   reg [INIT_BITS-1:0] init_d, init_q = { INIT_BITS {1'b0} };
   //reg [LOAD_BITS-1:0] load_d, load_q = { LOAD_BITS {1'b0} };
   //reg [HOLD_BITS-1:0] hold_d, hold_q = { HOLD_BITS {1'b0} };
   reg [7:0] debug_byte_d, debug_byte_q;
   reg [47:0] acc_d, acc_q = 48'b0;
-  //reg [47:0] gyr_d, gyr_q = 48'b0;
+  reg [47:0] gyr_d, gyr_q = 48'b0;
   //reg [47:0] mag_d, mag_q = 48'b0;
 
 
@@ -169,27 +171,52 @@ module states
     .mosi(mosi_get),
     .data(data_get) );
 
+  // Connect 'spi_mpu_read' module for IMU
+  wire sclk_read;
+  wire busy_read;
+  wire finish_read;
+  wire mosi_read;
+  wire [47:0] data_read;
+  spi_mpu_read #(
+    .CLK_DIV(4),
+    .HOLD_BITS(8) )
+    spi_mpu_read (
+    .clk(clk),
+    .rst(rst),
+    .start(start_read_q),
+    .miso(imu_miso),
+    .addr(addr_read_q),
+    .sclk(sclk_read),
+    .busy(busy_read),
+    .finish(finish_read),
+    .mosi(mosi_read),
+    .data(data_read) );
+
 
   // Combinational logic
   always @(*) begin
 
     // Initial assignments
     state_imu_d   = state_imu_q;
-    data_set_d    = data_set_q;
     addr_set_d    = addr_set_q;
     addr_get_d    = addr_get_q;
+    addr_read_d   = addr_read_q;
+    data_set_d    = data_set_q;
+    data_get_d    = data_get;
+    data_read_d   = data_read;
     start_set_d   = 1'b0;
     start_get_d   = 1'b0;
+    start_read_d  = 1'b0;
     finish_set_d  = finish_set;
     finish_get_d  = finish_get;
-    data_get_d    = data_get;
+    finish_read_d = finish_read;
     loop_ctr_d    = loop_ctr_q;
     init_d        = init_q;
     //load_d        = load_q;
     //hold_d        = hold_q;
     debug_byte_d  = debug_byte_q;
     acc_d         = acc_q;
-    //gyr_d         = gyr_q;
+    gyr_d         = gyr_q;
     //mag_d         = mag_q;
 
 
@@ -212,7 +239,7 @@ module states
         else if ( loop_ctr_q == 3'd1 ) begin
           if ( !busy_set ) begin
             addr_set_d = 8'b0_001_1100;  // 1C  AccelConfig
-            data_set_d = 8'b000_10_000;
+            data_set_d = 8'b000_01_000;
             start_set_d = 1'b1;
           end
           if ( finish_set_q ) begin
@@ -234,78 +261,54 @@ module states
           end
         end
 
-
-
-
-/*        // Third pass: Send configuration data byte
-        else if ( loop_ctr_q == 3'd2 ) begin
-          if ( !busy_get ) begin
-            addr_get_d = 8'b000_00_000;
-            start_get_d = 1'b1;
-          end
-          if ( finish_get_q ) begin
-            debug_byte_d = data_get_q;
-            loop_ctr_d = loop_ctr_q + 1'b1;
-          end
-        end
-
-        // Fourth pass: Allow time to load parameter
-        else if ( loop_ctr_q == 3'd3 ) begin
-          load_d = load_q + 1'b1;
-          if ( load_q == { LOAD_BITS {1'b1} } ) begin
-            load_d = { LOAD_BITS {1'b0} };
-            loop_ctr_d = loop_ctr_q + 1'b1;
-          end
-        end
-
-        // Fifth pass: Send register read address
-        // 8'b1_111_0101;  // R75 WhoAmI
-        else if ( loop_ctr_q == 3'd4 ) begin
-          if ( !busy_get ) begin
-            addr_get_d = 8'b1_001_1100;  // 1C  AccelConfig
-            debug_byte_d = 8'b0;
-            hold_d = { HOLD_BITS {1'b0} };
-            start_get_d = 1'b1;
-          end
-          if ( finish_get_q ) begin
-            loop_ctr_d = loop_ctr_q + 1'b1;
-          end
-        end
-
-        // Sixth pass: Get data byte
-        else if ( loop_ctr_q == 3'd5 ) begin
-          if ( !busy_get ) begin
-            addr_get_d = 8'hFF;
-            start_get_d = 1'b1;
-          end
-          if ( finish_get_q ) begin
-            debug_byte_d = data_get_q;
-            loop_ctr_d = loop_ctr_q + 1'b1;
-          end
-        end
-
         // Final pass: Clean up
         else begin
-          hold_d = hold_q + 1'b1;
-          if ( hold_q == { HOLD_BITS {1'b1} } ) begin
-            hold_d = { HOLD_BITS {1'b0} };
-            loop_ctr_d = 3'b0;
-            //state_imu_d = IMU_IDLE;
-          end
+          //hold_d = hold_q + 1'b1;
+          //if ( hold_q == { HOLD_BITS {1'b1} } ) begin
+          //  hold_d = { HOLD_BITS {1'b0} };
+          //  loop_ctr_d = 3'b0;
+          //end
+          state_imu_d = IMU_IDLE;
         end
-*/
+
       end
 
-/*      // Wait for next timing signal
+      // Wait for next timing signal
       IMU_IDLE : begin
         if ( tmr_1khz ) begin
-          loop_ctr_d = 3'b0;
-          state_imu_d = IMU_READ_ACC;
+          //loop_ctr_d = 3'b0;
+          state_imu_d = IMU_ACC;
         end
       end
-*/
+
+      // Read accelerometer data 
+      IMU_ACC : begin
+        if ( !busy_read ) begin
+          addr_read_d = 8'b1_011_1011;  // R3B
+          acc_d = 48'b0;
+          start_read_d = 1'b1;
+        end
+        if ( finish_read_q ) begin
+          acc_d = data_read_q;
+          state_imu_d = IMU_GYR;
+        end
+      end
+
+      // Read rate gyro data 
+      IMU_GYR : begin
+        if ( !busy_read ) begin
+          addr_read_d = 8'b1_011_1011;  // R3B
+          gyr_d = 48'b0;
+          start_read_d = 1'b1;
+        end
+        if ( finish_read_q ) begin
+          gyr_d = data_read_q;
+          state_imu_d = IMU_IDLE;
+        end
+      end
+
 /*      // Read accelerometer data 
-      IMU_READ_ACC : begin
+      IMU_ACC : begin
 
         // First pass: Send ACC register address
         if ( loop_ctr_q == 3'b0 ) begin
@@ -487,31 +490,32 @@ module states
 
     if (rst) begin
       state_imu_q <= IMU_INIT;
-      data_set_q  <= 8'h00;
-      addr_set_q  <= 8'hFF;
-      addr_get_q  <= 8'hFF;
       init_q      <= { INIT_BITS {1'b0} };
       //load_q      <= { LOAD_BITS {1'b0} };
       //hold_q      <= { HOLD_BITS {1'b0} };
     end else begin
       state_imu_q <= state_imu_d;
-      data_set_q  <= data_set_d;
-      addr_set_q  <= addr_set_d;
-      addr_get_q  <= addr_get_d;
       init_q      <= init_d;
       //load_q      <= load_d;
       //hold_q      <= hold_d;
     end
 
+    addr_set_q    <= addr_set_d;
+    addr_get_q    <= addr_get_d;
+    addr_read_q   <= addr_read_d;
+    data_set_q    <= data_set_d;
+    data_get_q    <= data_get_d;
+    data_read_q   <= data_read_d;
     start_set_q   <= start_set_d;
     start_get_q   <= start_get_d;
+    start_read_q  <= start_read_d;
     finish_set_q  <= finish_set_d;
     finish_get_q  <= finish_get_d;
-    data_get_q    <= data_get_d;
+    finish_read_q <= finish_read_d;
     loop_ctr_q    <= loop_ctr_d;
     debug_byte_q  <= debug_byte_d;
     acc_q         <= acc_d;
-    //gyr_q         <= gyr_d;
+    gyr_q         <= gyr_d;
     //mag_q         <= mag_d;
 
   end

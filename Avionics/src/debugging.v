@@ -16,7 +16,7 @@ module debugging
   // Terminal data
   input  [23:0] timestamp,
   input  [47:0] acc,
-  //input  [47:0] gyr,
+  input  [47:0] gyr,
   //input  [47:0] mag,
 
   // Inputs from AVR
