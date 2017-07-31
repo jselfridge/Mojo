@@ -49,7 +49,7 @@ module avionics
 
 
   // Assign LED values
-  assign led = imu_out;
+  assign led = debug_byte;
 
 
 
@@ -143,7 +143,7 @@ module avionics
 
 
   // Connect 'states' module
-  wire [7:0] imu_out;
+  wire [7:0] debug_byte;
   wire [47:0] acc;  //, gyr, mag;
   states states_mod (
     .clk(clk),
@@ -153,7 +153,7 @@ module avionics
     .imu_mosi(imu_mosi),
     .imu_sclk(imu_sclk),
     .imu_ss(imu_ss),
-    .imu_out(imu_out),
+    .debug_byte(debug_byte),
     .acc(acc) );
     //.gyr(gyr),
     //.mag(mag) );

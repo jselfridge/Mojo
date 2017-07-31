@@ -37,6 +37,7 @@
   <transforms xmlns="http://www.xilinx.com/XMLSchema">
     <transform xil_pn:end_ts="1501360279" xil_pn:name="TRAN_copyInitialToAbstractSimulation" xil_pn:start_ts="1501360279">
       <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
     </transform>
     <transform xil_pn:end_ts="1501360428" xil_pn:in_ck="-6479065359124622813" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1501360428">
       <status xil_pn:value="SuccessfullyRun"/>
@@ -74,7 +75,7 @@
       <outfile xil_pn:name="spi_mpu_set_tb_isim_beh.exe"/>
       <outfile xil_pn:name="xilinxsim.ini"/>
     </transform>
-    <transform xil_pn:end_ts="1501360431" xil_pn:in_ck="-8780752080588026909" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="530154280857761642" xil_pn:start_ts="1501360431">
+    <transform xil_pn:end_ts="1501373419" xil_pn:in_ck="-8780752080588026909" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="530154280857761642" xil_pn:start_ts="1501373418">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
