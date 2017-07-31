@@ -1,0 +1,3 @@
+verilog work "../spi_mpu_read.v"
+verilog work "../spi_mpu_read_tb.v"
+verilog work "/opt/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v"

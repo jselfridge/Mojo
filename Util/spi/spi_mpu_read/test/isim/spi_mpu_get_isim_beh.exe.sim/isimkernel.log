@@ -1,0 +1,29 @@
+Command line:
+   spi_mpu_get_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  56437
+
+Sat Jul 29 15:38:22 2017
+
+
+ Elaboration Time: 0.03 sec
+
+ Current Memory Usage: 196.264 Meg
+
+ Total Signals          : 23
+ Total Nets             : 37
+ Total Signal Drivers   : 10
+ Total Blocks           : 2
+ Total Primitive Blocks : 2
+ Total Processes        : 13
+ Total Traceable Variables  : 41
+ Total Scalar Nets and Variables : 309
+Total Line Count : 81
+
+ Total Simulation Time: 0.04 sec
+
+ Current Memory Usage: 271.766 Meg
+
+Sat Jul 29 15:38:30 2017
+
