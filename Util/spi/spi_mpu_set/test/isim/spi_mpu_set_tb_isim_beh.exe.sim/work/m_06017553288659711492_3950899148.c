@@ -290,22 +290,22 @@ LAB7:    xsi_set_current_line(68, ng0);
     *((char **)t1) = &&LAB8;
     goto LAB1;
 
-LAB8:    xsi_set_current_line(81, ng0);
+LAB8:    xsi_set_current_line(82, ng0);
     t2 = (t0 + 3696);
     xsi_process_wait(t2, 1000000LL);
     *((char **)t1) = &&LAB9;
     goto LAB1;
 
-LAB9:    xsi_set_current_line(82, ng0);
+LAB9:    xsi_set_current_line(83, ng0);
     xsi_vlog_finish(1);
     goto LAB1;
 
 }
 
 
-extern void work_m_01882153093836716050_3950899148_init()
+extern void work_m_06017553288659711492_3950899148_init()
 {
 	static char *pe[] = {(void *)Initial_42_0,(void *)Initial_51_1};
-	xsi_register_didat("work_m_01882153093836716050_3950899148", "isim/spi_mpu_set_tb_isim_beh.exe.sim/work/m_01882153093836716050_3950899148.didat");
+	xsi_register_didat("work_m_06017553288659711492_3950899148", "isim/spi_mpu_set_tb_isim_beh.exe.sim/work/m_06017553288659711492_3950899148.didat");
 	xsi_register_executes(pe);
 }

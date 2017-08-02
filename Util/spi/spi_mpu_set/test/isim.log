@@ -12,5 +12,5 @@ Time resolution is 1 ps
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
 # run 1.00s
-Stopped at time : 6150 ns : File "/home/justin/Documents/FPGA/Util/spi/spi_mpu_set/spi_mpu_set_tb.v" Line 82
+Stopped at time : 6150 ns : File "/home/justin/Documents/FPGA/Util/spi/spi_mpu_set/spi_mpu_set_tb.v" Line 83
 # exit 0

@@ -12,7 +12,7 @@ module spi_mpu_set_tb ();
   reg start;
   reg miso;
   reg [7:0] addr;
-  reg [7:0] data;
+  reg [7:0] set;
 
   // Test bench outputs
   wire sclk;
@@ -24,14 +24,14 @@ module spi_mpu_set_tb ();
   spi_mpu_set
     #(
     .CLK_DIV(3),
-    .HOLD_BITS(4)
+    .HOLD_BITS(0)
     ) spi_mpu_set_DUT (
     .clk(clk),
     .rst(rst),
     .start(start),
     .miso(miso),
     .addr(addr),
-    .data(data),
+    .set(set),
     .sclk(sclk),
     .busy(busy),
     .finish(finish),
@@ -54,12 +54,12 @@ module spi_mpu_set_tb ();
     start = 1'b0;
     miso = 1'b1;
     addr = 8'b0;
-    data = 8'b0;
+    set = 8'b0;
     #1000;
 
-    // Assign new data
+    // Set new data value
     addr = 8'b10110111;
-    data = 8'b01010101;
+    set = 8'b01010101;
     #100;
 
     // Toggle start flag
@@ -68,8 +68,9 @@ module spi_mpu_set_tb ();
     start = 1'b0;
     #4000;
 
-/*    // Assign new data
+/*    // Set new data value
     addr = 8'b11101101;
+    set = 8'b00110011;
     #100;
 
     // Toggle start flag

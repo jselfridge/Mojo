@@ -114,7 +114,7 @@ module debugging
   // Assemble debug message
   wire [7:0] debug_msg [MSG_LEN-1:0];
 
-  // Full ACC
+/*  // Full ACC
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = timestamp_msg[5];
   assign debug_msg[ 2] = timestamp_msg[4];
@@ -179,7 +179,7 @@ module debugging
   assign debug_msg[61] = motor_msg;
   assign debug_msg[62] = data_msg;
   assign debug_msg[63] = "\r";
-
+*/
 /*  // Full GYR
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = timestamp_msg[5];

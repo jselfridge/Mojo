@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-07-29T20:10:04</DateModified>
+  <DateModified>2017-08-01T12:13:45</DateModified>
   <ModuleName>spi_mpu_set</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
   <SavedFilePath>/home/justin/Documents/FPGA/Util/spi/spi_mpu_set/test/iseconfig/spi_mpu_set.xreport</SavedFilePath>

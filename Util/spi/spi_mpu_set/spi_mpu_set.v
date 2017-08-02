@@ -3,7 +3,7 @@
 // spi_mpu_set.v
 // Sets an MPU9250 parameter via SPI serial communication.
 // Input 'addr' specifies the register address.
-// Input 'data' sends the byte of data to the sensor.
+// Input 'set' assigns the byte of data to the sensor.
 // CPOL=1 (POLARITY: sclk idle high).
 // CPHA=1 (PHASE: sample falling edge).
 // CLK_DIV (>=2) determines 'sclk' frequency.
@@ -19,7 +19,7 @@ module spi_mpu_set
   input start,
   input miso,
   input [7:0] addr,
-  input [7:0] data,
+  input [7:0] set,
   output sclk,
   output busy,
   output finish,
@@ -78,7 +78,7 @@ module spi_mpu_set
 
         // Start condition has arrived
         if ( start == 1'b1 ) begin
-          send_d = { addr, data };
+          send_d = { addr, set };
           state_d = MPU_HALF;
         end
 
