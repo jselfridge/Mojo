@@ -144,7 +144,7 @@ module avionics
 
   // Connect 'states' module
   wire [7:0] debug_byte;
-  //wire [47:0] acc, gyr;  //, mag;
+  wire [47:0] acc, gyr, mag;
   states states_mod (
     .clk(clk),
     .rst( state_board_q == BOARD_IDLE ),
@@ -153,10 +153,10 @@ module avionics
     .imu_mosi(imu_mosi),
     .imu_sclk(imu_sclk),
     .imu_ss(imu_ss),
-    .debug_byte(debug_byte) );
-    //.acc(acc),
-    //.gyr(gyr) );
-    //.mag(mag) );
+    .debug_byte(debug_byte),
+    .acc(acc),
+    .gyr(gyr),
+    .mag(mag) );
 
 
   // Connect 'control' module
@@ -178,9 +178,9 @@ module avionics
     .rst( state_board_q == BOARD_IDLE ),
     .tmr(tmr_10hz),
     .timestamp(timestamp_q),
-    //.acc(acc),
-    //.gyr(gyr),
-    //.mag(mag),
+    .acc(acc),
+    .gyr(gyr),
+    .mag(mag),
     .tx_data(tx_data),
     .new_tx_data(new_tx_data),
     .tx_busy(tx_busy),

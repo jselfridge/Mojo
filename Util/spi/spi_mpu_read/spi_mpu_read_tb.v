@@ -18,7 +18,7 @@ module spi_mpu_read_tb ();
   wire busy;
   wire finish;
   wire mosi;
-  wire [47:0] data;
+  wire [47:0] read;
 
   // Device Under Test
   spi_mpu_read #(
@@ -34,7 +34,7 @@ module spi_mpu_read_tb ();
     .busy(busy),
     .finish(finish),
     .mosi(mosi),
-    .data(data) );
+    .read(read) );
 
   // Toggle reset, then clock forever
   initial begin

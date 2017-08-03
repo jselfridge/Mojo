@@ -14,8 +14,9 @@ Compiling module spi_mpu_read(CLK_DIV=3,HOLD_BITS...
 Compiling module spi_mpu_read_tb
 Compiling module glbl
 Time Resolution for simulation is 1ps.
+Waiting for 2 sub-compilation(s) to finish...
 Compiled 3 Verilog Units
 Built simulation executable /home/justin/Documents/FPGA/Util/spi/spi_mpu_read/test/spi_mpu_read_tb_isim_beh.exe
 Fuse Memory Usage: 392856 KB
-Fuse CPU Usage: 1750 ms
-GCC CPU Usage: 570 ms
+Fuse CPU Usage: 1760 ms
+GCC CPU Usage: 560 ms

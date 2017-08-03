@@ -3,7 +3,7 @@
 // spi_mpu_read.v
 // Reads a set of MPU9250 sensor data via SPI serial communication.
 // Input 'addr' specifies the register address.
-// Output 'data' returns six bytes of data from the sensor.
+// Output 'read' returns six bytes of data read from the sensor.
 // CPOL=1 (POLARITY: sclk idle high).
 // CPHA=1 (PHASE: sample falling edge).
 // CLK_DIV (>=2) determines 'sclk' frequency.
@@ -23,7 +23,7 @@ module spi_mpu_read
   output busy,
   output finish,
   output mosi,
-  output [47:0] data
+  output [47:0] read
   );
 
   // Define module states
@@ -38,7 +38,7 @@ module spi_mpu_read
   reg [CLK_DIV-1:0] sclk_d, sclk_q;
   reg finish_d, finish_q;
   reg mosi_d, mosi_q;
-  reg [47:0] data_d, data_q;
+  reg [47:0] read_d, read_q;
 
   // Internal registers
   reg [MPU_BITS-1:0] state_d, state_q = MPU_IDLE;
@@ -51,7 +51,7 @@ module spi_mpu_read
   assign busy = ( state_q == MPU_HALF ) | (state_q == MPU_SEND );
   assign finish = finish_q;
   assign mosi = mosi_q;
-  assign data = data_q;
+  assign read = read_q;
 
 
   // Combinational logic
@@ -61,7 +61,7 @@ module spi_mpu_read
     sclk_d    = sclk_q;
     finish_d  = 1'b0;
     mosi_d    = mosi_q;
-    data_d    = data_q;
+    read_d    = read_q;
     state_d   = state_q;
     send_d    = send_q;
     loop_d    = loop_q;
@@ -78,7 +78,7 @@ module spi_mpu_read
         loop_d = 6'b110111;
         hold_d = { HOLD_BITS {1'b0} };
         mosi_d = 1'b0;
-        data_d = 48'b0;
+        read_d = 48'b0;
 
         // Start condition has arrived
         if ( start == 1'b1 ) begin
@@ -115,7 +115,7 @@ module spi_mpu_read
 
         // Get bit input
         else if ( sclk_q == { CLK_DIV-1 {1'b1} } ) begin
-          data_d = { data_q[46:0], miso };
+          read_d = { read_q[46:0], miso };
         end
 
         // Reset for next bit
@@ -162,7 +162,7 @@ module spi_mpu_read
       sclk_q    <= 1'b0;
       finish_q  <= 1'b0;
       mosi_q    <= 1'b0;
-      data_q    <= 48'b0;
+      read_q    <= 48'b0;
       state_q   <= MPU_IDLE;
       send_q    <= 56'b0;
       loop_q    <= 6'b110111;
@@ -171,7 +171,7 @@ module spi_mpu_read
       sclk_q    <= sclk_d;
       finish_q  <= finish_d;
       mosi_q    <= mosi_d;
-      data_q    <= data_d;
+      read_q    <= read_d;
       state_q   <= state_d;
       send_q    <= send_d;
       loop_q    <= loop_d;

@@ -2,12 +2,12 @@ Command line:
    spi_mpu_read_tb_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  41057
+     -socket  57165
 
-Mon Jul 31 07:28:55 2017
+Wed Aug  2 06:03:53 2017
 
 
- Elaboration Time: 0.04 sec
+ Elaboration Time: 0.05 sec
 
  Current Memory Usage: 196.268 Meg
 
@@ -21,9 +21,9 @@ Mon Jul 31 07:28:55 2017
  Total Scalar Nets and Variables : 515
 Total Line Count : 100
 
- Total Simulation Time: 0.08 sec
+ Total Simulation Time: 0.06 sec
 
  Current Memory Usage: 271.77 Meg
 
-Mon Jul 31 07:30:54 2017
+Wed Aug  2 06:04:18 2017
 

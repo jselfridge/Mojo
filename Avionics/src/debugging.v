@@ -17,7 +17,7 @@ module debugging
   input  [23:0] timestamp,
   input  [47:0] acc,
   input  [47:0] gyr,
-  //input  [47:0] mag,
+  input  [47:0] mag,
 
   // Inputs from AVR
   input  [7:0] rx_data,
@@ -312,7 +312,7 @@ module debugging
   assign debug_msg[62] = " ";
   assign debug_msg[63] = "\r";
 */
-/*  // High byte ACC and MAG
+  // High byte ACC and GYR
   assign debug_msg[ 0] = " ";
   assign debug_msg[ 1] = timestamp_msg[5];
   assign debug_msg[ 2] = timestamp_msg[4];
@@ -377,7 +377,7 @@ module debugging
   assign debug_msg[61] = " ";
   assign debug_msg[62] = " ";
   assign debug_msg[63] = "\r";
-*/
+
 
   // Combinational logic
   always @(*) begin

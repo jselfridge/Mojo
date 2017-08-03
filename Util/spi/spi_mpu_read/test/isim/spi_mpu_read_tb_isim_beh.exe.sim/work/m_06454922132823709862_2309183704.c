@@ -294,9 +294,9 @@ LAB9:    xsi_set_current_line(79, ng0);
 }
 
 
-extern void work_m_11715754032953708036_2309183704_init()
+extern void work_m_06454922132823709862_2309183704_init()
 {
 	static char *pe[] = {(void *)Initial_40_0,(void *)Initial_49_1};
-	xsi_register_didat("work_m_11715754032953708036_2309183704", "isim/spi_mpu_read_tb_isim_beh.exe.sim/work/m_11715754032953708036_2309183704.didat");
+	xsi_register_didat("work_m_06454922132823709862_2309183704", "isim/spi_mpu_read_tb_isim_beh.exe.sim/work/m_06454922132823709862_2309183704.didat");
 	xsi_register_executes(pe);
 }
