@@ -107,21 +107,24 @@ module states
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
   // IMU sensor states
-  localparam
-    IMU_BITS = 6,
+  localparam IMU_BITS = 6,
     IMU_INIT        = 6'd0,
-    IMU_SEND_RESET  = 6'd1,   IMU_WAIT_RESET  = 6'd2,
-    IMU_SEND_WAKE   = 6'd3,   IMU_WAIT_WAKE   = 6'd4,
-    IMU_SEND_DISA   = 6'd8,   IMU_HOLD_DISA   = 6'd9,
-    IMU_SEND_SMPL   = 6'd10,  IMU_HOLD_SMPL   = 6'd11,
-    IMU_SEND_LPF    = 6'd12,  IMU_HOLD_LPF    = 6'd13,
-    IMU_SEND_GYR    = 6'd14,  IMU_HOLD_GYR    = 6'd15,
-    IMU_SEND_ACC    = 6'd16,  IMU_HOLD_ACC    = 6'd17,
-    IMU_SEND_DEBUG  = 6'd18,  IMU_HOLD_DEBUG  = 6'd19,
-    IMU_IDLE        = 6'd32,
-    IMU_READ_ACC    = 6'd33,  IMU_DONE_ACC    = 6'd34,
-    IMU_READ_GYR    = 6'd35,  IMU_DONE_GYR    = 6'd36,
-    IMU_READ_MAG    = 6'd37,  IMU_DONE_MAG    = 6'd38;
+
+    IMU_SEND_RESET  = 6'd1,     IMU_WAIT_RESET  = 6'd2,
+    IMU_SEND_WAKE   = 6'd3,     IMU_WAIT_WAKE   = 6'd4,
+
+    IMU_SEND_DISA   = 6'd5,     IMU_HOLD_DISA   = 6'd6,
+    IMU_SEND_SMPL   = 6'd7,     IMU_HOLD_SMPL   = 6'd8,
+    IMU_SEND_LPF    = 6'd9,     IMU_HOLD_LPF    = 6'd10,
+    IMU_SEND_GYR    = 6'd11,    IMU_HOLD_GYR    = 6'd12,
+    IMU_SEND_ACC    = 6'd13,    IMU_HOLD_ACC    = 6'd14,
+
+    IMU_SEND_DEBUG  = 6'd15,    IMU_HOLD_DEBUG  = 6'd16,
+
+    IMU_IDLE        = 6'd17,
+    IMU_READ_ACC    = 6'd18,    IMU_DONE_ACC    = 6'd19,
+    IMU_READ_GYR    = 6'd20,    IMU_DONE_GYR    = 6'd21,
+    IMU_READ_MAG    = 6'd22;    IMU_DONE_MAG    = 6'd23;
 
 
 
