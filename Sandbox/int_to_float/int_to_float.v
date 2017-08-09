@@ -61,12 +61,24 @@ module int_to_float
 
       // Obtain integer input value
       get_a : begin
-        s_input_a_ack <= 1;  // 1’b1;
+
+        // Set ‘ack’ flag condition
+        s_input_a_ack <= 1;
+
+        // Look for start condition
         if ( s_input_a_ack && input_a_stb ) begin
+
+          // Transfer input register
           a <= input_a;
-          s_input_a_ack <= 0;  // 1’b0;
+
+          // Reset ‘ack’ flag condition
+          s_input_a_ack <= 0;
+
+          // Move to next state
           state <= convert_0;
+
         end
+
       end
 
       // Check for zero value, or obtain sign bit
@@ -153,7 +165,7 @@ module int_to_float
 
       end
 
-      // 
+      // Check if rounding is needed
       round : begin
 
         // Rounding up is required
@@ -200,10 +212,15 @@ module int_to_float
         // Pass output to register
         s_output_z <= z;
 
-        // Reset and wait for next integer value
+        // Check for exit condition
         if ( s_output_z_stb && output_z_ack ) begin
+
+          // Reset start condition flag
           s_output_z_stb <= 0;
+
+          // Move on to original state
           state <= get_a;
+
         end
 
       end
