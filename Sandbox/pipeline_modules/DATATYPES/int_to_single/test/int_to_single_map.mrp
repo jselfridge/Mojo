@@ -1,0 +1,81 @@
+Release 14.7 Map P.20131013 (lin64)
+Xilinx Mapping Report File for Design 'int_to_single'
+
+Design Information
+------------------
+Command Line   : map -intstyle ise -p xc6slx9-csg324-2 -w -logic_opt off -ol
+high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off
+-pr off -lc off -power off -o int_to_single_map.ncd int_to_single.ngd
+int_to_single.pcf 
+Target Device  : xc6slx9
+Target Package : csg324
+Target Speed   : -2
+Mapper Version : spartan6 -- $Revision: 1.55 $
+Mapped Date    : Thu Aug 10 09:43:10 2017
+
+Interim Summary
+---------------
+Slice Logic Utilization:
+  Number of Slice Registers:                   196 out of  11,440    1%
+    Number used as Flip Flops:                 196
+    Number used as Latches:                      0
+    Number used as Latch-thrus:                  0
+    Number used as AND/OR logics:                0
+  Number of Slice LUTs:                        257 out of   5,720    4%
+    Number used as logic:                      252 out of   5,720    4%
+      Number using O6 output only:             174
+      Number using O5 output only:              54
+      Number using O5 and O6:                   24
+      Number used as ROM:                        0
+    Number used as Memory:                       5 out of   1,440    1%
+      Number used as Dual Port RAM:              0
+      Number used as Single Port RAM:            0
+      Number used as Shift Register:             5
+        Number using O6 output only:             3
+        Number using O5 output only:             0
+        Number using O5 and O6:                  2
+
+Slice Logic Distribution:
+  Number of MUXCYs used:                        60 out of   2,860    2%
+  Number of LUT Flip Flop pairs used:          321
+    Number with an unused Flip Flop:           145 out of     321   45%
+    Number with an unused LUT:                  64 out of     321   19%
+    Number of fully used LUT-FF pairs:         112 out of     321   34%
+    Number of unique control sets:               2
+    Number of slice register sites lost
+      to control set restrictions:               5 out of  11,440    1%
+
+  A LUT Flip Flop pair for this architecture represents one LUT paired with
+  one Flip Flop within a slice.  A control set is a unique combination of
+  clock, reset, set, and enable signals for a registered element.
+  The Slice Logic Distribution report is not meaningful if the design is
+  over-mapped for a non-slice resource or if Placement fails.
+
+IO Utilization:
+  Number of bonded IOBs:                        65 out of     200   32%
+
+Specific Feature Utilization:
+  Number of RAMB16BWERs:                         0 out of      32    0%
+  Number of RAMB8BWERs:                          0 out of      64    0%
+  Number of BUFIO2/BUFIO2_2CLKs:                 0 out of      32    0%
+  Number of BUFIO2FB/BUFIO2FB_2CLKs:             0 out of      32    0%
+  Number of BUFG/BUFGMUXs:                       1 out of      16    6%
+    Number used as BUFGs:                        1
+    Number used as BUFGMUX:                      0
+  Number of DCM/DCM_CLKGENs:                     0 out of       4    0%
+  Number of ILOGIC2/ISERDES2s:                   0 out of     200    0%
+  Number of IODELAY2/IODRP2/IODRP2_MCBs:         0 out of     200    0%
+  Number of OLOGIC2/OSERDES2s:                   0 out of     200    0%
+  Number of BSCANs:                              0 out of       4    0%
+  Number of BUFHs:                               0 out of     128    0%
+  Number of BUFPLLs:                             0 out of       8    0%
+  Number of BUFPLL_MCBs:                         0 out of       4    0%
+  Number of DSP48A1s:                            0 out of      16    0%
+  Number of ICAPs:                               0 out of       1    0%
+  Number of MCBs:                                0 out of       2    0%
+  Number of PCILOGICSEs:                         0 out of       2    0%
+  Number of PLL_ADVs:                            0 out of       2    0%
+  Number of PMVs:                                0 out of       1    0%
+  Number of STARTUPs:                            0 out of       1    0%
+  Number of SUSPEND_SYNCs:                       0 out of       1    0%
+

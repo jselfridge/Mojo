@@ -1,0 +1,3 @@
+xst -intstyle ise -ifn "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/test/int_to_single.xst" -ofn "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/test/int_to_single.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc6slx9-csg324-2 int_to_single.ngc int_to_single.ngd  
+map -intstyle ise -p xc6slx9-csg324-2 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o int_to_single_map.ncd int_to_single.ngd int_to_single.pcf 

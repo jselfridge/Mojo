@@ -1,0 +1,960 @@
+Release 14.7 - xst P.20131013 (lin64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+--> 
+Parameter TMPDIR set to xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.09 secs
+ 
+--> 
+Parameter xsthdpdir set to xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.09 secs
+ 
+--> 
+Reading design: int_to_single.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Parsing
+  3) HDL Elaboration
+  4) HDL Synthesis
+       4.1) HDL Synthesis Report
+  5) Advanced HDL Synthesis
+       5.1) Advanced HDL Synthesis Report
+  6) Low Level Synthesis
+  7) Partition Report
+  8) Design Summary
+       8.1) Primitive and Black Box Usage
+       8.2) Device utilization summary
+       8.3) Partition Resource Summary
+       8.4) Timing Report
+            8.4.1) Clock Information
+            8.4.2) Asynchronous Control Signals Information
+            8.4.3) Timing Summary
+            8.4.4) Timing Details
+            8.4.5) Cross Clock Domains Report
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "int_to_single.prj"
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "int_to_single"
+Output Format                      : NGC
+Target Device                      : xc6slx9-2-csg324
+
+---- Source Options
+Top Module Name                    : int_to_single
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : LUT
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Shift Register Extraction          : YES
+ROM Style                          : Auto
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Shift Register Minimum Size        : 2
+Use DSP Block                      : Auto
+Automatic Register Balancing       : No
+
+---- Target Options
+LUT Combining                      : Auto
+Reduce Control Sets                : Auto
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 100000
+Add Generic Clock Buffer(BUFG)     : 16
+Register Duplication               : YES
+Optimize Instantiated Primitives   : NO
+Use Clock Enable                   : Auto
+Use Synchronous Set                : Auto
+Use Synchronous Reset              : Auto
+Pack IO Registers into IOBs        : Auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Power Reduction                    : NO
+Keep Hierarchy                     : No
+Netlist Hierarchy                  : As_Optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : Maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+DSP48 Utilization Ratio            : 100
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Parsing                                  *
+=========================================================================
+Analyzing Verilog file "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v" into library work
+Parsing module <dq>.
+Parsing module <int_to_single>.
+
+=========================================================================
+*                            HDL Elaboration                            *
+=========================================================================
+
+Elaborating module <int_to_single>.
+
+Elaborating module <dq(width=32,depth=5)>.
+
+Elaborating module <dq(width=9,depth=5)>.
+
+Elaborating module <dq(width=24,depth=1)>.
+
+Elaborating module <dq(width=25,depth=1)>.
+
+Elaborating module <dq(width=32,depth=1)>.
+
+Elaborating module <dq(width=6,depth=1)>.
+
+Elaborating module <dq(width=1,depth=1)>.
+
+Elaborating module <dq(width=1,depth=5)>.
+
+Elaborating module <dq(width=8,depth=1)>.
+
+Elaborating module <dq(width=8,depth=2)>.
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+WARNING:Xst:2972 - "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v" line 444. All outputs of instance <dq_s_1> of block <dq> are unconnected in block <int_to_single>. Underlying logic will be removed.
+WARNING:Xst:2972 - "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v" line 450. All outputs of instance <dq_s_7> of block <dq> are unconnected in block <int_to_single>. Underlying logic will be removed.
+
+Synthesizing Unit <int_to_single>.
+    Related source file is "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v".
+    Found 32-bit subtractor for signal <s_33> created at line 476.
+    Found 8-bit subtractor for signal <s_399> created at line 842.
+    Found 25-bit adder for signal <s_25> created at line 468.
+    Found 8-bit adder for signal <s_395> created at line 838.
+    Found 8-bit adder for signal <s_397> created at line 840.
+    Found 32-bit shifter logical left for signal <s_29> created at line 59
+    Summary:
+	inferred   5 Adder/Subtractor(s).
+	inferred  21 Multiplexer(s).
+	inferred   1 Combinational logic shifter(s).
+Unit <int_to_single> synthesized.
+
+Synthesizing Unit <dq_1>.
+    Related source file is "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v".
+        width = 32
+        depth = 5
+    Found 160-bit register for signal <n0004>.
+    Summary:
+	inferred 160 D-type flip-flop(s).
+Unit <dq_1> synthesized.
+
+Synthesizing Unit <dq_2>.
+    Related source file is "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v".
+        width = 9
+        depth = 5
+    Found 45-bit register for signal <n0004>.
+    Summary:
+	inferred  45 D-type flip-flop(s).
+Unit <dq_2> synthesized.
+
+Synthesizing Unit <dq_3>.
+    Related source file is "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v".
+        width = 24
+        depth = 1
+    Found 24-bit register for signal <delay_line<0>>.
+    Summary:
+	inferred  24 D-type flip-flop(s).
+Unit <dq_3> synthesized.
+
+Synthesizing Unit <dq_4>.
+    Related source file is "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v".
+        width = 25
+        depth = 1
+    Found 25-bit register for signal <delay_line<0>>.
+    Summary:
+	inferred  25 D-type flip-flop(s).
+Unit <dq_4> synthesized.
+
+Synthesizing Unit <dq_5>.
+    Related source file is "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v".
+        width = 32
+        depth = 1
+    Found 32-bit register for signal <delay_line<0>>.
+    Summary:
+	inferred  32 D-type flip-flop(s).
+Unit <dq_5> synthesized.
+
+Synthesizing Unit <dq_6>.
+    Related source file is "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v".
+        width = 6
+        depth = 1
+    Found 6-bit register for signal <delay_line<0>>.
+    Summary:
+	inferred   6 D-type flip-flop(s).
+Unit <dq_6> synthesized.
+
+Synthesizing Unit <dq_7>.
+    Related source file is "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v".
+        width = 1
+        depth = 1
+    Found 1-bit register for signal <delay_line<0>>.
+    Summary:
+	inferred   1 D-type flip-flop(s).
+Unit <dq_7> synthesized.
+
+Synthesizing Unit <dq_8>.
+    Related source file is "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v".
+        width = 1
+        depth = 5
+    Found 5-bit register for signal <n0003>.
+    Summary:
+	inferred   5 D-type flip-flop(s).
+Unit <dq_8> synthesized.
+
+Synthesizing Unit <dq_9>.
+    Related source file is "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v".
+        width = 8
+        depth = 1
+    Found 8-bit register for signal <delay_line<0>>.
+    Summary:
+	inferred   8 D-type flip-flop(s).
+Unit <dq_9> synthesized.
+
+Synthesizing Unit <dq_10>.
+    Related source file is "/home/justin/Documents/FPGA/Sandbox/pipeline_modules/DATATYPES/WIP_int_to_single/int_to_single.v".
+        width = 8
+        depth = 2
+    Found 16-bit register for signal <n0004>.
+    Summary:
+	inferred  16 D-type flip-flop(s).
+Unit <dq_10> synthesized.
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# Adders/Subtractors                                   : 5
+ 25-bit adder                                          : 1
+ 32-bit subtractor                                     : 1
+ 8-bit adder                                           : 2
+ 8-bit subtractor                                      : 1
+# Registers                                            : 16
+ 1-bit register                                        : 4
+ 16-bit register                                       : 1
+ 160-bit register                                      : 1
+ 24-bit register                                       : 2
+ 25-bit register                                       : 1
+ 32-bit register                                       : 3
+ 45-bit register                                       : 1
+ 5-bit register                                        : 1
+ 6-bit register                                        : 1
+ 8-bit register                                        : 1
+# Multiplexers                                         : 21
+ 1-bit 2-to-1 multiplexer                              : 8
+ 2-bit 2-to-1 multiplexer                              : 4
+ 24-bit 2-to-1 multiplexer                             : 1
+ 25-bit 2-to-1 multiplexer                             : 1
+ 3-bit 2-to-1 multiplexer                              : 2
+ 32-bit 2-to-1 multiplexer                             : 4
+ 4-bit 2-to-1 multiplexer                              : 1
+# Logic shifters                                       : 1
+ 32-bit shifter logical left                           : 1
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+WARNING:Xst:1710 - FF/Latch <delay_line_0_20> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_21> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_22> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_23> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_24> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_25> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_26> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_27> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_28> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_29> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_30> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_7> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_6> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_5> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_4> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_3> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_2> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_1> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_0> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_0> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_1> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_2> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_3> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_4> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_5> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_6> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_7> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_8> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_9> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_19> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_18> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_17> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_16> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_15> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_14> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_13> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_12> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_10> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_11> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_59> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_60> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_61> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_62> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_16> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_15> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_14> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_13> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_12> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_11> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_10> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_9> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_37> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_36> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_35> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_34> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_33> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_32> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_38> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_39> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_40> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_41> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_42> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_43> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_44> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_45> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_46> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_47> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_48> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_49> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_50> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_51> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_52> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_53> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_58> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_57> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_56> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_55> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_54> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_25> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_24> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_23> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_22> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_21> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_20> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_19> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_18> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_74> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_73> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_72> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_71> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_70> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_69> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_68> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_67> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_66> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_65> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_64> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_75> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_76> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_77> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_78> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_79> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_80> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_81> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_82> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_83> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_84> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_85> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_86> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_87> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_88> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_89> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_90> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_91> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_92> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_93> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_94> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_34> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_33> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_32> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_31> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_27> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_28> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_29> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_30> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_108> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_109> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_110> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_111> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_112> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_113> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_114> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_115> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_116> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_117> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_118> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_126> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_125> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_124> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_123> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_122> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_121> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_120> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_119> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_96> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_97> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_98> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_99> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_100> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_101> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_102> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_103> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_104> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_105> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_106> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_107> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_36> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_37> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_38> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_39> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_40> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_41> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_42> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_43> (without init value) has a constant value of 0 in block <dq_s_16>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_129> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_130> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_131> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_132> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_133> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_134> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_135> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_136> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_137> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_138> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_139> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_140> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_141> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_142> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_143> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_144> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_145> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_146> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_147> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_148> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_149> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_150> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_151> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_152> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_153> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_154> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_155> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_156> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_157> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_158> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_128> (without init value) has a constant value of 0 in block <dq_s_11>. This FF/Latch will be trimmed during the optimization process.
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# Adders/Subtractors                                   : 5
+ 25-bit adder                                          : 1
+ 32-bit subtractor                                     : 1
+ 8-bit adder                                           : 2
+ 8-bit subtractor                                      : 1
+# Registers                                            : 413
+ Flip-Flops                                            : 413
+# Multiplexers                                         : 21
+ 1-bit 2-to-1 multiplexer                              : 8
+ 2-bit 2-to-1 multiplexer                              : 4
+ 24-bit 2-to-1 multiplexer                             : 1
+ 25-bit 2-to-1 multiplexer                             : 1
+ 3-bit 2-to-1 multiplexer                              : 2
+ 32-bit 2-to-1 multiplexer                             : 4
+ 4-bit 2-to-1 multiplexer                              : 1
+# Logic shifters                                       : 1
+ 32-bit shifter logical left                           : 1
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+INFO:Xst:2261 - The FF/Latch <delay_line_0_0> in Unit <dq_1> is equivalent to the following 30 FFs/Latches, which will be removed : <delay_line_0_1> <delay_line_0_2> <delay_line_0_3> <delay_line_0_4> <delay_line_0_5> <delay_line_0_6> <delay_line_0_7> <delay_line_0_8> <delay_line_0_9> <delay_line_0_10> <delay_line_0_11> <delay_line_0_12> <delay_line_0_13> <delay_line_0_14> <delay_line_0_15> <delay_line_0_16> <delay_line_0_17> <delay_line_0_18> <delay_line_0_19> <delay_line_0_20> <delay_line_0_21> <delay_line_0_22> <delay_line_0_23> <delay_line_0_24> <delay_line_0_25> <delay_line_0_26> <delay_line_0_27> <delay_line_0_28> <delay_line_0_29> <delay_line_0_30> 
+INFO:Xst:2261 - The FF/Latch <delay_line_0_0> in Unit <dq_2> is equivalent to the following 7 FFs/Latches, which will be removed : <delay_line_0_1> <delay_line_0_2> <delay_line_0_3> <delay_line_0_4> <delay_line_0_5> <delay_line_0_6> <delay_line_0_7> 
+WARNING:Xst:1710 - FF/Latch <delay_line_0_0> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_62> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_61> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_60> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_59> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_58> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_57> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_56> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_55> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_54> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_53> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_52> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_51> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_50> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_49> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_48> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_32> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_33> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_34> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_35> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_36> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_37> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_38> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_39> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_40> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_41> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_42> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_43> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_44> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_45> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_46> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_47> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_80> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_81> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_82> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_83> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_84> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_85> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_86> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_87> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_88> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_89> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_90> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_91> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_92> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_93> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_94> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_64> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_65> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_66> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_67> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_68> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_69> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_70> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_71> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_72> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_73> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_74> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_75> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_76> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_77> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_78> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_79> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_112> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_113> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_114> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_115> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_116> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_117> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_118> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_119> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_120> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_121> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_122> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_123> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_124> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_125> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_126> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_96> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_97> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_98> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_99> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_100> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_101> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_102> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_103> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_104> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_105> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_106> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_107> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_108> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_109> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_110> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_111> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_144> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_145> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_146> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_147> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_148> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_149> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_150> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_151> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_152> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_153> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_154> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_155> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_156> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_157> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_158> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_143> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_142> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_141> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_140> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_139> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_138> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_137> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_136> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_135> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_134> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_133> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_132> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_131> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_130> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_129> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_128> (without init value) has a constant value of 0 in block <dq_1>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <delay_line_0_0> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_9> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_10> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_11> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_12> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_13> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_14> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_15> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_16> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_25> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_24> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_23> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_22> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_21> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_20> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_19> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_18> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_34> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_33> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_32> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_31> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_30> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_29> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_28> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_27> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_36> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_37> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_38> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_39> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_40> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_41> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_42> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <delay_line_0_43> (without init value) has a constant value of 0 in block <dq_2>. This FF/Latch will be trimmed during the optimization process.
+INFO:Xst:2261 - The FF/Latch <dq_s_394/delay_line_0_0> in Unit <int_to_single> is equivalent to the following 2 FFs/Latches, which will be removed : <dq_s_11/delay_line_0_31> <dq_s_16/delay_line_0_8> 
+INFO:Xst:2261 - The FF/Latch <dq_s_394/delay_line_0_1> in Unit <int_to_single> is equivalent to the following 2 FFs/Latches, which will be removed : <dq_s_11/delay_line_0_63> <dq_s_16/delay_line_0_17> 
+INFO:Xst:2261 - The FF/Latch <dq_s_394/delay_line_0_2> in Unit <int_to_single> is equivalent to the following 2 FFs/Latches, which will be removed : <dq_s_11/delay_line_0_95> <dq_s_16/delay_line_0_26> 
+INFO:Xst:2261 - The FF/Latch <dq_s_394/delay_line_0_3> in Unit <int_to_single> is equivalent to the following 2 FFs/Latches, which will be removed : <dq_s_11/delay_line_0_127> <dq_s_16/delay_line_0_35> 
+INFO:Xst:2261 - The FF/Latch <dq_s_394/delay_line_0_4> in Unit <int_to_single> is equivalent to the following 2 FFs/Latches, which will be removed : <dq_s_11/delay_line_0_159> <dq_s_16/delay_line_0_44> 
+
+Optimizing unit <dq_3> ...
+
+Optimizing unit <dq_4> ...
+
+Optimizing unit <dq_5> ...
+
+Optimizing unit <dq_10> ...
+
+Optimizing unit <int_to_single> ...
+INFO:Xst:2261 - The FF/Latch <dq_s_396/delay_line_0_6> in Unit <int_to_single> is equivalent to the following FF/Latch, which will be removed : <dq_s_396/delay_line_0_7> 
+INFO:Xst:2261 - The FF/Latch <dq_s_398/delay_line_0_7> in Unit <int_to_single> is equivalent to the following 2 FFs/Latches, which will be removed : <dq_s_398/delay_line_0_6> <dq_s_398/delay_line_0_5> 
+INFO:Xst:2261 - The FF/Latch <dq_s_398/delay_line_0_15> in Unit <int_to_single> is equivalent to the following 2 FFs/Latches, which will be removed : <dq_s_398/delay_line_0_14> <dq_s_398/delay_line_0_13> 
+INFO:Xst:2261 - The FF/Latch <dq_s_388/delay_line<0>_0> in Unit <int_to_single> is equivalent to the following FF/Latch, which will be removed : <dq_s_376/delay_line_0_0> 
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block int_to_single, actual ratio is 7.
+FlipFlop dq_s_34/delay_line_0_0 has been replicated 2 time(s)
+FlipFlop dq_s_34/delay_line_0_1 has been replicated 2 time(s)
+
+Final Macro Processing ...
+
+Processing Unit <int_to_single> :
+	Found 5-bit shift register for signal <dq_s_394/delay_line_0_4>.
+	Found 2-bit shift register for signal <dq_s_398/delay_line_0_15>.
+	Found 2-bit shift register for signal <dq_s_398/delay_line_0_12>.
+	Found 2-bit shift register for signal <dq_s_398/delay_line_0_11>.
+	Found 2-bit shift register for signal <dq_s_398/delay_line_0_10>.
+	Found 2-bit shift register for signal <dq_s_398/delay_line_0_9>.
+	Found 2-bit shift register for signal <dq_s_398/delay_line_0_8>.
+Unit <int_to_single> processed.
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 189
+ Flip-Flops                                            : 189
+# Shift Registers                                      : 7
+ 2-bit shift register                                  : 6
+ 5-bit shift register                                  : 1
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Design Summary                             *
+=========================================================================
+
+Top Level Output File Name         : int_to_single.ngc
+
+Primitive and Black Box Usage:
+------------------------------
+# BELS                             : 409
+#      GND                         : 1
+#      INV                         : 38
+#      LUT1                        : 23
+#      LUT2                        : 12
+#      LUT3                        : 39
+#      LUT4                        : 22
+#      LUT5                        : 13
+#      LUT6                        : 127
+#      MUXCY                       : 55
+#      MUXF7                       : 20
+#      MUXF8                       : 2
+#      VCC                         : 1
+#      XORCY                       : 56
+# FlipFlops/Latches                : 196
+#      FD                          : 189
+#      FDE                         : 7
+# Shift Registers                  : 7
+#      SRLC16E                     : 7
+# Clock Buffers                    : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 64
+#      IBUF                        : 32
+#      OBUF                        : 32
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 6slx9csg324-2 
+
+
+Slice Logic Utilization: 
+ Number of Slice Registers:             196  out of  11440     1%  
+ Number of Slice LUTs:                  281  out of   5720     4%  
+    Number used as Logic:               274  out of   5720     4%  
+    Number used as Memory:                7  out of   1440     0%  
+       Number used as SRL:                7
+
+Slice Logic Distribution: 
+ Number of LUT Flip Flop pairs used:    336
+   Number with an unused Flip Flop:     140  out of    336    41%  
+   Number with an unused LUT:            55  out of    336    16%  
+   Number of fully used LUT-FF pairs:   141  out of    336    41%  
+   Number of unique control sets:         2
+
+IO Utilization: 
+ Number of IOs:                          65
+ Number of bonded IOBs:                  65  out of    200    32%  
+
+Specific Feature Utilization:
+ Number of BUFG/BUFGCTRLs:                1  out of     16     6%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+Timing Report
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+clk                                | BUFGP                  | 203   |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -2
+
+   Minimum period: 4.936ns (Maximum Frequency: 202.593MHz)
+   Minimum input arrival time before clock: 4.437ns
+   Maximum output required time after clock: 8.434ns
+   Maximum combinational path delay: No path found
+
+Timing Details:
+---------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'clk'
+  Clock period: 4.936ns (frequency: 202.593MHz)
+  Total number of paths / destination ports: 2340 / 170
+-------------------------------------------------------------------------
+Delay:               4.936ns (Levels of Logic = 4)
+  Source:            dq_s_31/delay_line_0_27 (FF)
+  Destination:       dq_s_34/delay_line_0_0 (FF)
+  Source Clock:      clk rising
+  Destination Clock: clk rising
+
+  Data Path: dq_s_31/delay_line_0_27 to dq_s_34/delay_line_0_0
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q               4   0.525   0.912  dq_s_31/delay_line_0_27 (dq_s_31/delay_line_0_27)
+     LUT2:I0->O            4   0.250   0.912  s_821 (s_82)
+     LUT6:I4->O            6   0.250   0.875  s_401 (s_40)
+     MUXF8:S->O            1   0.202   0.682  Mmux_s_372_5_f8 (Mmux_s_372_5_f8)
+     LUT6:I5->O            3   0.254   0.000  s_3711 (s_372<0>)
+     FD:D                      0.074          dq_s_34/delay_line_0_0
+    ----------------------------------------
+    Total                      4.936ns (1.555ns logic, 3.381ns route)
+                                       (31.5% logic, 68.5% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
+  Total number of paths / destination ports: 592 / 33
+-------------------------------------------------------------------------
+Offset:              4.437ns (Levels of Logic = 35)
+  Source:            int_to_single_a<0> (PAD)
+  Destination:       dq_s_31/delay_line_0_31 (FF)
+  Destination Clock: clk rising
+
+  Data Path: int_to_single_a<0> to dq_s_31/delay_line_0_31
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             2   1.328   0.725  int_to_single_a_0_IBUF (int_to_single_a_0_IBUF)
+     INV:I->O              1   0.255   0.000  Msub_s_33_lut<0>_INV_0 (Msub_s_33_lut<0>)
+     MUXCY:S->O            1   0.215   0.000  Msub_s_33_cy<0> (Msub_s_33_cy<0>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<1> (Msub_s_33_cy<1>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<2> (Msub_s_33_cy<2>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<3> (Msub_s_33_cy<3>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<4> (Msub_s_33_cy<4>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<5> (Msub_s_33_cy<5>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<6> (Msub_s_33_cy<6>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<7> (Msub_s_33_cy<7>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<8> (Msub_s_33_cy<8>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<9> (Msub_s_33_cy<9>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<10> (Msub_s_33_cy<10>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<11> (Msub_s_33_cy<11>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<12> (Msub_s_33_cy<12>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<13> (Msub_s_33_cy<13>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<14> (Msub_s_33_cy<14>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<15> (Msub_s_33_cy<15>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<16> (Msub_s_33_cy<16>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<17> (Msub_s_33_cy<17>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<18> (Msub_s_33_cy<18>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<19> (Msub_s_33_cy<19>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<20> (Msub_s_33_cy<20>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<21> (Msub_s_33_cy<21>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<22> (Msub_s_33_cy<22>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<23> (Msub_s_33_cy<23>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<24> (Msub_s_33_cy<24>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<25> (Msub_s_33_cy<25>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<26> (Msub_s_33_cy<26>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<27> (Msub_s_33_cy<27>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<28> (Msub_s_33_cy<28>)
+     MUXCY:CI->O           1   0.023   0.000  Msub_s_33_cy<29> (Msub_s_33_cy<29>)
+     MUXCY:CI->O           0   0.023   0.000  Msub_s_33_cy<30> (Msub_s_33_cy<30>)
+     XORCY:CI->O           1   0.206   0.682  Msub_s_33_xor<31> (s_33<31>)
+     LUT2:I1->O            1   0.254   0.000  Mmux_s_32251 (s_32<31>)
+     FD:D                      0.074          dq_s_31/delay_line_0_31
+    ----------------------------------------
+    Total                      4.437ns (3.030ns logic, 1.407ns route)
+                                       (68.3% logic, 31.7% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
+  Total number of paths / destination ports: 251 / 32
+-------------------------------------------------------------------------
+Offset:              8.434ns (Levels of Logic = 4)
+  Source:            dq_s_20/delay_line_0_13 (FF)
+  Destination:       int_to_single_z<28> (PAD)
+  Source Clock:      clk rising
+
+  Data Path: dq_s_20/delay_line_0_13 to int_to_single_z<28>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q               2   0.525   1.181  dq_s_20/delay_line_0_13 (dq_s_20/delay_line_0_13)
+     LUT6:I0->O            3   0.254   1.042  s_408<0>1 (s_408<0>)
+     LUT4:I0->O            6   0.254   1.331  s_408<0>5 (s_408)
+     LUT6:I0->O            1   0.254   0.681  Mmux_int_to_single_z201 (int_to_single_z_27_OBUF)
+     OBUF:I->O                 2.912          int_to_single_z_27_OBUF (int_to_single_z<27>)
+    ----------------------------------------
+    Total                      8.434ns (4.199ns logic, 4.235ns route)
+                                       (49.8% logic, 50.2% route)
+
+=========================================================================
+
+Cross Clock Domains Report:
+--------------------------
+
+Clock to Setup on destination clock clk
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |    4.936|         |         |         |
+---------------+---------+---------+---------+---------+
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 15.00 secs
+Total CPU time to Xst completion: 12.16 secs
+ 
+--> 
+
+
+Total memory usage is 389464 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :  355 (   0 filtered)
+Number of infos    :   11 (   0 filtered)
+
