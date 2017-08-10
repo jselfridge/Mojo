@@ -94,15 +94,15 @@ module states
   // 0x6B 0x80: "Reset"
   // 0x6B 0x00: "Wake Up"
   // 0x6C 0x00: "Disable"
+  // 0x38 0x00: "Interrupt Enable"
   // 0x19 0x00: "Sample Rate"
   // 0x1A 0x01: "Low Pass Filter"
   // 0x1B 0x000_??_000: "Rate Gyro"
   // 0x1C 0x000_??_000: "Accelerometer"
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  // ??: 0x1D 0x??: "XXXX"
-  // ??: 0x23 0x00: "FIFO Enable"
-  // ??: 0x24 0x0D: "I2C Master Control"
-  // ??: 0x38 0x00: "Interrupt Enable"
+  // ??: 0x1D 0x??: "XXXX" (Accelerometer2)
+  // ??: 0x23 0x00: "FIFO Enable" (maybe 0x79)
+  // ??: 0x24 0x0D: "I2C Master Control" (adjusts I2C clock rate)
   // ??: 0x6A 0x??: "User Control"
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -113,11 +113,12 @@ module states
     IMU_SEND_RESET  = 6'd1,   IMU_WAIT_RESET  = 6'd2,
     IMU_SEND_WAKE   = 6'd3,   IMU_WAIT_WAKE   = 6'd4,
     IMU_SEND_DISA   = 6'd8,   IMU_HOLD_DISA   = 6'd9,
-    IMU_SEND_SMPL   = 6'd10,  IMU_HOLD_SMPL   = 6'd11,
-    IMU_SEND_LPF    = 6'd12,  IMU_HOLD_LPF    = 6'd13,
-    IMU_SEND_GYR    = 6'd14,  IMU_HOLD_GYR    = 6'd15,
-    IMU_SEND_ACC    = 6'd16,  IMU_HOLD_ACC    = 6'd17,
-    IMU_SEND_DEBUG  = 6'd18,  IMU_HOLD_DEBUG  = 6'd19,
+    IMU_SEND_INTEN  = 6'd10,  IMU_HOLD_INTEN  = 6'd11,
+    IMU_SEND_SMPL   = 6'd12,  IMU_HOLD_SMPL   = 6'd13,
+    IMU_SEND_LPF    = 6'd14,  IMU_HOLD_LPF    = 6'd15,
+    IMU_SEND_GYR    = 6'd16,  IMU_HOLD_GYR    = 6'd17,
+    IMU_SEND_ACC    = 6'd18,  IMU_HOLD_ACC    = 6'd19,
+    IMU_SEND_DEBUG  = 6'd20,  IMU_HOLD_DEBUG  = 6'd21,
     IMU_IDLE        = 6'd32,
     IMU_READ_ACC    = 6'd33,  IMU_DONE_ACC    = 6'd34,
     IMU_READ_GYR    = 6'd35,  IMU_DONE_GYR    = 6'd36,
@@ -301,6 +302,22 @@ module states
       // Hold: "Disable"
       IMU_HOLD_DISA : begin
         hold_d = hold_q + 1'b1;
+        if (&hold_q)  state_imu_d = IMU_SEND_INTEN;
+      end
+
+      // 0x38 0x00: "Interrupt Enable"
+      IMU_SEND_INTEN : begin
+        if (!busy) begin
+          addr_d = 8'h38;
+          set_d = 8'h00;
+          start_set_d = 1'b1;
+        end
+        if (finish_set_q)  state_imu_d = IMU_HOLD_INTEN;
+      end
+
+      // Hold: "Interrupt Enable"
+      IMU_HOLD_INTEN : begin
+        hold_d = hold_q + 1'b1;
         if (&hold_q)  state_imu_d = IMU_SEND_SMPL;
       end
 
@@ -379,7 +396,7 @@ module states
       // 8'h1C | 8'h80;  // ACC
       IMU_SEND_DEBUG : begin
         if (!busy) begin
-          addr_d = 8'h75 | 8'h80;
+          addr_d = 8'h38 | 8'h80;
           start_get_d = 1'b1;
         end
         if (finish_get_q) begin
