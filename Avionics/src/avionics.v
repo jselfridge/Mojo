@@ -6,7 +6,7 @@
 
 module avionics
   (
-
+ 
   // Clocks and hardware
   input  clk,
   input  rst_n,
@@ -110,7 +110,8 @@ module avionics
     .tx_block(avr_rx_busy),
     .tx_busy(tx_busy),
     .rx_data(rx_data),
-    .new_rx_data(new_rx_data) );
+    .new_rx_data(new_rx_data)
+  );
 
 
 
@@ -120,7 +121,8 @@ module avionics
   button button_reset (
     .clk(clk),
     .btn_i(!rst_n),
-    .btn_o(rst) );
+    .btn_o(rst)
+  );
 
   // Connect 'timers' module
   timers timers_mod (
@@ -128,7 +130,8 @@ module avionics
     .rst( state_board_q == BOARD_IDLE ),
     .tmr_1Mhz(tmr_1Mhz),
     .tmr_1khz(tmr_1khz),
-    .tmr_10hz(tmr_10hz) );
+    .tmr_10hz(tmr_10hz)
+  );
 
 
 
@@ -139,8 +142,8 @@ module avionics
     .tmr_1Mhz(tmr_1Mhz),
     .rst( state_board_q == BOARD_IDLE ),
     .radio_sig(radio_sig),
-    .radio_val(radio_val) );
-
+    .radio_val(radio_val)
+  );
 
   // Connect 'states' module
   wire [7:0] debug_byte;
@@ -156,18 +159,18 @@ module avionics
     .debug_byte(debug_byte),
     .acc(acc),
     .gyr(gyr),
-    .mag(mag) );
-
+    .mag(mag)
+  );
 
   // Connect 'control' module
-
 
   // Connect 'outputs' module
   outputs outputs_mod (
     .tmr_1Mhz(tmr_1Mhz),
     .rst( ( state_board_q == BOARD_IDLE ) || (!state_motor_q) ),
     .esc_val(radio_val),  // REVISE!!!
-    .esc_sig(esc_sig) );
+    .esc_sig(esc_sig)
+  );
 
 
 
@@ -185,7 +188,8 @@ module avionics
     .new_tx_data(new_tx_data),
     .tx_busy(tx_busy),
     .rx_data(rx_data),
-    .new_rx_data(new_rx_data) );
+    .new_rx_data(new_rx_data)
+  );
 
 
 
@@ -201,7 +205,8 @@ module avionics
     .motor_flag(motor_flag),
     .data_flag(data_flag_z),
     .reset_flag(reset_flag_z),
-    .power_flag(power_flag_z) );
+    .power_flag(power_flag_z)
+  );
 
 
 
