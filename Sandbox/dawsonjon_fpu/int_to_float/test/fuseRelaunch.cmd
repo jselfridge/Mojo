@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "/home/justin/Documents/FPGA/Sandbox/dawsonjon_fpu/int_to_float/test/int_to_float_tb_isim_beh.exe" -prj "/home/justin/Documents/FPGA/Sandbox/dawsonjon_fpu/int_to_float/test/int_to_float_tb_beh.prj" "work.int_to_float_tb" "work.glbl" 
