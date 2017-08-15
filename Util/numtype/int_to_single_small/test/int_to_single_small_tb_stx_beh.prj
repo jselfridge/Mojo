@@ -1,0 +1,3 @@
+verilog isim_temp "../int_to_single_small.v"
+verilog isim_temp "../int_to_single_small_tb.v"
+verilog isim_temp "/opt/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v"

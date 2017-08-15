@@ -1,0 +1,29 @@
+Command line:
+   int_to_single_small_tb_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  38685
+
+Tue Aug 15 19:38:35 2017
+
+
+ Elaboration Time: 0.02 sec
+
+ Current Memory Usage: 196.268 Meg
+
+ Total Signals          : 24
+ Total Nets             : 83
+ Total Signal Drivers   : 13
+ Total Blocks           : 3
+ Total Primitive Blocks : 2
+ Total Processes        : 19
+ Total Traceable Variables  : 44
+ Total Scalar Nets and Variables : 397
+Total Line Count : 104
+
+ Total Simulation Time: 0.03 sec
+
+ Current Memory Usage: 271.77 Meg
+
+Tue Aug 15 19:39:24 2017
+
