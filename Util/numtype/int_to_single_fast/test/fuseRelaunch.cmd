@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "/home/jselfridge/Documents/FPGA/Util/numtype/int_to_single_fast/test/int_to_single_fast_tb_isim_beh.exe" -prj "/home/jselfridge/Documents/FPGA/Util/numtype/int_to_single_fast/test/int_to_single_fast_tb_beh.prj" "work.int_to_single_fast_tb" "work.glbl" 
