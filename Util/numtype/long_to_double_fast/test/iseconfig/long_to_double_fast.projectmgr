@@ -2,20 +2,21 @@
 <!--This is an ISE project configuration file.-->
 <!--It holds project specific layout data for the projectmgr plugin.-->
 <!--Copyright (c) 1995-2009 Xilinx, Inc.  All rights reserved.-->
-<Project version="2" owner="projectmgr" name="int_to_single_small" >
+<Project version="2" owner="projectmgr" name="long_to_double_fast" >
    <!--This is an ISE project configuration file.-->
    <ItemView engineview="SynthesisOnly" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
+         <ClosedNode>/long_to_double_fast |home|jselfridge|Documents|FPGA|Sandbox|pipeline_modules|DATATYPES|long_to_double_fast|long_to_double_fast.v</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>int_to_single_small (/home/jselfridge/Documents/FPGA/Util/numtype/int_to_single_small/int_to_single_small.v)</SelectedItem>
+         <SelectedItem>long_to_double_fast (/home/jselfridge/Documents/FPGA/Util/numtype/long_to_double_fast/long_to_double_fast.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000016a000000020000000000000000000000000200000064ffffffff0000008100000003000000020000016a0000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000174000000020000000000000000000000000200000064ffffffff000000810000000300000002000001740000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>int_to_single_small (/home/jselfridge/Documents/FPGA/Util/numtype/int_to_single_small/int_to_single_small.v)</CurrentItem>
+      <CurrentItem>long_to_double_fast (/home/jselfridge/Documents/FPGA/Util/numtype/long_to_double_fast/long_to_double_fast.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -27,7 +28,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000215000000010000000100000000000000000000000064ffffffff000000810000000000000001000002150000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000197000000010000000100000000000000000000000064ffffffff000000810000000000000001000001970000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem/>
    </ItemView>
@@ -40,7 +41,7 @@
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000000000000000100000000000000000000000000000000000003df000000040101000100000000000000000000000064ffffffff0000008100000000000000040000004f0000000100000000000000290000000100000000000000840000000100000000000002e30000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>int_to_single_small.v</CurrentItem>
+      <CurrentItem>long_to_double_fast.v</CurrentItem>
    </ItemView>
    <ItemView guiview="Library" >
       <ClosedNodes>
@@ -75,15 +76,17 @@
    <ItemView engineview="BehavioralSim" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
+         <ClosedNode>/long_to_double_fast_tb |home|jselfridge|Documents|FPGA|Sandbox|pipeline_modules|DATATYPES|long_to_double_fast|long_to_double_fast_tb.v/DUT_long_to_double_fast - long_to_double_fast</ClosedNode>
+         <ClosedNode>/long_to_double_fast_tb |home|jselfridge|Documents|FPGA|Util|numtype|long_to_double_fast|long_to_double_fast_tb.v/DUT_long_to_double_fast - long_to_double_fast</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>int_to_single_small_tb (/home/jselfridge/Documents/FPGA/Util/numtype/int_to_single_small/int_to_single_small_tb.v)</SelectedItem>
+         <SelectedItem>long_to_double_fast_tb (/home/jselfridge/Documents/FPGA/Util/numtype/long_to_double_fast/long_to_double_fast_tb.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000021c000000020000000000000000000000000200000064ffffffff0000008100000003000000020000021c0000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000022b000000020000000000000000000000000200000064ffffffff0000008100000003000000020000022b0000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>int_to_single_small_tb (/home/jselfridge/Documents/FPGA/Util/numtype/int_to_single_small/int_to_single_small_tb.v)</CurrentItem>
+      <CurrentItem>long_to_double_fast_tb (/home/jselfridge/Documents/FPGA/Util/numtype/long_to_double_fast/long_to_double_fast_tb.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -91,13 +94,13 @@
          <ClosedNode>Design Utilities</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem/>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000197000000010000000100000000000000000000000064ffffffff000000810000000000000001000001970000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000f2000000010000000100000000000000000000000064ffffffff000000810000000000000001000000f20000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem/>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="DESUT_VERILOG" guiview="Process" >
       <ClosedNodes>

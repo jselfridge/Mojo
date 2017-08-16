@@ -1,0 +1,29 @@
+Command line:
+   long_to_double_fast_tb_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  37441
+
+Tue Aug 15 20:52:55 2017
+
+
+ Elaboration Time: 0.02 sec
+
+ Current Memory Usage: 200.929 Meg
+
+ Total Signals          : 835
+ Total Nets             : 3616
+ Total Signal Drivers   : 772
+ Total Blocks           : 21
+ Total Primitive Blocks : 19
+ Total Processes        : 794
+ Total Traceable Variables  : 92
+ Total Scalar Nets and Variables : 6910
+Total Line Count : 875
+
+ Total Simulation Time: 0.03 sec
+
+ Current Memory Usage: 276.431 Meg
+
+Tue Aug 15 20:53:18 2017
+
