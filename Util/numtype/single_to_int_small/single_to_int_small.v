@@ -3,7 +3,7 @@
 // single_to_int_small.v
 // Converts floating single (single) to signed fixed single (int).
 // This module has a smaller hardware footprint than the piped version.
-// But it runs more slowly, over ???+ clock cycles at its worst case.
+// But it runs more slowly, over 35+ clock cycles at its worst case.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 module single_to_int_small (
