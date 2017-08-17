@@ -47,7 +47,6 @@ module single_to_int_fast_tb ();
     #500 single_input = 32'h3F900000;  //       1.125    0x00000001
     #500 single_input = 32'h41196f50;  // 9.589675903    0x00000009
     #500 single_input = 32'h3c4f1d5f;  //  0.01264128    0x00000000
-    #500 single_input = 32'h4fb10003;  //  5939136000    0x????????
 
   end
 

@@ -2,12 +2,12 @@ Command line:
    single_to_int_fast_tb_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  35017
+     -socket  60143
 
-Wed Aug 16 21:25:23 2017
+Thu Aug 17 10:50:49 2017
 
 
- Elaboration Time: 0.01 sec
+ Elaboration Time: 0.03 sec
 
  Current Memory Usage: 196.403 Meg
 
@@ -21,9 +21,9 @@ Wed Aug 16 21:25:23 2017
  Total Scalar Nets and Variables : 1062
 Total Line Count : 76
 
- Total Simulation Time: 0.03 sec
+ Total Simulation Time: 0.04 sec
 
  Current Memory Usage: 271.905 Meg
 
-Wed Aug 16 21:27:17 2017
+Thu Aug 17 10:52:25 2017
 
