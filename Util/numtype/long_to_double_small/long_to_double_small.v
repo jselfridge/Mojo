@@ -14,8 +14,7 @@ module long_to_double_small (
   input double_cont,
   output [63:0] double_val,
   output long_ready,
-  output double_ready
-  );
+  output double_ready );
 
   // Output registers
   reg [63:0] double_val_s;
@@ -47,15 +46,18 @@ module long_to_double_small (
   reg guard, round_bit, sticky;
 
   // Synchronous logic
-  always @( posedge clk ) begin
+  always @( posedge clk )
+  begin
 
     // Begin FSM
     case (state)
 
       // Obtain signed long input value
-      getin : begin
+      getin:
+      begin
         long_ready_s <= 1'b1;
-        if ( long_ready_s && long_cont ) begin
+        if ( long_ready_s && long_cont )
+        begin
           a <= long_val;
           long_ready_s <= 1'b0;
           state <= step0;
@@ -63,13 +65,17 @@ module long_to_double_small (
       end
 
       // Check for zero value, or obtain sign bit
-      step0 : begin
-        if ( a == 0 ) begin
+      step0:
+      begin
+        if ( a == 0 )
+        begin
           z_s <= 0;
           z_m <= 0;
           z_e <= -1023;
           state <= pack;
-        end else begin
+        end
+        else
+        begin
           value <= a[63] ? -a : a;
           z_s <= a[63];
           state <= step1;
@@ -77,7 +83,8 @@ module long_to_double_small (
       end
 
       // Demux the absolute value of integer
-      step1 : begin
+      step1:
+      begin
         z_e <= 63;
         z_m <= value[63:11];
         z_r <= value[10:0];
@@ -85,13 +92,17 @@ module long_to_double_small (
       end
 
       // Shift bits until there is a nonzero MSB
-      step2 : begin
-        if (!z_m[52]) begin
+      step2:
+      begin
+        if (!z_m[52])
+        begin
           z_e <= z_e - 1;
           z_m <= z_m << 1;
           z_m[0] <= z_r[10];
           z_r <= z_r << 1;
-        end else begin
+        end
+        else
+        begin
           guard <= z_r[10];
           round_bit <= z_r[9];
           sticky <= z_r[8:0] != 0;
@@ -100,18 +111,19 @@ module long_to_double_small (
       end
 
       // Check if rounding is needed
-      round : begin
-        if ( guard && ( round_bit || sticky || z_m[0] ) ) begin
+      round:
+      begin
+        if ( guard && ( round_bit || sticky || z_m[0] ) )
+        begin
           z_m <= z_m + 1;
-          if ( z_m == 53'h1fffffffffffff ) begin
-            z_e <= z_e + 1;
-          end
+          if ( z_m == 53'h1fffffffffffff )  z_e <= z_e + 1;
         end
         state <= pack;
       end
 
       // Assemble the float double output value
-      pack : begin
+      pack:
+      begin
         z[51:0] <= z_m[51:0];
         z[62:52] <= z_e + 1023;
         z[63] <= z_s;
@@ -119,10 +131,12 @@ module long_to_double_small (
       end
 
       // Pass the float double value to the output register
-      putout : begin
+      putout:
+      begin
         double_ready_s <= 1'b1;
         double_val_s <= z;
-        if ( double_ready_s && double_cont ) begin
+        if ( double_ready_s && double_cont )
+        begin
           double_ready_s <= 1'b0;
           state <= getin;
         end
@@ -132,7 +146,8 @@ module long_to_double_small (
     endcase
 
     // Specify reset conditions
-    if ( rst == 1 ) begin
+    if (rst)
+    begin
       state <= getin;
       double_val_s <= 64'b0;
       long_ready_s <= 1'b0;

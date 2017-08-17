@@ -14,8 +14,7 @@ module int_to_single_small (
   input single_cont,
   output [31:0] single_val,
   output int_ready,
-  output single_ready
-  );
+  output single_ready );
 
   // Output registers
   reg [31:0] single_val_s;
@@ -47,15 +46,18 @@ module int_to_single_small (
   reg guard, round_bit, sticky;
 
   // Synchronous logic
-  always @( posedge clk ) begin
+  always @( posedge clk )
+  begin
 
     // Begin FSM
     case (state)
 
       // Obtain signed integer input value
-      getin : begin
+      getin:
+      begin
         int_ready_s <= 1'b1;
-        if ( int_ready_s && int_cont ) begin
+        if ( int_ready_s && int_cont )
+        begin
           a <= int_val;
           int_ready_s <= 1'b0;
           state <= step0;
@@ -63,13 +65,17 @@ module int_to_single_small (
       end
 
       // Check for zero value, or obtain sign bit
-      step0 : begin
-        if ( a == 0 ) begin
+      step0:
+      begin
+        if ( a == 0 )
+        begin
           z_s <= 0;
           z_m <= 0;
           z_e <= -127;
           state <= pack;
-        end else begin
+        end
+        else
+        begin
           value <= a[31] ? -a : a;
           z_s <= a[31];
           state <= step1;
@@ -77,7 +83,8 @@ module int_to_single_small (
       end
 
       // Demux the absolute value of integer
-      step1 : begin
+      step1:
+      begin
         z_e <= 31;
         z_m <= value[31:8];
         z_r <= value[7:0];
@@ -85,13 +92,17 @@ module int_to_single_small (
       end
 
       // Shift bits until there is a nonzero MSB
-      step2 : begin
-        if (!z_m[23]) begin
+      step2:
+      begin
+        if (!z_m[23])
+        begin
           z_e <= z_e - 1;
           z_m <= z_m << 1;
           z_m[0] <= z_r[7];
           z_r <= z_r << 1;
-        end else begin
+        end
+        else
+        begin
           guard <= z_r[7];
           round_bit <= z_r[6];
           sticky <= z_r[5:0] != 0;
@@ -100,18 +111,19 @@ module int_to_single_small (
       end
 
       // Check if rounding is needed
-      round : begin
-        if ( guard && ( round_bit || sticky || z_m[0] ) ) begin
+      round:
+      begin
+        if ( guard && ( round_bit || sticky || z_m[0] ) )
+        begin
           z_m <= z_m + 1;
-          if ( z_m == 24'hffffff ) begin
-            z_e <= z_e + 1;
-          end
+          if ( z_m == 24'hffffff )  z_e <= z_e + 1;
         end
         state <= pack;
       end
 
       // Assemble the float single output value
-      pack : begin
+      pack:
+      begin
         z[22:0] <= z_m[22:0];
         z[30:23] <= z_e + 127;
         z[31] <= z_s;
@@ -119,10 +131,12 @@ module int_to_single_small (
       end
 
       // Pass the float single value to the output register
-      putout : begin
+      putout:
+      begin
         single_ready_s <= 1'b1;
         single_val_s <= z;
-        if ( single_ready_s && single_cont ) begin
+        if ( single_ready_s && single_cont )
+        begin
           single_ready_s <= 1'b0;
           state <= getin;
         end
@@ -132,7 +146,8 @@ module int_to_single_small (
     endcase
 
     // Specify reset conditions
-    if ( rst == 1 ) begin
+    if (rst)
+    begin
       state <= getin;
       single_val_s <= 32'b0;
       int_ready_s <= 1'b0;

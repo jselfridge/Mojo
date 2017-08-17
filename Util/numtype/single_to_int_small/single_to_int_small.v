@@ -14,8 +14,7 @@ module single_to_int_small (
   input int_cont,
   output [31:0] int_val,
   output single_ready,
-  output int_ready
-  );
+  output int_ready );
 
   // Output registers
   reg [31:0] int_val_s;
@@ -42,15 +41,18 @@ module single_to_int_small (
   reg a_s;
 
   // Synchronous logic
-  always @( posedge clk ) begin
+  always @( posedge clk )
+  begin
 
     // Begin FSM
     case (state)
 
       // Obtain single float input value
-      getin : begin
+      getin:
+      begin
         single_ready_s <= 1'b1;
-        if ( single_ready_s && single_cont ) begin
+        if ( single_ready_s && single_cont )
+        begin
           a <= single_val;
           single_ready_s <= 1'b0;
           state <= unpack;
@@ -58,7 +60,8 @@ module single_to_int_small (
       end
 
       // Demux the single float value components
-      unpack : begin
+      unpack:
+      begin
         a_m[31:8] <= { 1'b1, a[22:0] };
         a_m[7:0] <= 0;
         a_e <= a[30:23] - 127;
@@ -67,38 +70,47 @@ module single_to_int_small (
       end
 
       // Evaluate special cases
-      special : begin
-        if ( $signed(a_e) == -127 ) begin
+      special:
+      begin
+        if ( $signed(a_e) == -127 )
+        begin
           z <= 0;
           state <= putout;
-        end else if ( $signed(a_e) > 31 ) begin
+        end
+        else if ( $signed(a_e) > 31 )
+        begin
           z <= 32'h80000000;
           state <= putout;
-        end else begin
+        end
+        else
+        begin
           state <= convert;
         end
       end
 
       // Convert single float to single int
-      convert : begin
-        if ( $signed(a_e) < 31 && a_m ) begin
+      convert:
+      begin
+        if ( $signed(a_e) < 31 && a_m )
+        begin
           a_e <= a_e + 1;
           a_m <= a_m >> 1;
-        end else begin
-          if (a_m[31]) begin
-            z <= 32'h80000000;
-          end else begin
-            z <= a_s ? -a_m : a_m;
-          end
+        end
+        else
+        begin
+          if (a_m[31])  z <= 32'h80000000;
+          else  z <= a_s ? -a_m : a_m;
           state <= putout;
         end
       end
 
       // Pass the integer value into the output register
-      putout : begin
+      putout:
+      begin
         int_ready_s <= 1'b1;
         int_val_s <= z;
-        if ( int_ready_s && int_cont ) begin
+        if ( int_ready_s && int_cont )
+        begin
           int_ready_s <= 1'b0;
           state <= getin;
         end
@@ -108,7 +120,8 @@ module single_to_int_small (
     endcase
 
     // Specify reset conditions
-    if ( rst == 1 ) begin
+    if (rst)
+    begin
       state <= getin;
       int_val_s = 32'b0;
       single_ready_s <= 1'b0;
