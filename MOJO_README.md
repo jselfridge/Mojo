@@ -1,7 +1,16 @@
 
 
-FPGA
+MOJO
 ====
+
+----
+NOTE: The code within this repo is being merged with the FPGA repo. There was such little development within this repo, losing the version control shouldn't be an issue. The following directories:
+* avionics
+* sandbox
+* template
+* util
+are ported over the 'legacy' directory with the 'FPGA' repo.
+----
 
 Source code for FPGA, written in Verilog, for the Spartan-6 chip, on the Mojo development board.
 
