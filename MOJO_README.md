@@ -4,7 +4,7 @@ MOJO
 ====
 
 ----
-NOTE: The code within this repo is being merged with the FPGA repo. There was such little development within this repo, losing the version control shouldn't be an issue. The following directories:
+NOTE: The code within this repo is being merged with the FPGA repo. There was such little development within this repo, losing the version control shouldn't be an issue. Keep the "Mojo" repo within Git for a little while until certain that this directory can be removed. The following directories:
 * avionics
 * sandbox
 * template
